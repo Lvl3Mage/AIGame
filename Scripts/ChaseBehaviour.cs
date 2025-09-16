@@ -1,22 +1,27 @@
 using Godot;
 using System;
+using System.ComponentModel;
 
-public partial class EnemyChaseState : State
+public partial class ChaseBehaviour : Node, IBehaviour
 {
-	[Export] EnemyController enemy;
+    [Export] public float LerpSpeed = 10f;
+
+    public BehaviourPriority Priority { get; set; } = BehaviourPriority.High;
+    public Vector2I CellPosition { get; set; }
 	GameManager manager;
 	GridModule grid;
-    Node2D target;
+    Node2D target, root;
     Vector2I[] path = [];
     int chaseIndex = 1;
     float updateRate = 0.4f;
 
     public override void _Ready()
     {
+        root = GetOwner<Node2D>();
         manager = GetTree().CurrentScene as GameManager;
         grid = manager.Grid;
         target = manager.Player;
-        enemy.CellPosition = grid.WorldToGrid(enemy.Position);
+        CellPosition = grid.WorldToGrid(root.Position);
 
         UpdateChasePath();
         CreateTimer();
@@ -24,8 +29,8 @@ public partial class EnemyChaseState : State
 
     public override void _Process(double delta)
     {
-        Vector2 targetPos = grid.GridToWorld(enemy.CellPosition);
-        enemy.GlobalPosition = enemy.GlobalPosition.Lerp(targetPos, (float)(enemy.LerpSpeed * delta));
+        Vector2 targetPos = grid.GridToWorld(CellPosition);
+        root.GlobalPosition = root.GlobalPosition.Lerp(targetPos, (float)(LerpSpeed * delta));
     }
 
     void UpdateChasePath()
@@ -33,16 +38,15 @@ public partial class EnemyChaseState : State
         if (path.Length > chaseIndex)
         {
             // Advance one cell in the path
-            enemy.CellPosition = path[chaseIndex];
+            CellPosition = path[chaseIndex];
         }
 
         float width = grid.CellSize / 2;
-        Vector2I currentCell = enemy.CellPosition;
+        Vector2I currentCell = CellPosition;
         Vector2I targetCell = grid.WorldToGrid(target.Position + new Vector2(width, width));
 
         manager.ClearPath(path);
         path = grid.GetShortestPathBFS(currentCell, targetCell, manager.Walls, true);
-        if (path.Length == 0) GD.Print("Path is null");
         manager.PaintPath(path);
     }
 
