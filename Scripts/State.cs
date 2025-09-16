@@ -1,8 +1,9 @@
 using Godot;
 using System;
 
+[GlobalClass]
 /// <summary> Virtual base class for all states. DO NOT USE BY ITSELF, instead, extend this class on another script. </summary>
-public partial class State : Node
+public abstract partial class State : Node
 {
     /// <summary> The state machine node will set it. STATE MACHINE SCENE HAS TO BE PARENT OF ALL STATES </summary>
     public Node StateMachine { get; set; } = null;

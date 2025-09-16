@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Prueba IA")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c022787998fe6c3e44be3df3c6fb7ec9920ab407")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7851b22eb2f8f51b0a3e3906622fa9b2c3b50728")]
 [assembly: System.Reflection.AssemblyProductAttribute("Prueba IA")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Prueba IA")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

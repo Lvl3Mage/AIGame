@@ -45,7 +45,7 @@ public partial class StateMachineModule : Node
     {
         if (!HasNode(targetStateName))
         {
-            GD.PushWarning("Target _state name does not exist.");
+            GD.PushWarning("Target state name does not exist.");
             return;
         }
 
