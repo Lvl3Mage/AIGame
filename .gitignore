@@ -3,5 +3,3 @@
 /android/
 /.idea
 /Builds
-/BenchmarkDotNet.Bin
-/BenchmarkDotNet.Artifacts

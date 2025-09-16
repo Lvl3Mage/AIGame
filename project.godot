@@ -17,7 +17,7 @@ config/icon="res://Sprites/icon.svg"
 
 [dotnet]
 
-project/assembly_name="Prueba IA"
+project/assembly_name="AIGame"
 
 [input]
 
