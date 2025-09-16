@@ -1,0 +1,53 @@
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\bin\Debug\Prueba IA.deps.json
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\bin\Debug\Prueba IA.runtimeconfig.json
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\bin\Debug\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\bin\Debug\Prueba IA.pdb
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.csproj.AssemblyReference.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.AssemblyInfoInputs.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.AssemblyInfo.cs
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.csproj.CoreCompileInputs.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.csproj.Up2Date
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\refint\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.pdb
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\Prueba IA.genruntimeconfig.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\PruebaIa\.godot\mono\temp\obj\Debug\ref\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\bin\Debug\Prueba IA.deps.json
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\bin\Debug\Prueba IA.runtimeconfig.json
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\bin\Debug\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\bin\Debug\Prueba IA.pdb
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.csproj.AssemblyReference.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.AssemblyInfoInputs.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.AssemblyInfo.cs
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.csproj.CoreCompileInputs.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.sourcelink.json
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.csproj.Up2Date
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\refint\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.pdb
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\Prueba IA.genruntimeconfig.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\Artificial-Intelligence-Game\.godot\mono\temp\obj\Debug\ref\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\bin\Debug\Prueba IA.deps.json
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\bin\Debug\Prueba IA.runtimeconfig.json
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\bin\Debug\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\bin\Debug\Prueba IA.pdb
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.csproj.AssemblyReference.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.AssemblyInfoInputs.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.AssemblyInfo.cs
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.csproj.CoreCompileInputs.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.sourcelink.json
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.csproj.Up2Date
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\refint\Prueba IA.dll
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.pdb
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\Prueba IA.genruntimeconfig.cache
+C:\Users\jerui\Documents\_JERUDEV\Godot\AIGame\.godot\mono\temp\obj\Debug\ref\Prueba IA.dll
