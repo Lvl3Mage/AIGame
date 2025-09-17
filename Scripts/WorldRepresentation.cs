@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [GlobalClass]
-public partial class GridModule : Node2D
+public partial class WorldRepresentation : Node2D
 {
     [Export] public int Rows { get; private set; } = 5;
     [Export] public int Columns { get; private set; } = 5;

@@ -6,7 +6,7 @@ public partial class GameManager : Node2D
 {
 	[ExportGroup("References")]
 	[Export] public PlayerController Player { get; set; }
-	[Export] public GridModule Grid { get; set; }
+	[Export] public WorldRepresentation Grid { get; set; }
 
 	public HashSet<Vector2I> Walls { get; set; } = [];
 
