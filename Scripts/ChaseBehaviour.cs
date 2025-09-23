@@ -4,14 +4,14 @@ using System.ComponentModel;
 
 public partial class ChaseBehaviour : Node, IBehaviour
 {
-    [Export] public float LerpSpeed = 10f;
+    [Export] TopdownMovementModule movementModule;
 
     public BehaviourPriority Priority { get; set; } = BehaviourPriority.High;
-    public Vector2I CellPosition { get; set; }
 	GameManager manager;
-	WorldRepresentation grid;
+	NavMesh grid;
     Node2D target, root;
     Vector2I[] path = [];
+    Vector2I nextPos;
     int chaseIndex = 1;
     float updateRate = 0.4f;
 
@@ -21,7 +21,6 @@ public partial class ChaseBehaviour : Node, IBehaviour
         manager = GetTree().CurrentScene as GameManager;
         grid = manager.Grid;
         target = manager.Player;
-        CellPosition = grid.WorldToGrid(root.Position);
 
         UpdateChasePath();
         CreateTimer();
@@ -29,8 +28,7 @@ public partial class ChaseBehaviour : Node, IBehaviour
 
     public override void _Process(double delta)
     {
-        Vector2 targetPos = grid.GridToWorld(CellPosition);
-        root.GlobalPosition = root.GlobalPosition.Lerp(targetPos, (float)(LerpSpeed * delta));
+        if (nextPos
     }
 
     void UpdateChasePath()
