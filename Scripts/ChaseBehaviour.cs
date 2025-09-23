@@ -9,7 +9,7 @@ public partial class ChaseBehaviour : Node, IBehaviour
     public BehaviourPriority Priority { get; set; } = BehaviourPriority.High;
     public Vector2I CellPosition { get; set; }
 	GameManager manager;
-	GridModule grid;
+	WorldRepresentation grid;
     Node2D target, root;
     Vector2I[] path = [];
     int chaseIndex = 1;

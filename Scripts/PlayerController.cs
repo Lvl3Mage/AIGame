@@ -4,7 +4,7 @@ using System;
 public partial class PlayerController : Node2D
 {
     GameManager manager;
-    GridModule grid;
+    WorldRepresentation grid;
     public Vector2I PlayerCell { get; set; } = new(4, 4);
 
     [Export] public float LerpSpeed { get; set; } = 10f;
