@@ -1,5 +1,4 @@
-﻿using Game.Common.AgentControl;
-using Game.Common.AgentControl.Navigation;
+﻿using Game.Common.AgentControl.Navigation;
 using Godot;
 
 namespace Game.Common;
