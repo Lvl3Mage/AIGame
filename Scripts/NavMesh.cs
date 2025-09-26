@@ -6,6 +6,8 @@ using System.Linq;
 [GlobalClass]
 public partial class NavMesh : Node2D
 {
+
+
     [Export] public int Rows { get; private set; } = 5;
     [Export] public int Columns { get; private set; } = 5;
     [Export] public float CellSize { get; set; } = 64f;
@@ -16,35 +18,10 @@ public partial class NavMesh : Node2D
     
     [Export(PropertyHint.Range, "0,0.001,or_greater,hide_slider")]
     private float lineWidth = 1f;
-    [Export] private bool mouseHover = true;
-    [Export] private Color hoverColor = new(1, 1, 1, 0.2f);
 
-    [Signal] public delegate void CellLeftClickedEventHandler(Vector2I cell);
-    [Signal] public delegate void CellRightClickedEventHandler(Vector2I cell);
-
-    private Vector2I? hoveredCell;
     private readonly Dictionary<Vector2I, Color> coloredCells = [];
     private const bool antialiasing = true;
 
-    public override void _Input(InputEvent @event)
-    {
-        Vector2I cell = WorldToGrid(GetGlobalMousePosition());
-        bool insideGrid = IsInsideGrid(cell);
-
-        if (mouseHover && @event is InputEventMouseMotion)
-        {
-            hoveredCell = insideGrid ? cell : null;
-            QueueRedraw();
-        }
-
-        if (@event is InputEventMouseButton click && click.Pressed && insideGrid)
-        {
-            if (click.ButtonIndex == MouseButton.Left)
-                EmitSignal(SignalName.CellLeftClicked, cell);
-            else if (click.ButtonIndex == MouseButton.Right)
-                EmitSignal(SignalName.CellRightClicked, cell);
-        }
-    }
 
     public override void _Draw()
     {
@@ -59,9 +36,6 @@ public partial class NavMesh : Node2D
 
         foreach (var kv in coloredCells)
             DrawCellOverlay(kv.Key, kv.Value);
-
-        if (mouseHover && hoveredCell != null)
-            DrawCellOverlay(hoveredCell.Value, hoverColor);
     }
 
     /// <summary> Resizes the grid to the specified number of rows and columns. </summary>

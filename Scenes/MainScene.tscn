@@ -1,21 +1,20 @@
 [gd_scene load_steps=5 format=3 uid="uid://cf3oj5noao8fe"]
 
 [ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Scripts/GameManager.cs" id="1_7rqgy"]
-[ext_resource type="Script" uid="uid://g1r7o0m0tnm8" path="res://Scripts/WorldRepresentation.cs" id="1_hpc76"]
+[ext_resource type="Script" uid="uid://c1uuy0lhts10c" path="res://Scripts/NavMesh.cs" id="1_hpc76"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="2_tr2i4"]
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="3_nhkr4"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("Player", "Grid")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("Player", "Mesh")]
 script = ExtResource("1_7rqgy")
 Player = NodePath("Player")
-Grid = NodePath("GridComponent")
+Mesh = NodePath("GridComponent")
 
 [node name="GridComponent" type="Node2D" parent="."]
 position = Vector2(-732, -445)
 script = ExtResource("1_hpc76")
 Rows = 30
 Columns = 30
-metadata/_custom_type_script = "uid://g1r7o0m0tnm8"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

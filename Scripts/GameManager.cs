@@ -5,8 +5,10 @@ using System;
 public partial class GameManager : Node2D
 {
 	[ExportGroup("References")]
-	[Export] public PlayerController Player { get; set; }
-	[Export] public NavMesh Grid { get; set; }
+	[Export]
+	public PlayerController Player { get; private set; }
+
+	[Export] public NavMesh Mesh { get; private set; }
 
 	public HashSet<Vector2I> Walls { get; set; } = [];
 
@@ -22,24 +24,24 @@ public partial class GameManager : Node2D
 		if (Walls.Contains(cell))
 		{
 			Walls.Remove(cell);
-			Grid.ClearCell(cell);
+			Mesh.ClearCell(cell);
 		}
 		else
 		{
 			Walls.Add(cell);
-			Grid.ColorCell(cell, Colors.Black, 0.8f);
+			Mesh.ColorCell(cell, Colors.Black, 0.8f);
 		}
 	}
 
 	public void PaintPath(Vector2I[] path)
 	{
 		foreach (Vector2I c in path)
-			if (!Walls.Contains(c)) Grid.ColorCell(c, Colors.Blue);
+			if (!Walls.Contains(c)) Mesh.ColorCell(c, Colors.Blue);
 	}
 	
 	public void ClearPath(Vector2I[] path)
 	{
 		foreach (Vector2I c in path)
-			if (!Walls.Contains(c)) Grid.ClearCell(c);		
+			if (!Walls.Contains(c)) Mesh.ClearCell(c);		
 	}
 }
