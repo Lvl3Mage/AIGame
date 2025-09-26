@@ -2,6 +2,7 @@
 
 namespace Game.Common.AgentControl.Navigation;
 
+//Todo rework this to use the IGridOccupationProvider interface
 public partial class GridNavigation : Node2D
 {
 	bool[,] blockedCells;
