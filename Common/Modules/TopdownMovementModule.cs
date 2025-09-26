@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Game.Common.Modules;
 
 [GlobalClass]
 public partial class TopdownMovementModule : Node2D

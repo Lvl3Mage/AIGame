@@ -2,6 +2,7 @@ using Godot;
 
 namespace Game.Common.Modules;
 
+//TODO: Joan pls make this a static class why does this need to be a node I'm gonna cry - Karl
 /// <summary> Freezes or slows down time for a short duration. </summary>
 [GlobalClass]
 public partial class TimeFreezerModule : Node

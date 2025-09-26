@@ -1,16 +1,10 @@
 using Godot;
-using System;
+
+namespace Game.Common;
 
 public partial class PlayerController : Node2D
 {
-    [Export] TopdownMovementModule movementModule;
-    GameManager manager;
-    
-
-    public override void _Ready()
-    {
-        manager = GetTree().CurrentScene as GameManager;
-    }
+    [Export] Modules.TopdownMovementModule movementModule;
 
     public override void _Process(double delta)
     {

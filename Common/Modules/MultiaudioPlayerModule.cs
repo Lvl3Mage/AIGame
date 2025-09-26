@@ -3,6 +3,8 @@ using Godot;
 
 namespace Game.Common.Modules;
 
+//Todo: Joan pls this would be so much better as a singleton (~_~) - Karl
+//Todo: Would be cool for this to use pooling - Karl
 [GlobalClass]
 public partial class MultiaudioPlayerModule : Node
 {

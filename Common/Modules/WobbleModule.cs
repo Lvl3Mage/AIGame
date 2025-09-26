@@ -6,7 +6,7 @@ namespace Game.Common.Modules;
 /// FloatModule gives a floating, oscillating motion to its parent (Node2D or Control).
 /// </summary>
 [GlobalClass]
-public partial class FloatModule : Node
+public partial class WobbleModule : Node
 {
 	[Export] public float MaxOffset { get; set; } = 50f; 
 	[Export] public float SpeedX { get; set; } = 1f;      
