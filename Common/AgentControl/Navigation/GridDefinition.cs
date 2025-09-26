@@ -4,6 +4,7 @@ using Godot;
 
 namespace Game.Common.AgentControl.Navigation;
 
+[Tool]
 public partial class GridDefinition : Node2D
 {
 	[Export] int width = 32;
@@ -67,15 +68,20 @@ public partial class GridDefinition : Node2D
 
 	public override void _Draw()
 	{
-		if (debugDraw){
-			for (int y = 0; y <= height; y++){
-				DrawLine(new Vector2(0, y * cellSize), new Vector2(width * cellSize, y * cellSize), Colors.Gray,
-					0.3f);
-			}
+		if (!debugDraw) return;
+		for (int y = 0; y <= height; y++){
+			DrawLine(new Vector2(0, y * cellSize), new Vector2(width * cellSize, y * cellSize), Colors.Gray);
+		}
 
-			for (int x = 0; x <= width; x++){
-				DrawLine(new Vector2(x * cellSize, 0), new Vector2(x * cellSize, width * cellSize), Colors.Gray, 0.3f);
-			}
+		for (int x = 0; x <= width; x++){
+			DrawLine(new Vector2(x * cellSize, 0), new Vector2(x * cellSize, width * cellSize), Colors.Gray);
+		}
+	}
+
+	public override void _Process(double delta)
+	{
+		if (debugDraw){
+			QueueRedraw();
 		}
 	}
 }

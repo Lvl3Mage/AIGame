@@ -1,20 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://cf3oj5noao8fe"]
 
-[ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Scripts/GameManager.cs" id="1_7rqgy"]
-[ext_resource type="Script" uid="uid://c1uuy0lhts10c" path="res://Scripts/NavMesh.cs" id="1_hpc76"]
+[ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Common/GameManager.cs" id="1_7rqgy"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="2_tr2i4"]
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="3_nhkr4"]
+[ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="4_7rqgy"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("Player", "Mesh")]
+[node name="Main" type="Node2D"]
 script = ExtResource("1_7rqgy")
-Player = NodePath("Player")
-Mesh = NodePath("GridComponent")
 
 [node name="GridComponent" type="Node2D" parent="."]
 position = Vector2(-732, -445)
-script = ExtResource("1_hpc76")
-Rows = 30
-Columns = 30
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -22,3 +17,10 @@ Columns = 30
 position = Vector2(123, -133)
 
 [node name="Enemy" parent="." instance=ExtResource("3_nhkr4")]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_7rqgy")
+
+[node name="Node2D" type="Node2D" parent="GameManager"]
+position = Vector2(0, -339)
+script = ExtResource("4_7rqgy")
