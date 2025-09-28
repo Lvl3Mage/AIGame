@@ -4,7 +4,7 @@ using Godot;
 
 namespace Game.Common.AgentControl.Navigation;
 
-[Tool]
+[Tool][GlobalClass]
 public partial class GridDefinition : Node2D
 {
 	[Export] int width = 32;

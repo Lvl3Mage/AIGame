@@ -3,6 +3,7 @@
 namespace Game.Common.AgentControl.Navigation;
 
 //Todo rework this to use the IGridOccupationProvider interface
+[GlobalClass]
 public partial class GridNavigation : Node2D
 {
 	bool[,] blockedCells;
@@ -16,7 +17,8 @@ public partial class GridNavigation : Node2D
 
 	public void BlockCell(Vector2I cell)
 	{
-		if (grid.IsInsideGrid(cell)){
+		if (grid.IsInsideGrid(cell))
+		{
 			return;
 		}
 
@@ -25,7 +27,8 @@ public partial class GridNavigation : Node2D
 
 	public void UnblockCell(Vector2I cell)
 	{
-		if (grid.IsInsideGrid(cell)){
+		if (grid.IsInsideGrid(cell))
+		{
 			return;
 		}
 

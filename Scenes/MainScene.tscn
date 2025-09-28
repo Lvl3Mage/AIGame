@@ -6,21 +6,20 @@
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="4_7rqgy"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_7rqgy")
-
-[node name="GridComponent" type="Node2D" parent="."]
-position = Vector2(-732, -445)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Player" parent="." instance=ExtResource("2_tr2i4")]
-position = Vector2(123, -133)
-
-[node name="Enemy" parent="." instance=ExtResource("3_nhkr4")]
+metadata/_edit_lock_ = true
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_7rqgy")
 
-[node name="Node2D" type="Node2D" parent="GameManager"]
-position = Vector2(0, -339)
+[node name="GridDefinition" type="Node2D" parent="GameManager"]
 script = ExtResource("4_7rqgy")
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_tr2i4")]
+position = Vector2(1262, 436)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+metadata/_edit_lock_ = true
+
+[node name="Enemy" parent="." instance=ExtResource("3_nhkr4")]
+position = Vector2(689, 504)
