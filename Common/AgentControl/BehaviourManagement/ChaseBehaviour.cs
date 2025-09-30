@@ -13,7 +13,8 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 
 	public IAgentBehaviour.Priority Priority { get; set; } = IAgentBehaviour.Priority.High;
 	GameManager manager;
-	GridNavigation grid;
+	GridNavigation gridNav;
+	GridNavigation gridDef;
 	Node2D target, root;
 	Vector2I[] path = [];
 	Vector2I nextPos;
@@ -21,8 +22,9 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 
 	public override void _Ready()
 	{
-		grid = GameManager.
-		target = manager.Player;
+		gridNav = GameManager.Instance.GridNav;
+		gridDef = GameManager.Instance.GridDef;
+		target = GameManager.Instance.Player;
 	}
 	
 	   public override void _Process(double delta)
@@ -34,7 +36,7 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 	   {
 	       if (path.Length > chaseIndex)
 	       {
-				
+				g
 	        	// Advance one cell in the path
 				CellPosition = path[chaseIndex];
 	       }
