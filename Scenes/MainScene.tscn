@@ -16,8 +16,9 @@ tile_map_data = PackedByteArray("AAAAAP3/BQACAAEAAAAAAP7/BQACAAEAAAAAAP//BQACAAE
 tile_set = ExtResource("5_qxria")
 metadata/_edit_lock_ = true
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("Player")]
 script = ExtResource("1_7rqgy")
+Player = NodePath("../Player")
 
 [node name="GridDefinition" type="Node2D" parent="GameManager"]
 visible = false
