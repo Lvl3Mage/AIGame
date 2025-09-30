@@ -6,6 +6,7 @@ namespace Game.Common;
 public partial class GameManager : Node
 {
 	public static GameManager Instance { get; private set; } = null;
+	[Export] public PlayerController Player { get; private set; } = null;
 	public override void _Ready()
 	{
 		if (Instance != null)
