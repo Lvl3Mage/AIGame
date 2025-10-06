@@ -54,7 +54,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
         {
             GD.Print("Agente: Finalizando comportamiento Investigate.");
             isActive = false;
-            path = GameManager.Instance.GridNavigation?.FindPath((Vector2I)Vector2.Zero, (Vector2I)Vector2.Zero); // Detiene el movimiento
+            path = GameManager.Instance.GridNav?.FindPath((Vector2I)Vector2.Zero, (Vector2I)Vector2.Zero); // Detiene el movimiento
         }
     }
 
@@ -78,7 +78,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
         if (isActive)
         {
             // Configurar el objetivo de navegación para investigar el último punto conocido.
-            path = GameManager.Instance.GridNavigation?.FindPath((Vector2I)agentNode.GlobalPosition, investigationTarget);
+            path = GameManager.Instance.GridNav?.FindPath((Vector2I)agentNode.GlobalPosition, investigationTarget);
         }
     }
 

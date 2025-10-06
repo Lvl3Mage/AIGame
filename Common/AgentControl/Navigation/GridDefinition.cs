@@ -51,15 +51,15 @@ public partial class GridDefinition : Node2D
 			}
 		}
 	}
-
+	/// <summary> Gets the adjacent cells of a given cell. </summary>
 	public IList<Vector2I> GetAdjacentCells(Vector2I cell, bool includeDiagonals = false)
 	{
 		Vector2I[] directions = includeDiagonals
-			?[
+			? [
 				new(1, 0), new(-1, 0), new(0, 1), new(0, -1),
 				new(1, 1), new(-1, -1), new(1, -1), new(-1, 1)
 			]
-			:[new(1, 0), new(-1, 0), new(0, 1), new(0, -1)];
+			: [new(1, 0), new(-1, 0), new(0, 1), new(0, -1)];
 
 		return directions.Select(dir => cell + dir).Where(IsInsideGrid).ToList();
 	}
