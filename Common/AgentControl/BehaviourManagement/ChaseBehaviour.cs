@@ -36,7 +36,7 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 	   {
 	       if (path.Length > chaseIndex)
 	       {
-				g
+				gridDef.Cell
 	        	// Advance one cell in the path
 				CellPosition = path[chaseIndex];
 	       }
