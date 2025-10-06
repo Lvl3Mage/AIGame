@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=6 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://d1bfrfgdaaswj" path="res://Common/AgentControl/BehaviourManagement/BehaviourTreeController.cs" id="2_wovta"]
 [ext_resource type="Texture2D" uid="uid://daffctvq51yk2" path="res://Sprites/Circle.png" id="3_1exfc"]
 [ext_resource type="Script" uid="uid://dabgxqstmcqhq" path="res://Common/AgentControl/BehaviourManagement/ChaseBehaviour.cs" id="3_xeo28"]
+[ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="4_kpr8r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xeo28"]
 radius = 32.0
@@ -20,6 +21,9 @@ script = ExtResource("2_wovta")
 
 [node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule"]
 script = ExtResource("3_xeo28")
+
+[node name="InvestigateBehaviuor" type="Node" parent="BehaviourMachineModule"]
+script = ExtResource("4_kpr8r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

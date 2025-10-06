@@ -14,8 +14,9 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 	public IAgentBehaviour.Priority Priority { get; set; } = IAgentBehaviour.Priority.High;
 	GameManager manager;
 	GridNavigation gridNav;
-	GridNavigation gridDef;
+	GridDefinition gridDef;
 	Node2D target, root;
+	[Export] Node2D enemy;
 	Vector2I[] path = [];
 	Vector2I nextPos;
 	int chaseIndex = 1;
@@ -29,25 +30,21 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 	
 	   public override void _Process(double delta)
 	   {
-		UpdateChasePath();
+			UpdateChasePath();
 	   }
 	
 	   void UpdateChasePath()
 	   {
-	       if (path.Length > chaseIndex)
-	       {
-				gridDef.Cell
-	        	// Advance one cell in the path
-				CellPosition = path[chaseIndex];
-	       }
+	    //    if (path.Length > chaseIndex)
+	    //    {
+				
+		// 		CellPosition = path[chaseIndex];
+	    //    }
 	
-	       float width = mesh.CellSize / 2;
-	       Vector2I currentCell = CellPosition;
-	       Vector2I targetCell = mesh.WorldToGrid(target.Position + new Vector2(width, width));
+	       float width = gridDef.CellSize / 2;
+	       Vector2I targetCell = gridDef.WorldToGrid(target.Position + new Vector2(width, width));
 	
-	       manager.ClearPath(path);
-	       path = mesh.GetShortestPathBFS(currentCell, targetCell, manager.Walls, true);
-	       manager.PaintPath(path);
+		   path = gridNav.FindPath(gridDef.WorldToGrid(new Vector2(enemy.Position.X, enemy.Position.Y)), targetCell);
 	   }
 
     public IAgentBehaviour.Priority GetPriority()
