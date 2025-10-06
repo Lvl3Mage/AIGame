@@ -16,7 +16,7 @@ public partial class GridPhysicsOccupation : Node2D, IGridOccupationProvider
 	{
 		collisionMap = new bool[grid.Width, grid.Height];
 		foreach (Vector2I gridCell in grid.GridPositions()){
-			w
+			
 		}
 	}
 	//Todo scan the world for colliders and mark the cells as occupied
