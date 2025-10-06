@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b81xwcxguysrk"]
+
+[ext_resource type="Shader" uid="uid://b10o46gjwxng1" path="res://VFX/TileShader.gdshader" id="1_qmta5"]
+
+[resource]
+shader = ExtResource("1_qmta5")

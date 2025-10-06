@@ -43,7 +43,7 @@ public partial class GridDefinition : Node2D
 		return ToGlobal(local);
 	}
 
-	public IEnumerable<Vector2I> GridCells()
+	public IEnumerable<Vector2I> GridPositions()
 	{
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
