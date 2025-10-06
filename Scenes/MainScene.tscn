@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cf3oj5noao8fe"]
+[gd_scene load_steps=11 format=4 uid="uid://cf3oj5noao8fe"]
 
 [ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Common/GameManager.cs" id="1_7rqgy"]
 [ext_resource type="Material" uid="uid://b81xwcxguysrk" path="res://VFX/TilemapShader.tres" id="1_q68mp"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="3_nhkr4"]
 [ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/CameraController.cs" id="3_y4jh7"]
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="4_7rqgy"]
+[ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="5_f140w"]
 [ext_resource type="TileSet" uid="uid://mtrdbjanr3lb" path="res://Sprites/RockTileset.tres" id="5_qxria"]
 
 [sub_resource type="Gradient" id="Gradient_f140w"]
@@ -27,13 +28,20 @@ tile_map_data = PackedByteArray("AAAAAP3/BQACAAEAAAAAAP7/BQACAAEAAAAAAP//BQACAAE
 tile_set = ExtResource("5_qxria")
 metadata/_edit_lock_ = true
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("Player", "GridNav", "GridDef")]
 script = ExtResource("1_7rqgy")
+Player = NodePath("../Player")
+GridNav = NodePath("GridNavigation")
+GridDef = NodePath("GridDefinition")
 
 [node name="GridDefinition" type="Node2D" parent="GameManager"]
 script = ExtResource("4_7rqgy")
 cellSize = 100.0
 metadata/_edit_lock_ = true
+
+[node name="GridNavigation" type="Node2D" parent="GameManager"]
+script = ExtResource("5_f140w")
+metadata/_custom_type_script = "uid://c6s82xvwvcsr"
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(1262, 436)
@@ -46,6 +54,7 @@ z_index = 50
 position = Vector2(1643, 475)
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_0iob3")
 texture_scale = 30.0
 

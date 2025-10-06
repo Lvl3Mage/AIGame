@@ -1,85 +1,85 @@
-using Game.Common.AgentControl.BehaviourManagement;
-using Game.Common.AgentControl.Navigation;
 using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
 public partial class InvestigateBehaviour : Node, IAgentBehaviour
 {
-    [Export]
-    public IAgentBehaviour.Priority CurrentPriority { get; set; } = IAgentBehaviour.Priority.Low;
+    [Export] private AgentBlackboard _blackboard;
+    [Export(PropertyHint.Range, "0,30,0.1")] private float _investigationTime = 5.0f;
+    [Export(PropertyHint.Range, "0,100,1")] private float _arrivalThreshold = 20f;
 
-    // Radio de detección para iniciar el comportamiento.
-    [Export(PropertyHint.Range, "1.0,100.0,0.5")]
-    public float DetectionRadius { get; set; } = 10.0f;
+    public IAgentBehaviour.Priority CurrentPriority { get; private set; } = IAgentBehaviour.Priority.Disabled;
 
-    [Export]
-    private Node2D agentNode;
-
-    // --- Estado Interno ---
-    private bool isActive = false;
-    private Vector2 target; // Última posición conocida del jugador.
-    private Vector2I[] path = [];
-    private Vector2I investigationTarget; // Punto al que el agente se moverá para investigar.
+    private bool _isActive = false;
+    private Timer _timer;
+    private Vector2 _investigationTarget;
+    private bool _isInvestigatingPoint = false;
 
     public override void _Ready()
     {
-        if (agentNode == null)
-        {
-            GD.PrintErr("InvestigateBehaviour: El nodo del agente no está asignado.");
-        }
+        _timer = new Timer();
+        AddChild(_timer);
+        _timer.WaitTime = _investigationTime;
+        _timer.OneShot = true;
+        _timer.Timeout += OnTimerTimeout;
     }
-
-    // -----------------------------------------------------------------------------------------
-
-    // Implementación IAgentBehaviour
 
     public IAgentBehaviour.Priority GetPriority()
     {
+        // Solo podemos investigar si no vemos al jugador y hay un punto de interés
+        if (!_blackboard.CanSeePlayer && _blackboard.LastKnownPlayerPosition != Vector2.Zero)
+        {
+            CurrentPriority = IAgentBehaviour.Priority.Medium;
+        }
+        else
+        {
+            CurrentPriority = IAgentBehaviour.Priority.Disabled;
+        }
         return CurrentPriority;
     }
 
     public void StartBehavior()
     {
-        if (!isActive)
-        {
-            GD.Print($"Agente: Jugador detectado. Iniciando comportamiento Investigate.");
-            isActive = true;
-        }
+        GD.Print($"Agente: Investigando última posición conocida.");
+        _isActive = true;
+        _isInvestigatingPoint = false;
+        _investigationTarget = _blackboard.LastKnownPlayerPosition;
+
+        Vector2I start = (Vector2I)_blackboard.AgentBody.GlobalPosition;
+        Vector2I end = (Vector2I)_investigationTarget;
+
+        var path = GameManager.Instance.GridNav?.FindPath(start, end);
+        _blackboard.MovementModule.SetPath(path);
     }
 
     public void StopBehavior()
     {
-        if (isActive)
-        {
-            GD.Print("Agente: Finalizando comportamiento Investigate.");
-            isActive = false;
-            path = GameManager.Instance.GridNav?.FindPath((Vector2I)Vector2.Zero, (Vector2I)Vector2.Zero); // Detiene el movimiento
-        }
+        GD.Print("Agente: Finalizando investigación.");
+        _isActive = false;
+        _timer.Stop();
+        _blackboard.MovementModule.Stop();
+        // Limpiamos el punto de interés para no volver a investigar lo mismo.
+        _blackboard.LastKnownPlayerPosition = Vector2.Zero;
     }
-
-    // -----------------------------------------------------------------------------------------
-
 
     public override void _Process(double delta)
     {
-        if (agentNode.GlobalPosition.DistanceTo(GameManager.Instance.Player.Position) <= DetectionRadius)
-        {
-            StartBehavior();
-        }
-        else
-        {
-            StopBehavior();
-        }
+        if (!_isActive || _isInvestigatingPoint) return;
 
-        if (!isActive) return;
-        // if () //Si veo al jugador //Aun no se como va lo de la vision
-            // investigationTarget = target;
-        if (isActive)
+        if (_blackboard.AgentBody.GlobalPosition.DistanceTo(_investigationTarget) < _arrivalThreshold)
         {
-            // Configurar el objetivo de navegación para investigar el último punto conocido.
-            path = GameManager.Instance.GridNav?.FindPath((Vector2I)agentNode.GlobalPosition, investigationTarget);
+            GD.Print("Agente: Llegué al punto de interés. Esperando...");
+            _isInvestigatingPoint = true;
+            _blackboard.MovementModule.Stop();
+            _timer.Start();
         }
     }
 
+    private void OnTimerTimeout()
+    {
+        GD.Print("Agente: No encontré nada. Volviendo a la patrulla.");
+        // Al terminar el tiempo, forzamos el fin del comportamiento
+        // limpiando el punto de interés y dejando que el controlador re-evalúe.
+        _blackboard.LastKnownPlayerPosition = Vector2.Zero;
+    }
 }
