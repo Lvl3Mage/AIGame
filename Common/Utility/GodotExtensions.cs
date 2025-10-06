@@ -1,6 +1,7 @@
 ﻿#nullable enable
-using System.Collections.Generic;
 using Godot;
+using System;
+using System.Collections.Generic;
 
 namespace Game.Common.Utility;
 
@@ -44,4 +45,12 @@ public static class GodotExtensions
 				yield return grandChild;
 		}
 	}
+    public static T GetRandomElement<T>(this IList<T> list)
+    {
+        if (list == null || list.Count == 0)
+            throw new InvalidOperationException("Cannot get random element from an empty or null list.");
+
+        int index = (int)(GD.Randi() % list.Count);
+        return list[index];
+    }
 }
