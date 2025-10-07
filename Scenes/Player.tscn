@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://8pas1mruis60"]
+[gd_scene load_steps=6 format=3 uid="uid://8pas1mruis60"]
 
 [ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Common/PlayerController.cs" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://bpibmcln7tgde" path="res://Sprites/Player.png" id="2_gntrk"]
 [ext_resource type="Script" uid="uid://brj5wymtuq8x" path="res://Common/Modules/TopdownMovementModule.cs" id="3_dewec"]
+[ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="4_dewec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
 size = Vector2(57, 32)
@@ -16,14 +17,20 @@ movementModule = NodePath("TopdownMovementModule")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
+position = Vector2(4.200004, -65.34999)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_gntrk")
 
-[node name="TopdownMovementModule" type="Node2D" parent="."]
+[node name="TopdownMovementModule" type="Node2D" parent="." node_paths=PackedStringArray("animationModule")]
+position = Vector2(4.2000046, -65.35)
 script = ExtResource("3_dewec")
+animationModule = NodePath("../CharacterAnimationModule")
 metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-3.5, 66)
 shape = SubResource("RectangleShape2D_gntrk")
+
+[node name="CharacterAnimationModule" type="Node2D" parent="."]
+script = ExtResource("4_dewec")
+AmplitudeMultiplier = 5.855
+metadata/_custom_type_script = "uid://bmu2a5hwydbnc"

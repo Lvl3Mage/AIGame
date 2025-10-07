@@ -8,7 +8,7 @@ public partial class TopdownMovementModule : Node2D
     [Export] public float MaxMoveSpeed = 500f;  // The maximum speed at which the object can move.
     [Export] public float AccelerationTime = 0.2f; // Time to reach max speed.
     [Export] public float DecelerationTime = 0.2f; // Time to decelerate to zero.
-
+    [Export] CharacterAnimationModule animationModule;
     public bool InputDown = false;
     public bool InputUp = false;
     public bool InputRight = false;
@@ -42,6 +42,8 @@ public partial class TopdownMovementModule : Node2D
             AxisMotion(charBody.Velocity.X, acceleration, deceleration, maxVelocity.X, InputRight, InputLeft),
             AxisMotion(charBody.Velocity.Y, acceleration, deceleration, maxVelocity.Y, InputDown, InputUp)
         );
+
+        animationModule?.SetVelocity(charBody.Velocity);
 
         charBody.MoveAndSlide();
     }
