@@ -115,12 +115,12 @@ public partial class GridPhysicsOccupation : Node2D, IGridOccupationProvider
 	public override void _Process(double delta)
 	{
 		// UpdateCollisionMap();
-		// foreach (Vector2I gridPosition in grid.GridPositions()){
-		// 	Color color = collisionMap[gridPosition.X, gridPosition.Y]
-		// 		? new Color(1, 0, 0, 0.5f)
-		// 		: new Color(0, 1, 0, 0.5f);
-		// 	grid.DrawTile(gridPosition, color);
-		// }
+		foreach (Vector2I gridPosition in grid.GridPositions()){
+			Color color = collisionMap[gridPosition.X, gridPosition.Y]
+				? new Color(1, 0, 0, 0.5f)
+				: new Color(0, 1, 0, 0.5f);
+			grid.DrawTile(gridPosition, color);
+		}
 	}
 
 	public bool IsCellOccupied(Vector2I cell)

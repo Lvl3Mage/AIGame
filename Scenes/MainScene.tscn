@@ -32,11 +32,8 @@ metadata/_edit_lock_ = true
 [node name="DebugDrawQueue" type="Node2D" parent="."]
 script = ExtResource("10_4b75m")
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("Player", "GridNav", "GridDef")]
+[node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_7rqgy")
-Player = NodePath("../Player")
-GridNav = NodePath("GridDefinition/GridNavigation")
-GridDef = NodePath("GridDefinition")
 
 [node name="GridDefinition" type="Node2D" parent="GameManager"]
 position = Vector2(0, -4)
@@ -44,7 +41,6 @@ script = ExtResource("4_7rqgy")
 width = 76
 height = 40
 cellSize = 50.0
-debugDraw = false
 
 [node name="GridNavigation" type="Node2D" parent="GameManager/GridDefinition"]
 script = ExtResource("5_f140w")
