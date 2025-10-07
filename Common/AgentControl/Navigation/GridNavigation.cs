@@ -12,19 +12,25 @@ namespace Game.Common.AgentControl.Navigation;
 [GlobalClass]
 public partial class GridNavigation : Node2D
 {
+	[Export] CharacterBody2D enemy;
+	[Export] CharacterBody2D player;
 	[Export] GridDefinition grid;
 
 	GridCell[,] gridCells;
 
 	List<Vector2I> currentPath;
 
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		gridCells = new GridCell[grid.Width, grid.Height];
+		GD.Print(grid.Width + " " + grid.Height);
 
-		for (int i = 0; i < grid.Width; i++){
-			for (int j = 0; j < grid.Height; j++){
-				gridCells[i, j] = new GridCell{
+		for (int i = 0; i < grid.Width; i++)
+		{
+			for (int j = 0; j < grid.Height; j++)
+			{
+				gridCells[i, j] = new GridCell
+				{
 					Position = new Vector2I(i, j),
 					Blocked = false,
 					GCost = int.MaxValue,
@@ -32,6 +38,12 @@ public partial class GridNavigation : Node2D
 				};
 			}
 		}
+
+		await ToSignal(GetTree(), "process_frame");
+		var startCell = grid.WorldToGrid(enemy.GlobalPosition);
+		var targetCell = grid.WorldToGrid(player.GlobalPosition);
+		FindPath(startCell, targetCell);
+
 	}
 
 	public float CellSize { get; private set; } = 64f;
@@ -49,7 +61,7 @@ public partial class GridNavigation : Node2D
 		if (!grid.IsInsideGrid(cell))
 			return;
 
-		gridCells[cell.X, cell.Y].Blocked = true;
+		gridCells[cell.X, cell.Y].Blocked = false;
 	}
 
 	//todo Alonso, can't look into it right now but this looks pretty wrong.
@@ -60,46 +72,57 @@ public partial class GridNavigation : Node2D
 	// I recommend you try implementing this as Dijkstra first and then add the heuristic on top of it since the 2 algorithms are basically the same
 	public Vector2I[] FindPath(Vector2I start, Vector2I target)
 	{
-		if (start == target) return[start];
-		CalculateHeuristic(target);
-		var toSearch = new List<Vector2I>(){ start };
-		var processed = new List<Vector2I>();
+		if (start == target)
+			return [start];
 
-		while (toSearch.Count != 0){
-			Vector2I current = toSearch[0];
-			foreach (var t in toSearch)
-				if (gridCells[t.X, t.Y].FCost < gridCells[current.X, current.Y].FCost
-				    || gridCells[t.X, t.Y].FCost == gridCells[current.X, current.Y].FCost
-				    && gridCells[t.X, t.Y].HCost < gridCells[current.X, current.Y].HCost)
-					current = t;
+		for (int i = 0; i < grid.Width; i++)
+		{
+			for (int j = 0; j < grid.Height; j++)
+			{
+				gridCells[i, j].GCost = int.MaxValue;
+				gridCells[i, j].Parent = null;
+			}
+		}
 
+		PriorityQueue<Vector2I, int> openSet = new();
+		HashSet<Vector2I> closedSet = [];
+
+		GD.Print(start);
+		gridCells[start.X, start.Y].GCost = 0;
+		openSet.Enqueue(start, 0);
+
+		while (openSet.TryDequeue(out Vector2I current, out _))
+		{
 			if (current == target)
 				return ReconstructPath(start, target);
 
+			closedSet.Add(current);
 
-			processed.Add(current);
-			toSearch.Remove(current);
+			foreach (var neighbor in grid.GetAdjacentCells(current, true))
+			{
+				if (gridCells[neighbor.X, neighbor.Y].Blocked)
+					continue;
+				if (closedSet.Contains(neighbor))
+					continue;
 
-			foreach (var neighbor in grid.GetAdjacentCells(current, true)){
-				if (gridCells[neighbor.X, neighbor.Y].Blocked) continue;
-				if (processed.Contains(neighbor)) continue;
-				var inSearch = toSearch.Contains(neighbor);
+				int tentativeG = gridCells[current.X, current.Y].GCost + gridCells[current.X, current.Y].GetDistance(neighbor);
 
-				var costToNeighbor = gridCells[current.X, current.Y].GCost +
-				                     gridCells[current.X, current.Y].GetDistance(neighbor);
-
-				if (!inSearch || costToNeighbor < gridCells[neighbor.X, neighbor.Y].GCost){
-					gridCells[neighbor.X, neighbor.Y].GCost = costToNeighbor;
+				if (tentativeG < gridCells[neighbor.X, neighbor.Y].GCost)
+				{
+					gridCells[neighbor.X, neighbor.Y].GCost = tentativeG;
 					gridCells[neighbor.X, neighbor.Y].Parent = current;
-					if (!inSearch){
-						toSearch.Add(neighbor);
-					}
+
+					int h = (int)current.DistanceTo(target);
+					int f = tentativeG + h;
+
+					openSet.Enqueue(neighbor, f);
 				}
 			}
 		}
 
-		return[];
+		return [];
 	}
+
 
 	private Vector2I[] ReconstructPath(Vector2I start, Vector2I end)
 	{
@@ -118,31 +141,18 @@ public partial class GridNavigation : Node2D
 		path.Reverse();
 		currentPath = path;
 		QueueRedraw();
-		return[.. path];
-	}
 
-
-	public void CalculateHeuristic(Vector2I target)
-	{
-		for (int i = 0; i < grid.Width; i++){
-			for (int j = 0; j < grid.Height; j++){
-				var cell = gridCells[i, j];
-				int dx = Mathf.Abs(cell.Position.X - target.X);
-				int dy = Mathf.Abs(cell.Position.Y - target.Y);
-				cell.HCost = (int)(((Mathf.Sqrt(2) - 1) * Mathf.Min(dx, dy) + Mathf.Max(dx, dy)) * 10);
-
-				gridCells[i, j] = cell;
-			}
-		}
+		return [.. path];
 	}
 
 	public override void _Draw()
 	{
+		GD.Print("He pasado por aqui");
 		if (currentPath == null)
 			return;
 
 		foreach (var pos in currentPath){
-			Vector2 worldPos = new(pos.X * CellSize, pos.Y * CellSize);
+			Vector2 worldPos = grid.ToGlobal(new Vector2(pos.X * CellSize, pos.Y * CellSize));
 			DrawRect(
 				new Rect2(worldPos, new Vector2(CellSize, CellSize)),
 				new Color(0, 1, 0, 0.4f),
@@ -166,7 +176,7 @@ public struct GridCell
 	public bool Blocked;
 	public Vector2I? Parent;
 
-	public int GetDistance(Vector2I target)
+	public readonly int GetDistance(Vector2I target)
 	{
 		int moveCost = (target.X != Position.X && target.Y != Position.Y) ? 14 : 10;
 		return moveCost;
