@@ -63,6 +63,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
 
     public override void _Process(double delta)
     {
+        return;
         if (agentNode.GlobalPosition.DistanceTo(GameManager.Instance.Player.Position) <= DetectionRadius)
         {
             StartBehavior();

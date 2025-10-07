@@ -74,8 +74,22 @@ public partial class GridDefinition : Node2D
 		}
 
 		for (int x = 0; x <= width; x++){
-			DrawLine(new Vector2(x * cellSize, 0), new Vector2(x * cellSize, width * cellSize), Colors.Gray);
+			DrawLine(new Vector2(x * cellSize, 0), new Vector2(x * cellSize, height * cellSize), Colors.Gray);
 		}
+		foreach (var (cell, color, filled) in debugDrawQueue){
+			Vector2 worldPos = ToLocal(GridToWorld(cell));
+			DrawRect(
+				new Rect2(worldPos, new Vector2(cellSize, cellSize)),
+				color,
+				filled: filled
+			);
+		}
+		debugDrawQueue.Clear();
+	}
+	List<(Vector2I,Color,bool)> debugDrawQueue = [];
+	public void DrawTile(Vector2I cell, Color color, bool filled = true)
+	{
+		debugDrawQueue.Add((cell, color, filled));
 	}
 
 	public override void _Process(double delta)

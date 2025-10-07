@@ -35,6 +35,7 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 	
 	   void UpdateChasePath()
 	   {
+		   return;
 	    //    if (path.Length > chaseIndex)
 	    //    {
 				
@@ -49,16 +50,17 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 
     public IAgentBehaviour.Priority GetPriority()
     {
-        throw new System.NotImplementedException();
+	    return IAgentBehaviour.Priority.High;
+	    // throw new System.NotImplementedException();
     }
 
     public void StartBehavior()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 
     public void StopBehavior()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 }
