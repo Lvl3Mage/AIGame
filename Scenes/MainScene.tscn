@@ -4,21 +4,14 @@
 [ext_resource type="Material" uid="uid://b81xwcxguysrk" path="res://VFX/TilemapShader.tres" id="1_q68mp"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="2_tr2i4"]
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="3_nhkr4"]
-[ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/CameraController.cs" id="3_y4jh7"]
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="4_7rqgy"]
 [ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="5_f140w"]
 [ext_resource type="TileSet" uid="uid://mtrdbjanr3lb" path="res://Sprites/RockTileset.tres" id="5_qxria"]
 [ext_resource type="Script" uid="uid://v1cehc3jy46d" path="res://Common/AgentControl/Navigation/GridPhysicsOccupation.cs" id="6_0iob3"]
+[ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/DynamicCamera.cs" id="9_8ju71"]
 [ext_resource type="Script" uid="uid://cav4dofx6oesp" path="res://Common/Utility/DebugDrawQueue.cs" id="10_4b75m"]
-
-[sub_resource type="Gradient" id="Gradient_f140w"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0iob3"]
-gradient = SubResource("Gradient_f140w")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 0.5)
+[ext_resource type="PackedScene" uid="uid://cxjjt2whtbm5p" path="res://Scenes/Key.tscn" id="11_8ju71"]
+[ext_resource type="PackedScene" uid="uid://b06f4qtjscki6" path="res://Scenes/Door.tscn" id="12_xb4mg"]
 
 [node name="Main" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -56,22 +49,22 @@ grid = NodePath("..")
 collisionLayer = NodePath("../../../TileMapLayer")
 metadata/_custom_type_script = "uid://v1cehc3jy46d"
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
-position = Vector2(1262, 436)
-script = ExtResource("3_y4jh7")
-target = NodePath("../Player")
-metadata/_edit_lock_ = true
-
 [node name="Player" parent="." instance=ExtResource("2_tr2i4")]
 light_mask = 2
 z_index = 50
 position = Vector2(1643, 475)
 
-[node name="PointLight2D" type="PointLight2D" parent="Player"]
-shadow_enabled = true
-shadow_filter = 2
-texture = SubResource("GradientTexture2D_0iob3")
-texture_scale = 16.3
+[node name="DynamicCamera" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+script = ExtResource("9_8ju71")
+metadata/_custom_type_script = "uid://cxs1tcawpkk07"
 
 [node name="Enemy" parent="." instance=ExtResource("3_nhkr4")]
 position = Vector2(898, 679)
+
+[node name="Key" parent="." instance=ExtResource("11_8ju71")]
+position = Vector2(1539, 1011)
+
+[node name="Door" parent="." instance=ExtResource("12_xb4mg")]
+position = Vector2(3089, 905)
