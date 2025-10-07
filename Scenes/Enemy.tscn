@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=8 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://wegqvvca6jau" path="res://Common/AgentControl/BehaviourManagement/AgentBlackboard.cs" id="2_6bs3c"]
 [ext_resource type="Script" uid="uid://d1bfrfgdaaswj" path="res://Common/AgentControl/BehaviourManagement/BehaviourTreeController.cs" id="2_wovta"]
 [ext_resource type="Texture2D" uid="uid://daffctvq51yk2" path="res://Sprites/Circle.png" id="3_1exfc"]
 [ext_resource type="Script" uid="uid://dabgxqstmcqhq" path="res://Common/AgentControl/BehaviourManagement/ChaseBehaviour.cs" id="3_xeo28"]
-[ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="4_kpr8r"]
-[ext_resource type="Script" uid="uid://bduwouekrkhui" path="res://Common/AgentControl/BehaviourManagement/PatrolBehaviour.cs" id="4_uoxpr"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xeo28"]
@@ -14,6 +12,7 @@ radius = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_6bs3c"]
 
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
 motion_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -35,26 +34,22 @@ MovementModule = NodePath("../MovementModule")
 [node name="BehaviourMachineModule" type="Node" parent="."]
 script = ExtResource("2_wovta")
 
-[node name="PatrolBehaviour" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("_blackboard")]
-script = ExtResource("4_uoxpr")
-_blackboard = NodePath("../../AgentBlackboard")
-_patrolPoints = PackedVector2Array(0, 0, 15, 0, 15, 15, 0, 15)
-
-[node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule"]
+[node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("blackboard")]
 script = ExtResource("3_xeo28")
-
-[node name="InvestigateBehaviuor" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("_blackboard")]
-script = ExtResource("4_kpr8r")
-_blackboard = NodePath("../../AgentBlackboard")
+blackboard = NodePath("../../AgentBlackboard")
 
 [node name="LineOfSightRayCast2D" type="RayCast2D" parent="."]
+collision_mask = 3
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
 scale = Vector2(50, 50)
 shape = SubResource("CircleShape2D_6bs3c")
 
-[node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("AgentBody")]
+[node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
 script = ExtResource("7_6bs3c")
-AgentBody = NodePath("..")
+agentBody = NodePath("..")
+metadata/_custom_type_script = "uid://dcr5wi8h1f7k5"

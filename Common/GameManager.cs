@@ -5,7 +5,7 @@ namespace Game.Common;
 
 public partial class GameManager : Node
 {
-	public static GameManager Instance { get; private set; } = null;
+	public static GameManager Instance { get; private set; }
 	[Export] public PlayerController Player { get; private set; }
 	[Export] public GridNavigation GridNav { get; private set; }
 	[Export] public GridDefinition GridDef { get; private set; }

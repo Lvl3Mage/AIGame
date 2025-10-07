@@ -8,11 +8,14 @@
 size = Vector2(57, 32)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule")]
+collision_layer = 2
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_kyqiw")
 movementModule = NodePath("TopdownMovementModule")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_gntrk")
 

@@ -41,7 +41,7 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
         _isActive = true;
         _isWaiting = false;
 
-        _blackboard.MovementModule.PathLooping = _continuousMovement;
+        // _blackboard.MovementModule.PathLooping = _continuousMovement;
         if (_continuousMovement)
         {
             Vector2I[] gridPath = new Vector2I[_patrolPoints.Length];
@@ -49,7 +49,7 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
             {
                 gridPath[i] = (Vector2I)_patrolPoints[i];
             }
-            _blackboard.MovementModule.SetPath(gridPath);
+            // _blackboard.MovementModule.SetPath(gridPath);
         }
         else // Si es con pausas, vamos al primer punto.
         {
@@ -62,8 +62,8 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
         GD.Print("Agente: Finalizando comportamiento de Patrulla.");
         _isActive = false;
         _pauseTimer.Stop();
-        _blackboard.MovementModule.PathLooping = false;
-        _blackboard.MovementModule.Stop();
+        // _blackboard.MovementModule.PathLooping = false;
+        // _blackboard.MovementModule.Stop();
     }
 
     public override void _Process(double delta)
@@ -71,14 +71,14 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
         if (!_isActive || _continuousMovement || _isWaiting || _patrolPoints.Length == 0) return;
 
         Vector2 targetPosition = _patrolPoints[_currentPatrolIndex];
-        if (_blackboard.AgentBody.GlobalPosition.DistanceTo(targetPosition) < _blackboard.MovementModule.ArrivalThreshold)
-        {
-            _isWaiting = true;
-            _blackboard.MovementModule.Stop();
-            _pauseTimer.WaitTime = _waypointPauseTime;
-            _pauseTimer.Start();
-            GD.Print($"Agente: Pausando en el punto {_currentPatrolIndex} por {_waypointPauseTime}s.");
-        }
+        // if (_blackboard.AgentBody.GlobalPosition.DistanceTo(targetPosition) < _blackboard.MovementModule.ArrivalThreshold)
+        // {
+        //     _isWaiting = true;
+        //     // _blackboard.MovementModule.Stop();
+        //     _pauseTimer.WaitTime = _waypointPauseTime;
+        //     _pauseTimer.Start();
+        //     GD.Print($"Agente: Pausando en el punto {_currentPatrolIndex} por {_waypointPauseTime}s.");
+        // }
     }
 
     private void OnPauseTimerTimeout()
@@ -98,6 +98,6 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
         Vector2I end = (Vector2I)_patrolPoints[pointIndex];
 
         var path = GameManager.Instance.GridNav?.FindPath(start, end);
-        _blackboard.MovementModule.SetPath(path);
+        // _blackboard.MovementModule.SetPath(path);
     }
 }
