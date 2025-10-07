@@ -20,30 +20,26 @@ public partial class GridNavigation : Node2D
 
 	List<Vector2I> currentPath;
 
-	public override async void _Ready()
+	[Export] GridPhysicsOccupation gridPhysicsOccupation;
+
+	public override void _Ready()
 	{
 		gridCells = new GridCell[grid.Width, grid.Height];
-		GD.Print(grid.Width + " " + grid.Height);
 
 		for (int i = 0; i < grid.Width; i++)
 		{
 			for (int j = 0; j < grid.Height; j++)
 			{
+				bool occupied = gridPhysicsOccupation.IsCellOccupied(new Vector2I(i, j));
 				gridCells[i, j] = new GridCell
 				{
 					Position = new Vector2I(i, j),
-					Blocked = false,
+					Blocked = occupied,
 					GCost = int.MaxValue,
 					HCost = 0
 				};
 			}
 		}
-
-		await ToSignal(GetTree(), "process_frame");
-		var startCell = grid.WorldToGrid(enemy.GlobalPosition);
-		var targetCell = grid.WorldToGrid(player.GlobalPosition);
-		FindPath(startCell, targetCell);
-
 	}
 
 	public float CellSize { get; private set; } = 64f;
@@ -81,13 +77,13 @@ public partial class GridNavigation : Node2D
 			{
 				gridCells[i, j].GCost = int.MaxValue;
 				gridCells[i, j].Parent = null;
+				gridCells[i, j].HCost = 0;
 			}
 		}
 
 		PriorityQueue<Vector2I, int> openSet = new();
 		HashSet<Vector2I> closedSet = [];
 
-		GD.Print(start);
 		gridCells[start.X, start.Y].GCost = 0;
 		openSet.Enqueue(start, 0);
 
@@ -145,26 +141,31 @@ public partial class GridNavigation : Node2D
 		return [.. path];
 	}
 
-	public override void _Draw()
-	{
-		GD.Print("He pasado por aqui");
+    public override void _Process(double delta)
+    {
+		var startCell = grid.WorldToGrid(enemy.GlobalPosition);
+		var targetCell = grid.WorldToGrid(player.GlobalPosition);
+		FindPath(startCell, targetCell);
+
 		if (currentPath == null)
 			return;
 
-		foreach (var pos in currentPath){
-			Vector2 worldPos = grid.ToGlobal(new Vector2(pos.X * CellSize, pos.Y * CellSize));
-			DrawRect(
-				new Rect2(worldPos, new Vector2(CellSize, CellSize)),
-				new Color(0, 1, 0, 0.4f),
-				filled: true
-			);
-			DrawRect(
-				new Rect2(worldPos, new Vector2(CellSize, CellSize)),
-				new Color(0, 1, 0),
-				filled: false
-			);
+		foreach (var pos in currentPath)
+		{
+			grid.DrawTile(pos, Colors.Green);
+			// Vector2 worldPos = grid.ToGlobal(new Vector2(pos.X * CellSize, pos.Y * CellSize));
+			// DrawRect(
+			// 	new Rect2(worldPos, new Vector2(CellSize, CellSize)),
+			// 	new Color(0, 1, 0, 0.4f),
+			// 	filled: true
+			// );
+			// DrawRect(
+			// 	new Rect2(worldPos, new Vector2(CellSize, CellSize)),
+			// 	new Color(0, 1, 0),
+			// 	filled: false
+			// );
 		}
-	}
+    }
 }
 
 public struct GridCell
