@@ -51,12 +51,14 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_tr2i4")]
 z_index = 50
-position = Vector2(1643, 475)
+position = Vector2(1663, 494)
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
+range_z_max = 0
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_0iob3")
 texture_scale = 30.0
+metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="." instance=ExtResource("3_nhkr4")]
 position = Vector2(898, 679)

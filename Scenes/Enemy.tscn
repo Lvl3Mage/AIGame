@@ -40,9 +40,8 @@ script = ExtResource("4_uoxpr")
 _blackboard = NodePath("../../AgentBlackboard")
 _patrolPoints = PackedVector2Array(0, 0, 15, 0, 15, 15, 0, 15)
 
-[node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("_blackboard")]
+[node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule"]
 script = ExtResource("3_xeo28")
-_blackboard = NodePath("../../AgentBlackboard")
 
 [node name="InvestigateBehaviuor" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("_blackboard")]
 script = ExtResource("4_kpr8r")
@@ -59,4 +58,3 @@ shape = SubResource("CircleShape2D_6bs3c")
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("AgentBody")]
 script = ExtResource("7_6bs3c")
 AgentBody = NodePath("..")
-metadata/_custom_type_script = "uid://dcr5wi8h1f7k5"
