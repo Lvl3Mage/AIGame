@@ -25,11 +25,11 @@ public partial class DebugDrawQueue : Node2D
 			instance.DrawCircle(center, radius, color, filled, width, antialiased);
 		});
 	}
-	public static void DebugDrawLine(Vector2 from, Vector2 direction, Color color, float width = 1f, bool antialiased = false)
+	public static void DebugDrawLine(Vector2 from, Vector2 target, Color color, float width = 1f, bool antialiased = false)
 	{
 		instance?.drawQueue.Add(() =>
 		{
-			instance.DrawLine(from, direction, color, width, antialiased);
+			instance.DrawLine(from, target, color, width, antialiased);
 		});
 	}
 	public static void DebugDrawRect(Rect2 rect, Color color, bool filled = false, float width = 1f, bool antialiased = false)

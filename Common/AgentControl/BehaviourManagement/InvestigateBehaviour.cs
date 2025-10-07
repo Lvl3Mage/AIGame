@@ -49,7 +49,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
         Vector2I end = (Vector2I)_investigationTarget;
 
         var path = GameManager.Instance.GridNav?.FindPath(start, end);
-        _blackboard.MovementModule.SetPath(path);
+        // _blackboard.MovementModule.SetPath(path);
     }
 
     public void StopBehavior()
@@ -57,7 +57,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
         GD.Print("Agente: Finalizando investigación.");
         _isActive = false;
         _timer.Stop();
-        _blackboard.MovementModule.Stop();
+        // _blackboard.MovementModule.Stop();
         // Limpiamos el punto de interés para no volver a investigar lo mismo.
         _blackboard.LastKnownPlayerPosition = Vector2.Zero;
     }
@@ -70,7 +70,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
         {
             GD.Print("Agente: Llegué al punto de interés. Esperando...");
             _isInvestigatingPoint = true;
-            _blackboard.MovementModule.Stop();
+            // _blackboard.MovementModule.Stop();
             _timer.Start();
         }
     }

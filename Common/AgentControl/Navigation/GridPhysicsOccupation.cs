@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Common.Managers;
 using Game.Common.Utility;
 using Godot;
 
@@ -12,6 +13,8 @@ public partial class GridPhysicsOccupation : Node2D, IGridOccupationProvider
 	[Export] GridDefinition grid;
 	[Export] TileMapLayer collisionLayer;
 
+
+	//Todo moving the tilemap breaks this
 	bool ComputeOccupancy(Vector2 position)
 	{
 		Vector2I cellCoord = GetTileMapCellCoord(position);
@@ -44,28 +47,43 @@ public partial class GridPhysicsOccupation : Node2D, IGridOccupationProvider
 		Line horizontalRay = Line.FromTwoPoints(point, point + new Vector2(1, 0));
 		for (int j = 0; j < polygon.Length - 1; j++){
 			Segment edge = new(polygon[j], polygon[j + 1]);
+			// DebugDrawQueue.DebugDrawLine(edge.SegmentStart, edge.SegmentEnd, Colors.Yellow, -1F);
 			if (CheckIntersection(edge)){
+
 				intersections++;
 			}
 		}
 		Segment lastEdge = new(polygon[polygon.Length - 1], polygon[0]);
+
+		// DebugDrawQueue.DebugDrawLine(lastEdge.SegmentStart, lastEdge.SegmentEnd, Colors.Yellow, -1F);
 		if (CheckIntersection(lastEdge)){
 			intersections++;
 		}
+		// if(intersections % 2 == 1){
+		// 	DebugDrawQueue.DebugDrawCircle(point, 3f, Colors.Blue);
+		// } else {
+		// 	DebugDrawQueue.DebugDrawCircle(point, 3f, Colors.Gray);
+		// }
 		return intersections % 2 == 1;
 		bool CheckIntersection(Segment edge)
 		{
 			(Vector2? intersection, Line.IntersectionType type) = Line.LineLineIntersection(horizontalRay, edge.Line);
 			if (type != Line.IntersectionType.Point) return false;
 			if (edge.PointInSegment(intersection.Value)){
-				if(horizontalRay.GetTFromPoint(intersection.Value) < 0) return false;
+				if(horizontalRay.GetTFromPoint(intersection.Value) < 0){
+					// DebugDrawQueue.DebugDrawCircle(intersection.Value, 0.5f, Colors.Red);
+
+					return false;
+				}
+				// DebugDrawQueue.DebugDrawCircle(intersection.Value, 0.5f, Colors.Green);
 				return true;
 			}
+
+			// DebugDrawQueue.DebugDrawCircle(intersection.Value, 0.5f, Colors.Red);
 			return false;
 
 		}
 	}
-
 	Vector2I GetTileMapCellCoord(Vector2 globalPositions)
 	{
 		Vector2 local = collisionLayer.ToLocal(globalPositions);
@@ -96,12 +114,13 @@ public partial class GridPhysicsOccupation : Node2D, IGridOccupationProvider
 
 	public override void _Process(double delta)
 	{
-		foreach (Vector2I gridPosition in grid.GridPositions()){
-			Color color = collisionMap[gridPosition.X, gridPosition.Y]
-				? new Color(1, 0, 0, 0.5f)
-				: new Color(0, 1, 0, 0.5f);
-			grid.DrawTile(gridPosition, color);
-		}
+		// UpdateCollisionMap();
+		// foreach (Vector2I gridPosition in grid.GridPositions()){
+		// 	Color color = collisionMap[gridPosition.X, gridPosition.Y]
+		// 		? new Color(1, 0, 0, 0.5f)
+		// 		: new Color(0, 1, 0, 0.5f);
+		// 	grid.DrawTile(gridPosition, color);
+		// }
 	}
 
 	public bool IsCellOccupied(Vector2I cell)

@@ -3,6 +3,7 @@ using Game.Common.Modules;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
+//todo refactor this, change comments to english, refactor detection to use distance check + raycast
 /// <summary>
 /// Contiene el estado compartido para todos los comportamientos de un agente.
 /// Esto evita que los comportamientos necesiten referencias directas entre ellos.
@@ -45,12 +46,12 @@ public partial class AgentBlackboard : Node
                 break;
             }
         }
-
+        //todo fix this
         if (playerInArea)
         {
             LineOfSightRay.TargetPosition = AgentBody.ToLocal(_player.GlobalPosition);
             LineOfSightRay.ForceRaycastUpdate();
-
+            DebugDraw2D.SetText("Sight check");
             if (LineOfSightRay.GetCollider() == _player)
             {
                 CanSeePlayer = true;
