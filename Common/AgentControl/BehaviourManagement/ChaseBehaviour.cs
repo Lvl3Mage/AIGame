@@ -1,66 +1,55 @@
-using Game.Common.AgentControl.Navigation;
-using Game.Common.Modules;
 using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
-/// <remarks>
-///	Todo: Refactor this to use IAgentBehaviour properly and to use the <see cref="GridNavigation"/>
-/// </remarks>
 public partial class ChaseBehaviour : Node, IAgentBehaviour
 {
-	[Export] TopdownMovementModule movementModule;
+	[Export] private AgentBlackboard _blackboard;
 
-	public IAgentBehaviour.Priority Priority { get; set; } = IAgentBehaviour.Priority.High;
-	GameManager manager;
-	GridNavigation gridNav;
-	GridDefinition gridDef;
-	Node2D target, root;
-	[Export] Node2D enemy;
-	Vector2I[] path = [];
-	Vector2I nextPos;
-	int chaseIndex = 1;
+	public IAgentBehaviour.Priority CurrentPriority { get; private set; } = IAgentBehaviour.Priority.Disabled;
+
+	private bool _isActive = false;
+	private PlayerController _player;
 
 	public override void _Ready()
 	{
-		gridNav = GameManager.Instance.GridNav;
-		gridDef = GameManager.Instance.GridDef;
-		target = GameManager.Instance.Player;
+		_player = GameManager.Instance.Player;
 	}
-	
-	   public override void _Process(double delta)
-	   {
-			UpdateChasePath();
-	   }
-	
-	   void UpdateChasePath()
-	   {
-		   return;
-	    //    if (path.Length > chaseIndex)
-	    //    {
-				
-		// 		CellPosition = path[chaseIndex];
-	    //    }
-	
-	       float width = gridDef.CellSize / 2;
-	       Vector2I targetCell = gridDef.WorldToGrid(target.Position + new Vector2(width, width));
-	
-		   path = gridNav.FindPath(gridDef.WorldToGrid(new Vector2(enemy.Position.X, enemy.Position.Y)), targetCell);
-	   }
 
-    public IAgentBehaviour.Priority GetPriority()
-    {
-	    return IAgentBehaviour.Priority.High;
-	    // throw new System.NotImplementedException();
-    }
+	public IAgentBehaviour.Priority GetPriority()
+	{
+		// La lógica de decisión de prioridad está aquí
+		CurrentPriority = _blackboard.CanSeePlayer ? IAgentBehaviour.Priority.High : IAgentBehaviour.Priority.Disabled;
+		return CurrentPriority;
+	}
 
-    public void StartBehavior()
-    {
-        // throw new System.NotImplementedException();
-    }
+	public void StartBehavior()
+	{
+		if (_isActive) return;
+		GD.Print("Agente: ¡Jugador detectado! Iniciando Persecución.");
+		_isActive = true;
+	}
 
-    public void StopBehavior()
-    {
-        // throw new System.NotImplementedException();
-    }
+	public void StopBehavior()
+	{
+		if (!_isActive) return;
+		GD.Print("Agente: Jugador perdido. Finalizando Persecución.");
+		_isActive = false;
+		_blackboard.MovementModule.Stop();
+		// Al detenerse, activamos la investigación en la última posición conocida.
+		// El BehaviourTreeController se encargará de activar el InvestigateBehaviour
+		// si su prioridad sube a Medium gracias a esto.
+	}
+
+	public override void _Process(double delta)
+	{
+		if (!_isActive) return;
+
+		// Mientras está activo, recalcula constantemente la ruta hacia el jugador
+		Vector2I start = (Vector2I)_blackboard.AgentBody.GlobalPosition;
+		Vector2I end = (Vector2I)_player.GlobalPosition;
+
+		var path = GameManager.Instance.GridNav?.FindPath(start, end);
+		_blackboard.MovementModule.SetPath(path);
+	}
 }
