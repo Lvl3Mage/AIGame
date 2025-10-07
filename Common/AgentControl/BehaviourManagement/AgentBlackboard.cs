@@ -19,11 +19,11 @@ public partial class AgentBlackboard : Node
     public bool CanSeePlayer { get; set; } = false;
     public Vector2 LastKnownPlayerPosition { get; set; }
 
-    private PlayerController _player;
+    PlayerController player;
 
     public override void _Ready()
     {
-        _player = GameManager.Instance.Player;
+        player = GameManager.Instance.Player;
     }
 
     public override void _Process(double delta)
@@ -34,28 +34,27 @@ public partial class AgentBlackboard : Node
     /// <summary>
     /// Comprueba si el jugador está dentro del área y si hay línea de visión directa.
     /// </summary>
-    private void UpdatePlayerDetection()
+    void UpdatePlayerDetection()
     {
         var bodiesInArea = DetectionArea.GetOverlappingBodies();
         bool playerInArea = false;
         foreach (var body in bodiesInArea)
         {
-            if (body == _player)
+            if (body == player)
             {
                 playerInArea = true;
                 break;
             }
         }
-        //todo fix this
         if (playerInArea)
         {
-            LineOfSightRay.TargetPosition = AgentBody.ToLocal(_player.GlobalPosition);
+            LineOfSightRay.TargetPosition = AgentBody.ToLocal(player.GlobalPosition);
             LineOfSightRay.ForceRaycastUpdate();
             DebugDraw2D.SetText("Sight check");
-            if (LineOfSightRay.GetCollider() == _player)
+            if (LineOfSightRay.GetCollider() == player)
             {
                 CanSeePlayer = true;
-                LastKnownPlayerPosition = _player.GlobalPosition;
+                LastKnownPlayerPosition = player.GlobalPosition;
             }
             else
             {
