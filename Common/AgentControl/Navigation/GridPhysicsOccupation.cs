@@ -125,6 +125,6 @@ public partial class GridPhysicsOccupation : Node2D, IGridOccupationProvider
 
 	public bool IsCellOccupied(Vector2I cell)
 	{
-		throw new System.NotImplementedException();
+		return collisionMap[cell.X, cell.Y];
 	}
 }
