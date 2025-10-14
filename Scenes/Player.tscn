@@ -17,14 +17,14 @@ movementModule = NodePath("TopdownMovementModule")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
+y_sort_enabled = true
 position = Vector2(4.200004, -65.34999)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_gntrk")
 
-[node name="TopdownMovementModule" type="Node2D" parent="." node_paths=PackedStringArray("animationModule")]
+[node name="TopdownMovementModule" type="Node2D" parent="."]
 position = Vector2(4.2000046, -65.35)
 script = ExtResource("3_dewec")
-animationModule = NodePath("../CharacterAnimationModule")
 metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

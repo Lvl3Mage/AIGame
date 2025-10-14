@@ -17,7 +17,7 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 
 	public IAgentBehaviour.Priority GetPriority()
 	{
-		return blackboard.CanSeePlayer ? IAgentBehaviour.Priority.High : IAgentBehaviour.Priority.Disabled;
+		return blackboard.PlayerVisible ? IAgentBehaviour.Priority.High : IAgentBehaviour.Priority.Disabled;
 	}
 
 	public void StartBehavior()

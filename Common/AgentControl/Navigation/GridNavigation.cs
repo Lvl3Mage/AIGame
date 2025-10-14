@@ -42,34 +42,24 @@ public partial class GridNavigation : Node2D
 		}
 	}
 
-	public float CellSize { get; private set; } = 64f;
-
-	public void BlockCell(Vector2I cell)
+	public Vector2[] GetPathBetween(Vector2 worldSpaceStart, Vector2 worldSpaceEnd)
 	{
-		if (!grid.IsInsideGrid(cell))
-			return;
-
-		gridCells[cell.X, cell.Y].Blocked = true;
+		Vector2I gridStart = grid.WorldToGrid(worldSpaceStart);
+		Vector2I gridEnd = grid.WorldToGrid(worldSpaceEnd);
+		Vector2I[] path = ComputePath(gridStart, gridEnd);
+		if (path.Length == 0){
+			return[];
+		}
+		Vector2[] worldPath = path.Select((pos) => grid.GridToWorld(pos,true)).ToArray();
+		worldPath[^1] = worldSpaceEnd;
+		return worldPath;
 	}
 
-	public void UnblockCell(Vector2I cell)
-	{
-		if (!grid.IsInsideGrid(cell))
-			return;
 
-		gridCells[cell.X, cell.Y].Blocked = false;
-	}
-
-	//todo Alonso, can't look into it right now but this looks pretty wrong.
-	// You only need to calculate the heuristic once a cell is reached to evaluate it, otherwise you'll be calculating a lot of unnecessary heuristics
-	// The heuristic can just be euclidean distance (Aka straight line distance)
-	// Also, you need to look at the nodes in order of lowest F cost, (sum of G and H cost) so use a priority queue
-
-	// I recommend you try implementing this as Dijkstra first and then add the heuristic on top of it since the 2 algorithms are basically the same
-	public Vector2I[] FindPath(Vector2I start, Vector2I target)
+	Vector2I[] ComputePath(Vector2I start, Vector2I target)
 	{
 		if (start == target)
-			return [start];
+			return [target];
 
 		for (int i = 0; i < grid.Width; i++)
 		{
@@ -143,43 +133,43 @@ public partial class GridNavigation : Node2D
 
     public override void _Process(double delta)
     {
-		var startCell = grid.WorldToGrid(enemy.GlobalPosition);
-		var targetCell = grid.WorldToGrid(player.GlobalPosition);
-		FindPath(startCell, targetCell);
-
-		if (currentPath == null)
-			return;
-
-		foreach (var pos in currentPath)
-		{
-			grid.DrawTile(pos, Colors.Green);
-			// Vector2 worldPos = grid.ToGlobal(new Vector2(pos.X * CellSize, pos.Y * CellSize));
-			// DrawRect(
-			// 	new Rect2(worldPos, new Vector2(CellSize, CellSize)),
-			// 	new Color(0, 1, 0, 0.4f),
-			// 	filled: true
-			// );
-			// DrawRect(
-			// 	new Rect2(worldPos, new Vector2(CellSize, CellSize)),
-			// 	new Color(0, 1, 0),
-			// 	filled: false
-			// );
-		}
+		// var startCell = grid.WorldToGrid(enemy.GlobalPosition);
+		// var targetCell = grid.WorldToGrid(player.GlobalPosition);
+		// FindPath(startCell, targetCell);
+		//
+		// if (currentPath == null)
+		// 	return;
+		//
+		// foreach (var pos in currentPath)
+		// {
+		// 	grid.DrawTile(pos, Colors.Green);
+		// 	// Vector2 worldPos = grid.ToGlobal(new Vector2(pos.X * CellSize, pos.Y * CellSize));
+		// 	// DrawRect(
+		// 	// 	new Rect2(worldPos, new Vector2(CellSize, CellSize)),
+		// 	// 	new Color(0, 1, 0, 0.4f),
+		// 	// 	filled: true
+		// 	// );
+		// 	// DrawRect(
+		// 	// 	new Rect2(worldPos, new Vector2(CellSize, CellSize)),
+		// 	// 	new Color(0, 1, 0),
+		// 	// 	filled: false
+		// 	// );
+		// }
     }
-}
-
-public struct GridCell
-{
-	public Vector2I Position;
-	public int GCost;
-	public int HCost;
-	public readonly int FCost => GCost + HCost;
-	public bool Blocked;
-	public Vector2I? Parent;
-
-	public readonly int GetDistance(Vector2I target)
+	public struct GridCell
 	{
-		int moveCost = (target.X != Position.X && target.Y != Position.Y) ? 14 : 10;
-		return moveCost;
+		public Vector2I Position;
+		public int GCost;
+		public int HCost;
+		public readonly int FCost => GCost + HCost;
+		public bool Blocked;
+		public Vector2I? Parent;
+
+		public readonly int GetDistance(Vector2I target)
+		{
+			int moveCost = (target.X != Position.X && target.Y != Position.Y) ? 14 : 10;
+			return moveCost;
+		}
 	}
 }
+

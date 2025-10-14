@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=9 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://wegqvvca6jau" path="res://Common/AgentControl/BehaviourManagement/AgentBlackboard.cs" id="2_6bs3c"]
 [ext_resource type="Script" uid="uid://d1bfrfgdaaswj" path="res://Common/AgentControl/BehaviourManagement/BehaviourTreeController.cs" id="2_wovta"]
 [ext_resource type="Texture2D" uid="uid://daffctvq51yk2" path="res://Sprites/Circle.png" id="3_1exfc"]
 [ext_resource type="Script" uid="uid://dabgxqstmcqhq" path="res://Common/AgentControl/BehaviourManagement/ChaseBehaviour.cs" id="3_xeo28"]
+[ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="5_mo1ky"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xeo28"]
@@ -37,6 +38,11 @@ script = ExtResource("2_wovta")
 [node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("blackboard")]
 script = ExtResource("3_xeo28")
 blackboard = NodePath("../../AgentBlackboard")
+
+[node name="InvestigateBehaviour" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("blackboard")]
+script = ExtResource("5_mo1ky")
+blackboard = NodePath("../../AgentBlackboard")
+metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
 
 [node name="LineOfSightRayCast2D" type="RayCast2D" parent="."]
 collision_mask = 3

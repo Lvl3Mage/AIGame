@@ -37,9 +37,12 @@ public partial class GridDefinition : Node2D
 	}
 
 	/// <summary> Transforms a grid cell to a world position. </summary>
-	public Vector2 GridToWorld(Vector2I cell)
+	public Vector2 GridToWorld(Vector2I cell, bool cellCenter = false)
 	{
 		Vector2 local = new(cell.X * cellSize, cell.Y * cellSize);
+		if (cellCenter){
+			local += Vector2.One*cellSize*0.5f;
+		}
 		return ToGlobal(local);
 	}
 

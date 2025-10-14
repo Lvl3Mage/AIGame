@@ -20,6 +20,10 @@ public partial class BehaviourTreeController : Node
 	public override void _Process(double delta)
 	{
 		UpdateBehaviourSelection();
+		DebugDraw2D.SetText("Current behaviour", selectedBehaviour?.GetType().ToString());
+		foreach (IAgentBehaviour agentBehaviour in behaviours){
+			DebugDraw2D.SetText(agentBehaviour.GetType() + " :", agentBehaviour.GetPriority().ToString() );
+		}
 	}
 
 	void UpdateBehaviourSelection()

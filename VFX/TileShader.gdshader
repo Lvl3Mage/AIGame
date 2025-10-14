@@ -7,7 +7,7 @@ void vertex() {
 
 void fragment() {
 	original_color = COLOR;
-	COLOR *= vec4(0.1, 0.1, 0.1, 1.0);
+	COLOR *= vec4(0.1, 0.1, 0.1, COLOR.a);
 // 	COLOR *= 0.5;Z
 	// Called for every pixel the material is visible on.
 }

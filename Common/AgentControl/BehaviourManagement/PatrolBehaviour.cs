@@ -97,7 +97,7 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
         Vector2I start = (Vector2I)_blackboard.AgentBody.GlobalPosition;
         Vector2I end = (Vector2I)_patrolPoints[pointIndex];
 
-        var path = GameManager.Instance.GridNav?.FindPath(start, end);
+        // var path = GameManager.Instance.GridNav?.FindPath(start, end);
         // _blackboard.MovementModule.SetPath(path);
     }
 }

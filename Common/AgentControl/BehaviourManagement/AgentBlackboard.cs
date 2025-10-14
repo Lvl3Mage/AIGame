@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Godot;
 using Game.Common.Modules;
@@ -5,11 +6,6 @@ using Godot.Collections;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
-//todo refactor this, change comments to english, refactor detection to use distance check + raycast
-/// <summary>
-/// Contiene el estado compartido para todos los comportamientos de un agente.
-/// Esto evita que los comportamientos necesiten referencias directas entre ellos.
-/// </summary>
 [GlobalClass]
 public partial class AgentBlackboard : Node
 {
@@ -18,9 +14,10 @@ public partial class AgentBlackboard : Node
     [Export] public RayCast2D LineOfSightRay { get; private set; }
     [Export] public MovementModule MovementModule { get; private set; }
 
-    public bool CanSeePlayer { get; private set; } = false;
-    public Vector2 LastKnownPlayerPosition { get; private set; }
-    public float TimeSinceLastSeenPlayer { get; private set; } = 0f;
+    public bool PlayerVisible { get; private set; } = false;
+    public event Action PlayerVisibilityChanged;
+    public Vector2 LastVisiblePlayerPosition { get; private set; }
+    public float TimeSincePlayerVisible { get; private set; } = 0f;
 
     PlayerController player;
 
@@ -33,18 +30,14 @@ public partial class AgentBlackboard : Node
     {
 
         UpdatePlayerDetection();
-        if (CanSeePlayer){
-            TimeSinceLastSeenPlayer = 0f;
+        if (PlayerVisible){
+            TimeSincePlayerVisible = 0f;
         }
         else
         {
-            TimeSinceLastSeenPlayer += (float)delta;
+            TimeSincePlayerVisible += (float)delta;
         }
     }
-
-    /// <summary>
-    /// Comprueba si el jugador está dentro del área y si hay línea de visión directa.
-    /// </summary>
     void UpdatePlayerDetection()
     {
         Array<Node2D> bodiesInArea = DetectionArea.GetOverlappingBodies();
@@ -56,17 +49,27 @@ public partial class AgentBlackboard : Node
             DebugDraw2D.SetText("Sight check");
             if (LineOfSightRay.GetCollider() == player)
             {
-                CanSeePlayer = true;
-                LastKnownPlayerPosition = player.GlobalPosition;
+                LastVisiblePlayerPosition = player.GlobalPosition;
+                SetPlayerVisibility(true);
             }
             else
             {
-                CanSeePlayer = false;
+                SetPlayerVisibility(false);
             }
         }
         else
         {
-            CanSeePlayer = false;
+            SetPlayerVisibility(false);
         }
     }
+
+    void SetPlayerVisibility(bool visible)
+    {
+        bool vis = PlayerVisible;
+        PlayerVisible = visible;
+        if (vis != PlayerVisible){
+            PlayerVisibilityChanged?.Invoke();
+        }
+    }
+
 }
