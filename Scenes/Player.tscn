@@ -15,16 +15,10 @@ motion_mode = 1
 script = ExtResource("1_kyqiw")
 movementModule = NodePath("TopdownMovementModule")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-light_mask = 2
-y_sort_enabled = true
-position = Vector2(4.200004, -65.34999)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_gntrk")
-
-[node name="TopdownMovementModule" type="Node2D" parent="."]
+[node name="TopdownMovementModule" type="Node2D" parent="." node_paths=PackedStringArray("animationModule")]
 position = Vector2(4.2000046, -65.35)
 script = ExtResource("3_dewec")
+animationModule = NodePath("../CharacterAnimationModule")
 metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -32,5 +26,11 @@ shape = SubResource("RectangleShape2D_gntrk")
 
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
 script = ExtResource("4_dewec")
-AmplitudeMultiplier = 5.855
+minVel = -20.0
 metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule"]
+light_mask = 2
+position = Vector2(4.200004, -65.34999)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_gntrk")
