@@ -12,7 +12,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
 
     public IAgentBehaviour.Priority CurrentPriority { get; private set; } = IAgentBehaviour.Priority.Disabled;
 
-    bool 8isActive = false;
+    bool isActive = false;
     Timer timer;
     Vector2 investigationTarget;
     bool isInvestigatingPoint = false;
@@ -61,7 +61,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
         timer.Stop();
         // _blackboard.MovementModule.Stop();
         // Limpiamos el punto de interés para no volver a investigar lo mismo.
-        blackboard.LastKnownPlayerPosition = Vector2.Zero;
+        // blackboard.LastKnownPlayerPosition = Vector2.Zero;
     }
 
     public override void _Process(double delta)
@@ -82,6 +82,6 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
         GD.Print("Agente: No encontré nada. Volviendo a la patrulla.");
         // Al terminar el tiempo, forzamos el fin del comportamiento
         // limpiando el punto de interés y dejando que el controlador re-evalúe.
-        blackboard.LastKnownPlayerPosition = Vector2.Zero;
+        // blackboard.LastKnownPlayerPosition = Vector2.Zero;
     }
 }

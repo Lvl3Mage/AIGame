@@ -43,7 +43,6 @@ public partial class TopdownMovementModule : Node2D
             AxisMotion(charBody.Velocity.Y, acceleration, deceleration, maxVelocity.Y, InputDown, InputUp)
         );
 
-        animationModule?.SetVelocity(charBody.Velocity);
 
         charBody.MoveAndSlide();
     }
