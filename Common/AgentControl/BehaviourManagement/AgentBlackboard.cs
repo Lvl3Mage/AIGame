@@ -1,5 +1,7 @@
+using System.Linq;
 using Godot;
 using Game.Common.Modules;
+using Godot.Collections;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
@@ -16,8 +18,9 @@ public partial class AgentBlackboard : Node
     [Export] public RayCast2D LineOfSightRay { get; private set; }
     [Export] public MovementModule MovementModule { get; private set; }
 
-    public bool CanSeePlayer { get; set; } = false;
-    public Vector2 LastKnownPlayerPosition { get; set; }
+    public bool CanSeePlayer { get; private set; } = false;
+    public Vector2 LastKnownPlayerPosition { get; private set; }
+    public float TimeSinceLastSeenPlayer { get; private set; } = 0f;
 
     PlayerController player;
 
@@ -28,7 +31,15 @@ public partial class AgentBlackboard : Node
 
     public override void _Process(double delta)
     {
+
         UpdatePlayerDetection();
+        if (CanSeePlayer){
+            TimeSinceLastSeenPlayer = 0f;
+        }
+        else
+        {
+            TimeSinceLastSeenPlayer += (float)delta;
+        }
     }
 
     /// <summary>
@@ -36,16 +47,8 @@ public partial class AgentBlackboard : Node
     /// </summary>
     void UpdatePlayerDetection()
     {
-        var bodiesInArea = DetectionArea.GetOverlappingBodies();
-        bool playerInArea = false;
-        foreach (var body in bodiesInArea)
-        {
-            if (body == player)
-            {
-                playerInArea = true;
-                break;
-            }
-        }
+        Array<Node2D> bodiesInArea = DetectionArea.GetOverlappingBodies();
+        bool playerInArea = bodiesInArea.Any(body => body == player);
         if (playerInArea)
         {
             LineOfSightRay.TargetPosition = AgentBody.ToLocal(player.GlobalPosition);
