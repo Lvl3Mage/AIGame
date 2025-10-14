@@ -60,12 +60,6 @@ public partial class GridNavigation : Node2D
 		gridCells[cell.X, cell.Y].Blocked = false;
 	}
 
-	//todo Alonso, can't look into it right now but this looks pretty wrong.
-	// You only need to calculate the heuristic once a cell is reached to evaluate it, otherwise you'll be calculating a lot of unnecessary heuristics
-	// The heuristic can just be euclidean distance (Aka straight line distance)
-	// Also, you need to look at the nodes in order of lowest F cost, (sum of G and H cost) so use a priority queue
-
-	// I recommend you try implementing this as Dijkstra first and then add the heuristic on top of it since the 2 algorithms are basically the same
 	public Vector2I[] FindPath(Vector2I start, Vector2I target)
 	{
 		if (start == target)
