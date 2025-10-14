@@ -63,6 +63,7 @@ metadata/_custom_type_script = "uid://v1cehc3jy46d"
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("followTarget")]
 position = Vector2(1262, 436)
 script = ExtResource("3_y4jh7")
+MouseInfluence = 0.3
 followTarget = NodePath("../Player")
 metadata/_edit_lock_ = true
 
