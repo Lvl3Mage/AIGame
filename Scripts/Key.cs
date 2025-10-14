@@ -2,6 +2,7 @@ using Game.Common;
 using Godot;
 using System;
 
+namespace Game;
 public partial class Key : Node2D
 {
 	[Export] public Area2D InteractionArea { get; set; }

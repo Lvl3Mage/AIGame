@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://b81xwcxguysrk" path="res://VFX/TilemapShader.tres" id="1_q68mp"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="2_tr2i4"]
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="3_nhkr4"]
-[ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/CameraController.cs" id="3_y4jh7"]
+[ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/DynamicCamera.cs" id="3_y4jh7"]
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="4_7rqgy"]
 [ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="5_f140w"]
 [ext_resource type="TileSet" uid="uid://mtrdbjanr3lb" path="res://Sprites/RockTileset.tres" id="5_qxria"]
@@ -60,10 +60,10 @@ script = ExtResource("6_0iob3")
 grid = NodePath("..")
 metadata/_custom_type_script = "uid://v1cehc3jy46d"
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("followTarget")]
 position = Vector2(1262, 436)
 script = ExtResource("3_y4jh7")
-target = NodePath("../Player")
+followTarget = NodePath("../Player")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_tr2i4")]

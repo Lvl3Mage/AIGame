@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+namespace Game;
 public partial class Door : Node2D
 {
     [Export] public Key NeededKey { get; private set; }
