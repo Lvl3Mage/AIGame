@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=10 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://wegqvvca6jau" path="res://Common/AgentControl/BehaviourManagement/AgentBlackboard.cs" id="2_6bs3c"]
 [ext_resource type="Script" uid="uid://d1bfrfgdaaswj" path="res://Common/AgentControl/BehaviourManagement/BehaviourTreeController.cs" id="2_wovta"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dabgxqstmcqhq" path="res://Common/AgentControl/BehaviourManagement/ChaseBehaviour.cs" id="3_xeo28"]
 [ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="5_mo1ky"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
+[ext_resource type="Script" uid="uid://cii6jfpta3bmh" path="res://Common/Modules/LoseConditionModule.cs" id="7_uoxpr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xeo28"]
 radius = 32.0
@@ -57,3 +58,8 @@ shape = SubResource("CircleShape2D_6bs3c")
 script = ExtResource("7_6bs3c")
 agentBody = NodePath("..")
 metadata/_custom_type_script = "uid://dcr5wi8h1f7k5"
+
+[node name="LoseConditionModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
+script = ExtResource("7_uoxpr")
+agentBody = NodePath("..")
+metadata/_custom_type_script = "uid://cii6jfpta3bmh"

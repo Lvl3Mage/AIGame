@@ -21,20 +21,5 @@ public partial class MovementModule : Node
         agentBody.Velocity = newVelocity;
         agentBody.MoveAndSlide();
 
-        /* Cuando el enemigo choque contra el jugador restart
-        for (int i = 0; i < agentBody.GetSlideCollisionCount(); i++)
-        {
-            KinematicCollision2D collision = agentBody.GetSlideCollision(i);
-            if (collision.GetCollider() is Node2D collider)
-            {
-                if (collider.IsInGroup("player"))
-                {
-                    GD.Print("¡Colisión con el jugador! Reiniciando la escena...");
-                    GetTree().ReloadCurrentScene();
-                    break;
-                }
-            }
-        }
-        */
     }
 }
