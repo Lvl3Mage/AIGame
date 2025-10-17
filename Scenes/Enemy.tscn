@@ -35,13 +35,11 @@ MovementModule = NodePath("../MovementModule")
 [node name="BehaviourMachineModule" type="Node" parent="."]
 script = ExtResource("2_wovta")
 
-[node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("blackboard")]
+[node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule"]
 script = ExtResource("3_xeo28")
-blackboard = NodePath("../../AgentBlackboard")
 
-[node name="InvestigateBehaviour" type="Node" parent="BehaviourMachineModule" node_paths=PackedStringArray("blackboard")]
+[node name="InvestigateBehaviour" type="Node" parent="BehaviourMachineModule"]
 script = ExtResource("5_mo1ky")
-blackboard = NodePath("../../AgentBlackboard")
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
 
 [node name="LineOfSightRayCast2D" type="RayCast2D" parent="."]
