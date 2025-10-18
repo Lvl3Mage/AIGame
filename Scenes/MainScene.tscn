@@ -47,6 +47,7 @@ GridNav = NodePath("GridDefinition/GridNavigation")
 GridDef = NodePath("GridDefinition")
 
 [node name="GridDefinition" type="Node2D" parent="GameManager"]
+visible = false
 script = ExtResource("4_7rqgy")
 width = 76
 height = 40
