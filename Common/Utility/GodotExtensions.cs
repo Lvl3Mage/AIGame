@@ -26,7 +26,7 @@ public static class GodotExtensions
 		parent.AddChild(instance);
 		return instance;
 	}
-	public static IEnumerable<T> GetChildrenOfType<T>(this Node node) where T : Node
+	public static IEnumerable<T> GetChildrenOfType<T>(this Node node)
 	{
 		foreach (Node child in node.GetChildren())
 		{

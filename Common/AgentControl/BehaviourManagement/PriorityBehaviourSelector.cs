@@ -14,12 +14,11 @@ public partial class PriorityBehaviourSelector : Node, IAgentBehaviour
 	public override void _Ready()
 	{
 		behaviours = this.GetAllChildrenOfType<IPrioritizedBehaviour>().ToArray();
-
-		UpdateBehaviourSelection();
 	}
 
 	public override void _Process(double delta)
 	{
+		if (!active) return;
 		UpdateBehaviourSelection();
 		DebugDraw2D.SetText("Current behaviour", selectedBehaviour?.GetType().ToString());
 		foreach (IPrioritizedBehaviour agentBehaviour in behaviours){
@@ -56,15 +55,15 @@ public partial class PriorityBehaviourSelector : Node, IAgentBehaviour
 
 		return topBehaviour;
 	}
-
-	//todo make it so the selected behaviour is started/stopped when this is started/stopped and maybe runnign the selection loop is useless when not active
 	public void StartBehavior()
 	{
-		throw new System.NotImplementedException();
+		UpdateBehaviourSelection();
+		active = true;
 	}
 
 	public void StopBehavior()
 	{
-		throw new System.NotImplementedException();
+		SwitchSelectedBehaviour(null);
+		active = false;
 	}
 }
