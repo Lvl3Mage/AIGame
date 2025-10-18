@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://xdrqqrpdqmqr"]
+
+[ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Common/PlayerController.cs" id="1_atl77"]
+[ext_resource type="Script" uid="uid://brj5wymtuq8x" path="res://Common/Modules/TopdownMovementModule.cs" id="2_07mh7"]
+[ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="3_ncby1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
+size = Vector2(57, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lu7yg"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule")]
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_atl77")
+movementModule = NodePath("TopdownMovementModule")
+
+[node name="TopdownMovementModule" type="Node2D" parent="." node_paths=PackedStringArray("animationModule")]
+position = Vector2(4.2000046, -65.35)
+script = ExtResource("2_07mh7")
+animationModule = NodePath("../CharacterAnimationModule")
+metadata/_custom_type_script = "uid://brj5wymtuq8x"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gntrk")
+
+[node name="CharacterAnimationModule" type="Node2D" parent="."]
+script = ExtResource("3_ncby1")
+minVel = -20.0
+metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterAnimationModule"]
+light_mask = 2
+position = Vector2(4.200004, -65.34999)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_lu7yg")
+animation = &"Idle"
