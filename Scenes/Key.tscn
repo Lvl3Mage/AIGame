@@ -1,21 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxjjt2whtbm5p"]
+[gd_scene load_steps=5 format=3 uid="uid://cxjjt2whtbm5p"]
 
-[ext_resource type="Script" uid="uid://c6m3dcx5txhav" path="res://Scripts/Key.cs" id="1_i3td7"]
-[ext_resource type="Texture2D" uid="uid://c7fhy218hoso4" path="res://Sprites/Key.png" id="1_og2wv"]
+[ext_resource type="Script" uid="uid://c6m3dcx5txhav" path="res://Scripts/DiamondKey.cs" id="1_i3td7"]
+[ext_resource type="Texture2D" uid="uid://c8nlrmc7wncpu" path="res://Sprites/Key.png" id="1_og2wv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i3td7"]
+radius = 72.11102
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vmsh4"]
-radius = 54.230988
+radius = 34.0
 
-[node name="Key" type="Node2D"]
+[node name="Key" type="Node2D" node_paths=PackedStringArray("CollectionArea", "InsertKeyArea")]
 z_index = 100
 script = ExtResource("1_i3td7")
+CollectionArea = NodePath("CollectionArea2D")
+InsertKeyArea = NodePath("InsertKeyArea2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.034500003, 0.034500003)
+texture_filter = 1
+position = Vector2(0.5, -12.5)
 texture = ExtResource("1_og2wv")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="InsertKeyArea2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InsertKeyArea2D"]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_i3td7")
+debug_color = Color(0.33863094, 0.6060093, 0.4050014, 0.41960785)
+
+[node name="CollectionArea2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectionArea2D"]
+position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_vmsh4")
+debug_color = Color(0.61842316, 0.47662234, 0.65521264, 0.41960785)
