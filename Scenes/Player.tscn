@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://8pas1mruis60"]
+[gd_scene load_steps=8 format=3 uid="uid://8pas1mruis60"]
 
 [ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Common/PlayerController.cs" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://bpibmcln7tgde" path="res://Sprites/Player.png" id="2_gntrk"]
@@ -7,6 +7,15 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
 size = Vector2(57, 32)
+
+[sub_resource type="Gradient" id="Gradient_f140w"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dewec"]
+gradient = SubResource("Gradient_f140w")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule")]
 collision_layer = 2
@@ -34,3 +43,9 @@ light_mask = 2
 position = Vector2(4.200004, -65.34999)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_gntrk")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+shadow_enabled = true
+shadow_filter = 2
+texture = SubResource("GradientTexture2D_dewec")
+texture_scale = 16.3
