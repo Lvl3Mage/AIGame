@@ -60,6 +60,7 @@ debug_color = Color(0.8980392, 0, 0.15294118, 0.050980393)
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("7_idouy")
 offset = Vector2(0, -72)
 

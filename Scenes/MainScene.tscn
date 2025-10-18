@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://cf3oj5noao8fe"]
+[gd_scene load_steps=13 format=4 uid="uid://cf3oj5noao8fe"]
 
 [ext_resource type="Material" uid="uid://b81xwcxguysrk" path="res://VFX/TilemapShader.tres" id="1_0iob3"]
 [ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Common/GameManager.cs" id="1_7rqgy"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://v1cehc3jy46d" path="res://Common/AgentControl/Navigation/GridPhysicsOccupation.cs" id="6_0iob3"]
 [ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/DynamicCamera.cs" id="8_4b75m"]
 [ext_resource type="Script" uid="uid://cav4dofx6oesp" path="res://Common/Utility/DebugDrawQueue.cs" id="10_4b75m"]
+[ext_resource type="PackedScene" uid="uid://cxjjt2whtbm5p" path="res://Scenes/Key.tscn" id="11_8ju71"]
+[ext_resource type="PackedScene" uid="uid://b06f4qtjscki6" path="res://Scenes/Door.tscn" id="12_xb4mg"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -73,3 +75,11 @@ position = Vector2(1495, 543)
 [node name="Enemy" parent="." instance=ExtResource("3_nhkr4")]
 y_sort_enabled = true
 position = Vector2(1027, 968)
+
+[node name="Key" parent="." instance=ExtResource("11_8ju71")]
+position = Vector2(2704, 507)
+lerpFactor = 4.0
+
+[node name="Door" parent="." node_paths=PackedStringArray("NeededKey") instance=ExtResource("12_xb4mg")]
+position = Vector2(3091, 977)
+NeededKey = NodePath("../Key")

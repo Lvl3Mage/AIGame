@@ -5,9 +5,6 @@
 [ext_resource type="Script" uid="uid://brj5wymtuq8x" path="res://Common/Modules/TopdownMovementModule.cs" id="3_dewec"]
 [ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="4_dewec"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
-size = Vector2(57, 32)
-
 [sub_resource type="Gradient" id="Gradient_f140w"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
@@ -17,9 +14,12 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
+size = Vector2(57, 32)
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule")]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 29
 motion_mode = 1
 script = ExtResource("1_kyqiw")
 movementModule = NodePath("TopdownMovementModule")
@@ -30,9 +30,6 @@ script = ExtResource("3_dewec")
 animationModule = NodePath("../CharacterAnimationModule")
 metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_gntrk")
-
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
 script = ExtResource("4_dewec")
 minVel = -20.0
@@ -40,6 +37,7 @@ metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule"]
 light_mask = 2
+texture_filter = 1
 position = Vector2(4.200004, -65.34999)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_gntrk")
@@ -49,3 +47,7 @@ shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_dewec")
 texture_scale = 16.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gntrk")
+debug_color = Color(0.5325009, 0.56959665, 0.085515074, 0.41960785)
