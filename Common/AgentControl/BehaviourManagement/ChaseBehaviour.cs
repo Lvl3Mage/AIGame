@@ -2,7 +2,7 @@ using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
-public partial class ChaseBehaviour : Node, IAgentBehaviour
+public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 {
 	[Export] AgentBlackboard blackboard;
 	[Export] float chaseSpeed = 100f;
@@ -15,9 +15,9 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 		player = GameManager.Instance.Player;
 	}
 
-	public IAgentBehaviour.Priority GetPriority()
+	public IPrioritizedBehaviour.Priority GetPriority()
 	{
-		return blackboard.PlayerVisible ? IAgentBehaviour.Priority.High : IAgentBehaviour.Priority.Disabled;
+		return blackboard.PlayerVisible ? IPrioritizedBehaviour.Priority.Important : IPrioritizedBehaviour.Priority.Disabled;
 	}
 
 	public void StartBehavior()

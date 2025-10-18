@@ -2,7 +2,7 @@ using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
-public partial class PatrolBehaviour : Node, IAgentBehaviour
+public partial class PatrolBehaviour : Node, IPrioritizedBehaviour
 {
     [Export] private AgentBlackboard _blackboard;
     [Export] private Vector2[] _patrolPoints = [];
@@ -14,7 +14,7 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
     private float _waypointPauseTime = 2.0f;
 
 
-    public IAgentBehaviour.Priority CurrentPriority { get; set; } = IAgentBehaviour.Priority.Low;
+    public IPrioritizedBehaviour.Priority CurrentPriority { get; set; } = IPrioritizedBehaviour.Priority.Low;
 
     private int _currentPatrolIndex = 0;
     private bool _isActive = false;
@@ -30,7 +30,7 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
     }
 
 
-    public IAgentBehaviour.Priority GetPriority()
+    public IPrioritizedBehaviour.Priority GetPriority()
     {
         return CurrentPriority;
     }

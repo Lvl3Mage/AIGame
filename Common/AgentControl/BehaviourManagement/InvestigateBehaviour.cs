@@ -4,7 +4,7 @@ using Godot;
 namespace Game.Common.AgentControl.BehaviourManagement;
 
 [GlobalClass]
-public partial class InvestigateBehaviour : Node, IAgentBehaviour
+public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 {
 	[Export] AgentBlackboard blackboard;
 	bool isActive;
@@ -24,10 +24,10 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
 		);
 	}
 
-	public IAgentBehaviour.Priority GetPriority()
+	public IPrioritizedBehaviour.Priority GetPriority()
 	{
-		if (investigationPath.PathComplete()) return IAgentBehaviour.Priority.Disabled;
-		return IAgentBehaviour.Priority.Low;
+		if (investigationPath.PathComplete()) return IPrioritizedBehaviour.Priority.Disabled;
+		return IPrioritizedBehaviour.Priority.Low;
 	}
 
 	public void StartBehavior()

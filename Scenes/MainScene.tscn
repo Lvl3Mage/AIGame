@@ -53,10 +53,11 @@ height = 40
 cellSize = 50.0
 debugDraw = false
 
-[node name="GridNavigation" type="Node2D" parent="GameManager/GridDefinition" node_paths=PackedStringArray("grid")]
+[node name="GridNavigation" type="Node2D" parent="GameManager/GridDefinition" node_paths=PackedStringArray("grid", "gridPhysicsOccupation")]
 position = Vector2(-155, -64)
 script = ExtResource("5_f140w")
 grid = NodePath("..")
+gridPhysicsOccupation = NodePath("GridPhysicsOccupation")
 metadata/_custom_type_script = "uid://c6s82xvwvcsr"
 
 [node name="GridPhysicsOccupation" type="Node2D" parent="GameManager/GridDefinition/GridNavigation" node_paths=PackedStringArray("grid")]
@@ -84,4 +85,4 @@ texture_scale = 16.3
 
 [node name="Enemy" parent="." instance=ExtResource("3_nhkr4")]
 y_sort_enabled = true
-position = Vector2(819, 581)
+position = Vector2(811, 536)
