@@ -14,8 +14,8 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
-size = Vector2(57, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
+radius = 27.018513
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule")]
 collision_layer = 2
@@ -49,5 +49,5 @@ texture = SubResource("GradientTexture2D_dewec")
 texture_scale = 16.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_gntrk")
+shape = SubResource("CircleShape2D_dewec")
 debug_color = Color(0.5325009, 0.56959665, 0.085515074, 0.41960785)

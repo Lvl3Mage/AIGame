@@ -15,7 +15,7 @@ public partial class Door : Node2D
     public void Open()
     {
         if (opened) return;
-        collider.Disabled = true;
+        Callable.From(() => collider.Disabled = true).CallDeferred();
         opened = true;
         fading = true;
     }
@@ -23,7 +23,7 @@ public partial class Door : Node2D
     public void Close()
     {
         sprite.Modulate = new Color(1, 1, 1, 1);
-        collider.Disabled = false;
+        Callable.From(() => collider.Disabled = true).CallDeferred();
         opened = false;
         fading = false;
     }
