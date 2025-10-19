@@ -18,6 +18,7 @@ code = "shader_type canvas_item;
 
 varying vec4 original_color;
 uniform vec4 new_color : source_color;
+uniform float max_energy = 1.0;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -29,13 +30,14 @@ void fragment() {
 }
 
 void light() {
-	LIGHT = original_color*LIGHT_COLOR;
-	LIGHT = original_color*LIGHT_COLOR * LIGHT_ENERGY;
+    float cappedEnergy = min(LIGHT_ENERGY, max_energy);
+    LIGHT = LIGHT_COLOR * cappedEnergy;
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrcb1"]
 shader = SubResource("Shader_ioiu6")
 shader_parameter/new_color = Color(0.18844756, 0.14744127, 0.24959025, 1)
+shader_parameter/max_energy = 0.8
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
