@@ -10,17 +10,24 @@ public partial class PlayerController : CharacterBody2D
     [Export] Modules.TopdownMovementModule movementModule;
     [Export] Sprite2D sprite;
     [Export] float dieAnimationTime = 0.5f;
+    [Export] float shrinkSpeed = 200f;
 
-    bool pressRight, pressLeft, pressUp, pressDown, lockMovement;
+    public bool LockMovement { get; set; }
+    public bool hasWon { get; set; }
+
+    bool pressRight, pressLeft, pressUp, pressDown;
 
     public override void _Ready()
     {
-        lockMovement = false;
+        LockMovement = false;
+        hasWon = false;
     }
 
     public override void _Process(double delta)
     {
-        if (lockMovement)
+        float dt = (float)delta;
+
+        if (LockMovement)
             pressRight = pressLeft = pressUp = pressDown = false;
         else
             MapActions();
@@ -32,6 +39,12 @@ public partial class PlayerController : CharacterBody2D
 
         if (pressRight) sprite.FlipH = false;
         else if (pressLeft) sprite.FlipH = true;
+
+        if (hasWon) // Funny
+        {
+            sprite.RotationDegrees += 2000f * dt;
+            sprite.Scale.Lerp(Vector2.Zero, MathUtility.ComputeLerpWeight(shrinkSpeed, dt));
+        }
     }
 
     void MapActions()
@@ -52,7 +65,7 @@ public partial class PlayerController : CharacterBody2D
         float getRedColor() => sprite.SelfModulate.R;
         void setRedColor(float v) => sprite.SelfModulate = new Color(v, sprite.SelfModulate.G, sprite.SelfModulate.B, sprite.SelfModulate.A);
 
-        lockMovement = true;
+        LockMovement = true;
         _ = MathUtility.LerpAsync(getRedColor, setRedColor, 255f, dieAnimationTime);
         await MathUtility.LerpAsync(getRotation, setRotation, 90f, dieAnimationTime);
 

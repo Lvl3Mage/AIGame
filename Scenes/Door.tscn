@@ -18,6 +18,7 @@ fill_to = Vector2(0, 0.5)
 size = Vector2(117, 100)
 
 [node name="Door" type="Node2D" node_paths=PackedStringArray("sprite", "collider", "light2D")]
+y_sort_enabled = true
 scale = Vector2(1.6, 1.6)
 script = ExtResource("1_mw28t")
 sprite = NodePath("Sprite2D")

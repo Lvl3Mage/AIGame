@@ -1,7 +1,5 @@
-[gd_scene load_steps=15 format=4 uid="uid://duewf84pi8phq"]
+[gd_scene load_steps=14 format=4 uid="uid://duewf84pi8phq"]
 
-[ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Common/GameManager.cs" id="1_ioiu6"]
-[ext_resource type="PackedScene" uid="uid://dy07t4su082km" path="res://Scenes/Transition.tscn" id="1_mrcb1"]
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="2_mrcb1"]
 [ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="3_boklw"]
 [ext_resource type="Script" uid="uid://v1cehc3jy46d" path="res://Common/AgentControl/Navigation/GridPhysicsOccupation.cs" id="4_x4g3l"]
@@ -11,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/DynamicCamera.cs" id="8_1y6uj"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="9_tmw4s"]
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="10_ioiu6"]
+[ext_resource type="PackedScene" uid="uid://3wtj01h2ugjy" path="res://Scenes/Goal.tscn" id="10_x4g3l"]
 [ext_resource type="PackedScene" uid="uid://cxjjt2whtbm5p" path="res://Scenes/Key.tscn" id="11_ow0hr"]
 [ext_resource type="PackedScene" uid="uid://b06f4qtjscki6" path="res://Scenes/Door.tscn" id="12_vu6lt"]
 
@@ -18,53 +17,8 @@
 shader = ExtResource("6_mrcb1")
 shader_parameter/shaded_color = Color(0.07695643, 0.062432915, 0.11799968, 1)
 
-[node name="Main" type="Node2D"]
+[node name="GameLevel" type="Node2D"]
 y_sort_enabled = true
-metadata/_edit_lock_ = true
-
-[node name="GameInterface" type="CanvasLayer" parent="."]
-
-[node name="Effects" type="Control" parent="GameInterface"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="ScreenTransition" parent="GameInterface/Effects" instance=ExtResource("1_mrcb1")]
-visible = false
-layout_mode = 1
-TransitionTime = 0.8
-metadata/_edit_use_anchors_ = true
-
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("Player", "GridNav", "GridDef")]
-script = ExtResource("1_ioiu6")
-Player = NodePath("../Player")
-GridNav = NodePath("GridDefinition/GridNavigation")
-GridDef = NodePath("GridDefinition")
-
-[node name="GridDefinition" type="Node2D" parent="GameManager"]
-script = ExtResource("2_mrcb1")
-width = 76
-height = 40
-cellSize = 50.0
-debugDraw = false
-metadata/_edit_lock_ = true
-
-[node name="GridNavigation" type="Node2D" parent="GameManager/GridDefinition" node_paths=PackedStringArray("grid", "gridPhysicsOccupation")]
-script = ExtResource("3_boklw")
-grid = NodePath("..")
-gridPhysicsOccupation = NodePath("GridPhysicsOccupation")
-metadata/_custom_type_script = "uid://c6s82xvwvcsr"
-metadata/_edit_lock_ = true
-
-[node name="GridPhysicsOccupation" type="Node2D" parent="GameManager/GridDefinition/GridNavigation" node_paths=PackedStringArray("grid", "collisionLayer")]
-script = ExtResource("4_x4g3l")
-grid = NodePath("../..")
-collisionLayer = NodePath("../../../../Environment/TileMapLayer")
-metadata/_custom_type_script = "uid://v1cehc3jy46d"
 metadata/_edit_lock_ = true
 
 [node name="Environment" type="Node2D" parent="."]
@@ -91,13 +45,13 @@ position = Vector2(7640, 1473)
 [node name="DoorB" parent="Environment" instance=ExtResource("12_vu6lt")]
 position = Vector2(541, 1473)
 
-[node name="Key" parent="." instance=ExtResource("11_ow0hr")]
-position = Vector2(7269.416, 1597.6877)
+[node name="Goal" parent="." instance=ExtResource("10_x4g3l")]
+position = Vector2(541, 281)
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("9_tmw4s")]
 light_mask = 2
-y_sort_enabled = true
-position = Vector2(7645, 1925)
+position = Vector2(541, 1145)
 dieAnimationTime = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("followTarget")]
@@ -123,4 +77,26 @@ position = Vector2(3522, 4933)
 
 [node name="DebugDrawQueue" type="Node2D" parent="."]
 script = ExtResource("7_e0o5i")
+metadata/_edit_lock_ = true
+
+[node name="GridDefinition" type="Node2D" parent="."]
+script = ExtResource("2_mrcb1")
+width = 76
+height = 40
+cellSize = 50.0
+debugDraw = false
+metadata/_edit_lock_ = true
+
+[node name="GridNavigation" type="Node2D" parent="GridDefinition" node_paths=PackedStringArray("grid", "gridPhysicsOccupation")]
+script = ExtResource("3_boklw")
+grid = NodePath("..")
+gridPhysicsOccupation = NodePath("GridPhysicsOccupation")
+metadata/_custom_type_script = "uid://c6s82xvwvcsr"
+metadata/_edit_lock_ = true
+
+[node name="GridPhysicsOccupation" type="Node2D" parent="GridDefinition/GridNavigation" node_paths=PackedStringArray("grid", "collisionLayer")]
+script = ExtResource("4_x4g3l")
+grid = NodePath("../..")
+collisionLayer = NodePath("../../../Environment/TileMapLayer")
+metadata/_custom_type_script = "uid://v1cehc3jy46d"
 metadata/_edit_lock_ = true
