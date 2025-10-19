@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy07t4su082km"]
+
+[ext_resource type="Script" uid="uid://djctkkdb67nlr" path="res://Common/Transition.cs" id="1_ml2rw"]
+
+[sub_resource type="Curve" id="Curve_rr8bd"]
+_data = [Vector2(0, 0), 0.0, 0.092631534, 0, 0, Vector2(1, 1), 3.0491722, 0.0, 0, 0]
+point_count = 2
+
+[node name="Transition" type="Control" node_paths=PackedStringArray("blackSquare")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ml2rw")
+blackSquare = NodePath("ColorRect")
+TransitionTime = 1.0
+TransitionCurve = SubResource("Curve_rr8bd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

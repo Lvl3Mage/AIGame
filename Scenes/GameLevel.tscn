@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=4 uid="uid://duewf84pi8phq"]
+[gd_scene load_steps=14 format=4 uid="uid://duewf84pi8phq"]
 
 [ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Common/GameManager.cs" id="1_ioiu6"]
+[ext_resource type="PackedScene" uid="uid://dy07t4su082km" path="res://Scenes/Transition.tscn" id="1_mrcb1"]
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="2_mrcb1"]
 [ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="3_boklw"]
 [ext_resource type="Script" uid="uid://v1cehc3jy46d" path="res://Common/AgentControl/Navigation/GridPhysicsOccupation.cs" id="4_x4g3l"]
@@ -20,11 +21,28 @@ metadata/_edit_lock_ = true
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.9113637, 0.79509217, 0.6287312, 1)
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("Player", "GridNav", "GridDef")]
+[node name="GameInterface" type="CanvasLayer" parent="."]
+
+[node name="Effects" type="Control" parent="GameInterface"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ScreenTransition" parent="GameInterface/Effects" instance=ExtResource("1_mrcb1")]
+layout_mode = 1
+TransitionTime = 0.8
+metadata/_edit_use_anchors_ = true
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("Player", "GridNav", "GridDef", "screenTransition")]
 script = ExtResource("1_ioiu6")
 Player = NodePath("../Player")
 GridNav = NodePath("GridDefinition/GridNavigation")
 GridDef = NodePath("GridDefinition")
+screenTransition = NodePath("../GameInterface/Effects/ScreenTransition")
 
 [node name="GridDefinition" type="Node2D" parent="GameManager"]
 script = ExtResource("2_mrcb1")
@@ -83,7 +101,7 @@ position = Vector2(3684, 6242)
 metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("10_ioiu6")]
-position = Vector2(3684, 5669)
+position = Vector2(3109, 4657)
 
 [node name="DoorA" parent="." instance=ExtResource("12_vu6lt")]
 position = Vector2(7640, 1473)

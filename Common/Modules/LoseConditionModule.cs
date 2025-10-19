@@ -15,10 +15,9 @@ public partial class LoseConditionModule : Node
         damageArea.BodyEntered += OnBodyEntered;
     }
 
-    void OnBodyEntered(Node2D body)
+    async void OnBodyEntered(Node2D body)
     {
-        GD.Print("CollisioN!");
-        if (body is PlayerController)
-            GetTree().ReloadCurrentScene();
+        if (body == GameManager.Instance.Player)
+            GameManager.Instance.Player.Die();
     }
 }
