@@ -10,6 +10,8 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_dewec"]
 gradient = SubResource("Gradient_dewec")
+width = 100
+height = 100
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0.5)
@@ -33,6 +35,7 @@ stepSoundVolume = 0.4
 [node name="TopdownMovementModule" type="Node2D" parent="." node_paths=PackedStringArray("animationModule")]
 position = Vector2(4.2000046, -65.35)
 script = ExtResource("3_dewec")
+MaxMoveSpeed = 1000.0
 animationModule = NodePath("../CharacterAnimationModule")
 metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
@@ -54,12 +57,12 @@ offset = Vector2(42.00004, -653.4999)
 [node name="PointLight2D" type="PointLight2D" parent="CharacterAnimationModule"]
 position = Vector2(7.6293945e-06, -18.999992)
 scale = Vector2(0.99999994, 0.99999994)
-color = Color(0.8930383, 0.7079758, 0.2695345, 1)
-energy = 0.5
+color = Color(0.9701124, 0.81832045, 0.48652142, 1)
+energy = 0.8
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_dewec")
-texture_scale = 16.3
+texture_scale = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -19)

@@ -15,7 +15,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrcb1"]
 shader = ExtResource("6_mrcb1")
-shader_parameter/shaded_color = Color(0.07695643, 0.062432915, 0.11799968, 1)
+shader_parameter/shaded_color = Color(0, 0, 0, 1)
 
 [node name="GameLevel" type="Node2D"]
 y_sort_enabled = true

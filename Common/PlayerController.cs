@@ -8,7 +8,7 @@ namespace Game.Common;
 
 public partial class PlayerController : CharacterBody2D
 {
-    [Export] Modules.TopdownMovementModule movementModule;
+    [Export] TopdownMovementModule movementModule;
     [Export] Sprite2D sprite;
     [Export] CharacterAnimationModule animationModule;
     [Export] float dieAnimationTime = 0.5f;
