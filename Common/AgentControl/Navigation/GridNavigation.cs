@@ -39,6 +39,61 @@ public partial class GridNavigation : Node2D
 			}
 		}
 	}
+	public ReachableMap ComputeReachableLookupMap(Vector2 origin, float range)
+	{
+		Vector2I gridOrigin = grid.WorldToGrid(origin);
+		HashSet<Vector2I> visited =[];
+		Dictionary<Vector2I, float> distances = new();
+		PriorityQueue<Vector2I, float> toVisit = new();
+		toVisit.Enqueue(gridOrigin, 0);
+		visited.Add(gridOrigin);
+		while (toVisit.TryDequeue(out Vector2I current, out float cellDistance))
+		{
+			foreach (var neighbor in grid.GetAdjacentCells(current, true))
+			{
+				if (visited.Contains(neighbor))
+					continue;
+				if (gridCells[neighbor.X, neighbor.Y].Blocked)
+					continue;
+
+				float extraDistance = grid.GridToWorld(current, true).DistanceTo(grid.GridToWorld(neighbor, true));
+				float totalDistance = cellDistance + extraDistance;
+				if (totalDistance > range)
+					continue;
+				if (!distances.TryAdd(neighbor, totalDistance)){
+					if (totalDistance < distances[neighbor]){
+						distances[neighbor] = totalDistance;
+					}
+				}
+
+				toVisit.Enqueue(neighbor, totalDistance);
+			}
+		}
+		return new ReachableMap(visited, grid, distances);
+
+	}
+
+	public class ReachableMap(
+		HashSet<Vector2I> reachableCells,
+		GridDefinition grid,
+		Dictionary<Vector2I, float> cellDistances)
+	{
+		public bool IsReachable(Vector2 worldPosition)
+		{
+			Vector2I gridPos = grid.WorldToGrid(worldPosition);
+			return reachableCells.Contains(gridPos);
+		}
+		public Vector2[] GetAllReachablePositions()
+		{
+			return reachableCells.Select((cell) => grid.GridToWorld(cell, true)).ToArray();
+		}
+		public float GetDistanceTo(Vector2 worldPosition)
+		{
+			Vector2I gridPos = grid.WorldToGrid(worldPosition);
+			return cellDistances.GetValueOrDefault(gridPos, float.MaxValue);
+		}
+
+	}
 
 	public Vector2[] GetPathBetween(Vector2 worldSpaceStart, Vector2 worldSpaceEnd)
 	{

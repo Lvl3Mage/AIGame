@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=14 format=3 uid="uid://o3xmsoglme3r"]
 
+[ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_uoxpr"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="2_wovta"]
 [ext_resource type="Script" uid="uid://dabgxqstmcqhq" path="res://Common/AgentControl/BehaviourManagement/ChaseBehaviour.cs" id="3_xeo28"]
 [ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="5_mo1ky"]
@@ -29,7 +30,12 @@ radius = 48.0
 collision_layer = 4
 motion_mode = 1
 
-[node name="AgentBlackboard" type="Node" parent="."]
+[node name="AgentBlackboard" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "LineOfSightRay", "MovementModule")]
+script = ExtResource("1_uoxpr")
+AgentBody = NodePath("..")
+DetectionArea = NodePath("../DetectionArea2D")
+LineOfSightRay = NodePath("../LineOfSightRayCast2D")
+MovementModule = NodePath("../MovementModule")
 
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
 script = ExtResource("7_6bs3c")
@@ -88,9 +94,13 @@ metadata/_custom_type_script = "uid://c63ulmuxsreim"
 [node name="BehaviourMachineModule" type="Node" parent="AgentBehaviourStarter"]
 script = ExtResource("2_wovta")
 
-[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule"]
+[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
 script = ExtResource("3_xeo28")
+modules = NodePath("../../../AgentBlackboard")
+chaseSpeed = 300.0
 
-[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule"]
+[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
 script = ExtResource("5_mo1ky")
+modules = NodePath("../../../AgentBlackboard")
+moveSpeed = 300.0
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
