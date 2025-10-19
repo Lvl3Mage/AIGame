@@ -1,8 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b81xwcxguysrk"]
 
-[ext_resource type="Shader" uid="uid://b10o46gjwxng1" path="res://VFX/LightClampShader.gdshader" id="1_qmta5"]
-
+[ext_resource type="Shader" uid="uid://b10o46gjwxng1" path="res://VFX/LightShader.gdshader" id="1_qmta5"]
 
 [resource]
 shader = ExtResource("1_qmta5")
-shader_parameter/new_color = Color(0.21303353, 0.19457966, 0.38573062, 1)
+shader_parameter/new_color = Color(0.10158389, 0.092017226, 0.20423236, 1)

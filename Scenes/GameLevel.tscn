@@ -16,18 +16,26 @@
 [sub_resource type="Shader" id="Shader_ioiu6"]
 code = "shader_type canvas_item;
 
-uniform float max_energy = 0.8f;
+varying vec4 original_color;
+uniform vec4 new_color : source_color;
 
-void light()
-{
-    float cappedEnergy = min(LIGHT_ENERGY, max_energy);
-    LIGHT = LIGHT_COLOR * cappedEnergy;
+void vertex() {
+	// Called for every vertex the material is visible on.
 }
-"
+
+void fragment() {
+	original_color = COLOR;
+	COLOR *= vec4(new_color.rgb, COLOR.a);
+}
+
+void light() {
+	LIGHT = original_color*LIGHT_COLOR;
+	LIGHT = original_color*LIGHT_COLOR * LIGHT_ENERGY;
+}"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrcb1"]
 shader = SubResource("Shader_ioiu6")
-shader_parameter/max_energy = 0.8
+shader_parameter/new_color = Color(0.18844756, 0.14744127, 0.24959025, 1)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -80,7 +88,6 @@ metadata/_custom_type_script = "uid://v1cehc3jy46d"
 metadata/_edit_lock_ = true
 
 [node name="Environment" type="Node2D" parent="."]
-modulate = Color(0.15881997, 0.15088442, 0.28670534, 1)
 metadata/_edit_lock_ = true
 
 [node name="BG layer" type="TileMapLayer" parent="Environment"]
