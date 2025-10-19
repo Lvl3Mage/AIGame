@@ -16,8 +16,6 @@ public partial class GridNavigation : Node2D
 
 	GridCell[,] gridCells;
 
-	List<Vector2I> currentPath;
-
 	[Export] GridPhysicsOccupation gridPhysicsOccupation;
 
 	public override void _Ready()
@@ -39,41 +37,45 @@ public partial class GridNavigation : Node2D
 			}
 		}
 	}
-	public ReachableMap ComputeReachableLookupMap(Vector2 origin, float range)
+	public ReachableArea ComputeReachableArea(Vector2 origin, float maxTravelDistance)
 	{
 		Vector2I gridOrigin = grid.WorldToGrid(origin);
 		HashSet<Vector2I> visited =[];
 		Dictionary<Vector2I, float> distances = new();
 		PriorityQueue<Vector2I, float> toVisit = new();
 		toVisit.Enqueue(gridOrigin, 0);
-		visited.Add(gridOrigin);
 		while (toVisit.TryDequeue(out Vector2I current, out float cellDistance))
 		{
+			if(!visited.Add(current)){
+				continue;
+			}
+			visited.Add(gridOrigin);
+
 			foreach (var neighbor in grid.GetAdjacentCells(current, true))
 			{
-				if (visited.Contains(neighbor))
-					continue;
 				if (gridCells[neighbor.X, neighbor.Y].Blocked)
 					continue;
 
 				float extraDistance = grid.GridToWorld(current, true).DistanceTo(grid.GridToWorld(neighbor, true));
 				float totalDistance = cellDistance + extraDistance;
-				if (totalDistance > range)
+				if (totalDistance > maxTravelDistance)
 					continue;
 				if (!distances.TryAdd(neighbor, totalDistance)){
 					if (totalDistance < distances[neighbor]){
 						distances[neighbor] = totalDistance;
 					}
 				}
+				if (visited.Contains(neighbor))
+					continue;
 
 				toVisit.Enqueue(neighbor, totalDistance);
 			}
 		}
-		return new ReachableMap(visited, grid, distances);
+		return new ReachableArea(visited, grid, distances);
 
 	}
 
-	public class ReachableMap(
+	public class ReachableArea(
 		HashSet<Vector2I> reachableCells,
 		GridDefinition grid,
 		Dictionary<Vector2I, float> cellDistances)
@@ -85,7 +87,7 @@ public partial class GridNavigation : Node2D
 		}
 		public Vector2[] GetAllReachablePositions()
 		{
-			return reachableCells.Select((cell) => grid.GridToWorld(cell, true)).ToArray();
+			return reachableCells.Select(cell => grid.GridToWorld(cell, true)).ToArray();
 		}
 		public float GetDistanceTo(Vector2 worldPosition)
 		{
@@ -178,36 +180,24 @@ public partial class GridNavigation : Node2D
 
 		path.Add(start);
 		path.Reverse();
-		currentPath = path;
-		QueueRedraw();
 
 		return [.. path];
 	}
 
+	// [Export] Vector2 posA;
+	// [Export] Vector2 posB;
+
     public override void _Process(double delta)
     {
-		// var startCell = grid.WorldToGrid(enemy.GlobalPosition);
-		// var targetCell = grid.WorldToGrid(player.GlobalPosition);
-		// FindPath(startCell, targetCell);
+		// var startCell = grid.WorldToGrid(posA);
+		// var targetCell = grid.WorldToGrid(posB);
+		// var path = ComputePath(startCell, targetCell);
 		//
-		// if (currentPath == null)
-		// 	return;
-		//
-		// foreach (var pos in currentPath)
+		// foreach (var pos in path)
 		// {
 		// 	grid.DrawTile(pos, Colors.Green);
-		// 	// Vector2 worldPos = grid.ToGlobal(new Vector2(pos.X * CellSize, pos.Y * CellSize));
-		// 	// DrawRect(
-		// 	// 	new Rect2(worldPos, new Vector2(CellSize, CellSize)),
-		// 	// 	new Color(0, 1, 0, 0.4f),
-		// 	// 	filled: true
-		// 	// );
-		// 	// DrawRect(
-		// 	// 	new Rect2(worldPos, new Vector2(CellSize, CellSize)),
-		// 	// 	new Color(0, 1, 0),
-		// 	// 	filled: false
-		// 	// );
 		// }
+
     }
 	public struct GridCell
 	{

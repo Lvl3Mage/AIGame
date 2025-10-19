@@ -1,3 +1,4 @@
+using Game.Common.AgentControl.Strategies;
 using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
@@ -9,6 +10,7 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 
 	bool isActive;
 	PlayerController player;
+	Vector2 pastPlayerPosition;
 
 	public override void _Ready()
 	{
@@ -17,7 +19,9 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 
 	public IPrioritizedBehaviour.Priority GetPriority()
 	{
-		return modules.PlayerVisible ? IPrioritizedBehaviour.Priority.Important : IPrioritizedBehaviour.Priority.Disabled;
+		return modules.PlayerVisible
+			? IPrioritizedBehaviour.Priority.Important
+			: IPrioritizedBehaviour.Priority.Disabled;
 	}
 
 	public void StartBehavior()
@@ -38,5 +42,11 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 		if (!isActive) return;
 		Vector2 targetDirection = (player.GlobalPosition - modules.AgentBody.GlobalPosition).Normalized();
 		modules.MovementModule.SetTargetVelocity(targetDirection * chaseSpeed);
+		AgentDirector.Instance.AddPlayerVisibleEvent(new PlayerVisibleEvent{
+			PlayerPosition = player.GlobalPosition,
+			PlayerDirection = modules.PlayerDirection,
+			Strength = 5f * (float)delta,
+			Origin = modules.AgentBody.GlobalPosition,
+		});
 	}
 }

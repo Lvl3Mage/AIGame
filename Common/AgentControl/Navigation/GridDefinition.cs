@@ -71,14 +71,6 @@ public partial class GridDefinition : Node2D
 
 	public override void _Draw()
 	{
-		if (!debugDraw) return;
-		for (int y = 0; y <= height; y++){
-			DrawLine(new Vector2(0, y * cellSize), new Vector2(width * cellSize, y * cellSize), Colors.Gray);
-		}
-
-		for (int x = 0; x <= width; x++){
-			DrawLine(new Vector2(x * cellSize, 0), new Vector2(x * cellSize, height * cellSize), Colors.Gray);
-		}
 		foreach (var (cell, color, filled) in debugDrawQueue){
 			Vector2 worldPos = ToLocal(GridToWorld(cell));
 			DrawRect(
@@ -86,6 +78,14 @@ public partial class GridDefinition : Node2D
 				color,
 				filled: filled
 			);
+		}
+		if (!debugDraw) return;
+		for (int y = 0; y <= height; y++){
+			DrawLine(new Vector2(0, y * cellSize), new Vector2(width * cellSize, y * cellSize), Colors.Gray);
+		}
+
+		for (int x = 0; x <= width; x++){
+			DrawLine(new Vector2(x * cellSize, 0), new Vector2(x * cellSize, height * cellSize), Colors.Gray);
 		}
 		debugDrawQueue.Clear();
 	}
