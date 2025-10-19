@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="3_boklw"]
 [ext_resource type="Script" uid="uid://v1cehc3jy46d" path="res://Common/AgentControl/Navigation/GridPhysicsOccupation.cs" id="4_x4g3l"]
 [ext_resource type="TileSet" uid="uid://mtrdbjanr3lb" path="res://Sprites/RockTileset.tres" id="6_0qbk5"]
+[ext_resource type="Shader" uid="uid://b10o46gjwxng1" path="res://VFX/LightShader.gdshader" id="6_mrcb1"]
 [ext_resource type="Script" uid="uid://cav4dofx6oesp" path="res://Common/Utility/DebugDrawQueue.cs" id="7_e0o5i"]
 [ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/DynamicCamera.cs" id="8_1y6uj"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="9_tmw4s"]
@@ -13,31 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://cxjjt2whtbm5p" path="res://Scenes/Key.tscn" id="11_ow0hr"]
 [ext_resource type="PackedScene" uid="uid://b06f4qtjscki6" path="res://Scenes/Door.tscn" id="12_vu6lt"]
 
-[sub_resource type="Shader" id="Shader_ioiu6"]
-code = "shader_type canvas_item;
-
-varying vec4 original_color;
-uniform vec4 new_color : source_color;
-uniform float max_energy = 1.0;
-
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
-
-void fragment() {
-	original_color = COLOR;
-	COLOR *= vec4(new_color.rgb, COLOR.a);
-}
-
-void light() {
-    float cappedEnergy = min(LIGHT_ENERGY, max_energy);
-    LIGHT = LIGHT_COLOR * cappedEnergy;
-}"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrcb1"]
-shader = SubResource("Shader_ioiu6")
-shader_parameter/new_color = Color(0.18844756, 0.14744127, 0.24959025, 1)
-shader_parameter/max_energy = 0.8
+shader = ExtResource("6_mrcb1")
+shader_parameter/shaded_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -60,12 +39,11 @@ layout_mode = 1
 TransitionTime = 0.8
 metadata/_edit_use_anchors_ = true
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("Player", "GridNav", "GridDef", "screenTransition")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("Player", "GridNav", "GridDef")]
 script = ExtResource("1_ioiu6")
 Player = NodePath("../Player")
 GridNav = NodePath("GridDefinition/GridNavigation")
 GridDef = NodePath("GridDefinition")
-screenTransition = NodePath("../GameInterface/Effects/ScreenTransition")
 
 [node name="GridDefinition" type="Node2D" parent="GameManager"]
 script = ExtResource("2_mrcb1")
