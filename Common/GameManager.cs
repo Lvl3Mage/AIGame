@@ -12,8 +12,9 @@ public partial class GameManager : Node
 	[Export] public GridNavigation GridNav { get; private set; }
 	[Export] public GridDefinition GridDef { get; private set; }
 	[Export] Transition screenTransition;
+	[Export] float transitionDelay = 0.6f;
 
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		if (Instance != null)
 		{
@@ -25,6 +26,7 @@ public partial class GameManager : Node
 
 		screenTransition.Scale = Vector2.One;
 		screenTransition.Visible = true;
+		await Task.Delay((int)(transitionDelay * 1000));
 		_ = screenTransition.FadeOut();
 	}
 
