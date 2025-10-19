@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cf3oj5noao8fe"]
+[gd_scene load_steps=47 format=3 uid="uid://cf3oj5noao8fe"]
 
 [ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Common/GameManager.cs" id="1_7rqgy"]
 [ext_resource type="PackedScene" uid="uid://duewf84pi8phq" path="res://Scenes/GameLevel.tscn" id="1_hpc76"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://de0gdf4v54k6m" path="res://Common/SoundLibrary.cs" id="4_uuu6x"]
 [ext_resource type="AudioStream" uid="uid://cm56dpfwg117s" path="res://VFX/Music/BackgroundMusic.mp3" id="5_8um71"]
 [ext_resource type="AudioStream" uid="uid://bbjo2vxx65mnx" path="res://VFX/Music/VictoryMusic.mp3" id="6_hkvke"]
-[ext_resource type="AudioStream" uid="uid://dix57x5c3esq6" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle1.mp3" id="7_20cv7"]
 [ext_resource type="AudioStream" uid="uid://bcuutumeub3q2" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle2.mp3" id="8_ywy86"]
 [ext_resource type="AudioStream" uid="uid://drg6hpc8k0an5" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle3.mp3" id="9_goiu7"]
 [ext_resource type="AudioStream" uid="uid://decn3e32j8c1a" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle4.mp3" id="10_fqfjr"]
@@ -63,7 +62,7 @@ winScreenScene = ExtResource("4_q68mp")
 script = ExtResource("4_uuu6x")
 BackgroundMusic = ExtResource("5_8um71")
 VictoryMusic = ExtResource("6_hkvke")
-AlertadorIdle = Array[AudioStream]([ExtResource("7_20cv7"), ExtResource("8_ywy86"), ExtResource("9_goiu7"), ExtResource("10_fqfjr"), ExtResource("11_oqotn"), ExtResource("12_eebff"), ExtResource("13_qtnps"), ExtResource("14_b420t")])
+AlertadorIdle = Array[AudioStream]([ExtResource("8_ywy86"), ExtResource("9_goiu7"), ExtResource("10_fqfjr"), ExtResource("11_oqotn"), ExtResource("12_eebff"), ExtResource("13_qtnps"), ExtResource("14_b420t")])
 AlertadorAlert = ExtResource("15_obop7")
 BossIdle = Array[AudioStream]([ExtResource("16_0gkln"), ExtResource("17_e2ql2"), ExtResource("18_dn1w2"), ExtResource("19_pa4y5"), ExtResource("20_jnakw"), ExtResource("21_a7b38"), ExtResource("22_w0aut"), ExtResource("23_1ixrr"), ExtResource("24_7wyr4")])
 BossRoar = ExtResource("25_7aq6o")
@@ -91,5 +90,6 @@ metadata/_edit_lock_ = true
 visible = false
 layout_mode = 1
 TransitionTime = 0.8
+soundVolume = 0.3
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true

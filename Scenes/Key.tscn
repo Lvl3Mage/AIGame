@@ -25,6 +25,8 @@ script = ExtResource("1_i3td7")
 CollectionArea = NodePath("CollectionArea2D")
 InsertKeyArea = NodePath("InsertKeyArea2D")
 lerpFactor = 3.0
+collectKeyVolume = 0.6
+insertKeyVolume = 0.6
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -13)

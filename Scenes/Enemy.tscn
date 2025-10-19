@@ -49,6 +49,7 @@ damageArea = NodePath("../DamageArea2D")
 metadata/_custom_type_script = "uid://cii6jfpta3bmh"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-24, -112)
 color = Color(0.97, 0.15520003, 0.15520003, 1)
 shadow_enabled = true
 shadow_filter = 2
@@ -95,13 +96,17 @@ metadata/_custom_type_script = "uid://c63ulmuxsreim"
 [node name="BehaviourMachineModule" type="Node" parent="AgentBehaviourStarter"]
 script = ExtResource("2_wovta")
 
-[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
+[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules", "enemyBody")]
 script = ExtResource("3_xeo28")
 modules = NodePath("../../../AgentBlackboard")
+enemyBody = NodePath("../../..")
 chaseSpeed = 300.0
+alertVolume = 1.2
 
-[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
+[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules", "enemyBody")]
 script = ExtResource("5_mo1ky")
 modules = NodePath("../../../AgentBlackboard")
+enemyBody = NodePath("../../..")
+growlsVolume = 0.3
 moveSpeed = 300.0
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"

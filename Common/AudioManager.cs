@@ -1,5 +1,7 @@
+using Game.Common.AgentControl.BehaviourManagement;
 using Game.Common.Utility;
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace Game.Common;
@@ -105,7 +107,7 @@ public static class AudioManager
         if (stream == null) return null;
 
         AudioGroup audioGroup = (group == null) ? rootGroup : GetGroup(group);
-
+        
         if (audioGroup == null)
         {
             GD.PushError($"Trying to play audio 2D on inexistent group ({group}).");
@@ -135,7 +137,7 @@ public static class AudioManager
         return player;
     }
 
-    public static AudioStreamPlayer2D PlayAudio2D(AudioStream[] streams, Node2D source, float volume = 1f, float pitch = 1f, string group = "")
+    public static AudioStreamPlayer2D PlayAudio2D(AudioStream[] streams, Node2D source, float volume = 1f, float pitch = 1f, string group = null)
     {
         if (streams == null || streams.Length == 0) return null;
         return PlayAudio2D(streams.GetRandomElement(), source, volume, pitch, group);

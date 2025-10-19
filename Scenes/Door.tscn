@@ -25,6 +25,7 @@ sprite = NodePath("Sprite2D")
 collider = NodePath("StaticBody2D/CollisionShape2D")
 openDoorSprite = ExtResource("2_1fk65")
 light2D = NodePath("PointLight2D")
+openSoundVolume = 0.8
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("2_7mbvs")

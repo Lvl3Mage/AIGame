@@ -51,7 +51,7 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("9_tmw4s")]
 light_mask = 2
-position = Vector2(541, 1145)
+position = Vector2(3672, 5891)
 dieAnimationTime = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("followTarget")]
@@ -81,8 +81,8 @@ metadata/_edit_lock_ = true
 
 [node name="GridDefinition" type="Node2D" parent="."]
 script = ExtResource("2_mrcb1")
-width = 76
-height = 40
+width = 220
+height = 130
 cellSize = 50.0
 debugDraw = false
 metadata/_edit_lock_ = true
@@ -100,3 +100,5 @@ grid = NodePath("../..")
 collisionLayer = NodePath("../../../Environment/TileMapLayer")
 metadata/_custom_type_script = "uid://v1cehc3jy46d"
 metadata/_edit_lock_ = true
+
+[node name="Timer" type="Timer" parent="GridDefinition"]

@@ -7,8 +7,15 @@ namespace Game.Common.AgentControl.BehaviourManagement;
 public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 {
 	[Export] AgentModules modules;
+	[Export] CharacterBody2D enemyBody;
+	[Export] float growlsVolume = 0.5f;
+	[Export] float growlFrequency = 2;
+	[Export] float growlRandomization = 0.4f;
+	
+	float RandomGrowlFrequency => (float)(growlFrequency + GD.RandRange(-growlRandomization * growlFrequency, growlRandomization * growlFrequency));
 	bool isActive;
 	readonly PathFollower investigationPath = new();
+	Timer growlTimer;
 
 	public override void _Ready()
 	{
@@ -33,12 +40,20 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 	public void StartBehavior()
 	{
 		isActive = true;
+		CreateGrowlTimer();
 	}
 
 	public void StopBehavior()
 	{
 		isActive = false;
 		modules.MovementModule.SetTargetVelocity(Vector2.Zero);
+
+		if (growlTimer != null && growlTimer.IsInsideTree())
+		{
+			growlTimer.Stop();
+			growlTimer.QueueFree();
+			growlTimer = null;
+		}
 	}
 
 	[Export] float moveSpeed = 100;
@@ -72,10 +87,29 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 	void MoveAlongPath()
 	{
 		Vector2? dir = investigationPath?.GetTargetDirection(modules.AgentBody.GlobalPosition);
-		if (dir == null){
+		if (dir == null)
+		{
 			return;
 		}
 
 		modules.MovementModule.SetTargetVelocity(dir.Value * moveSpeed);
+	}
+	
+	void CreateGrowlTimer()
+	{
+		growlTimer = new()
+		{
+			WaitTime = RandomGrowlFrequency,
+			OneShot = false
+		};
+		enemyBody.AddChild(growlTimer);
+		growlTimer.Timeout += Growl;
+		growlTimer.Start();
+	}
+
+	void Growl()
+	{
+		AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, enemyBody, growlsVolume);
+		growlTimer.WaitTime = RandomGrowlFrequency;
 	}
 }
