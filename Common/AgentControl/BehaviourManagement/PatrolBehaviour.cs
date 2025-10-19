@@ -4,7 +4,7 @@ namespace Game.Common.AgentControl.BehaviourManagement;
 
 public partial class PatrolBehaviour : Node, IPrioritizedBehaviour
 {
-    [Export] private AgentBlackboard _blackboard;
+    [Export] private AgentModules modules;
     [Export] private Vector2[] _patrolPoints = [];
     [Export(PropertyHint.Range, "0,1000,10")] private float _arrivalThreshold = 40f;
     [Export]
@@ -94,7 +94,7 @@ public partial class PatrolBehaviour : Node, IPrioritizedBehaviour
         if (pointIndex < 0 || pointIndex >= _patrolPoints.Length) return;
 
         GD.Print($"Agente: Moviéndose al punto de patrulla {pointIndex}.");
-        Vector2I start = (Vector2I)_blackboard.AgentBody.GlobalPosition;
+        Vector2I start = (Vector2I)modules.AgentBody.GlobalPosition;
         Vector2I end = (Vector2I)_patrolPoints[pointIndex];
 
         // var path = GameManager.Instance.GridNav?.FindPath(start, end);
