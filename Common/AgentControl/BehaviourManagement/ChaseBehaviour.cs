@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Game.Common.AgentControl.Strategies;
 using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
@@ -26,7 +26,9 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 
 	public IPrioritizedBehaviour.Priority GetPriority()
 	{
-		return modules.PlayerVisible ? IPrioritizedBehaviour.Priority.Important : IPrioritizedBehaviour.Priority.Disabled;
+		return modules.PlayerVisible
+			? IPrioritizedBehaviour.Priority.Important
+			: IPrioritizedBehaviour.Priority.Disabled;
 	}
 
 	public async void StartBehavior()
@@ -59,15 +61,23 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 		if (!isActive) return;
 		Vector2 targetDirection = (player.GlobalPosition - modules.AgentBody.GlobalPosition).Normalized();
 		float screamFactor = isScreaming ? 0f : 1f;
-		modules.MovementModule.SetTargetVelocity(targetDirection * screamFactor * chaseSpeed);
+		modules.MovementModule.SetTargetVelocity(targetDirection * chaseSpeed);
+		AgentDirector.Instance.AddPlayerVisibleEvent(new PlayerVisibleEvent{
+			PlayerPosition = player.GlobalPosition,
+			PlayerDirection = modules.PlayerDirection,
+			Strength = 5f * (float)delta,
+			Origin = modules.AgentBody.GlobalPosition,
+		});
+
 	}
 
 	void Growl()
 	{
 		isScreaming = false;
 		if (!isActive) return;
-	
+
 		AudioStreamPlayer2D player = AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, enemyBody, growlsVolume);
 		player.Finished += Growl;
+
 	}
 }

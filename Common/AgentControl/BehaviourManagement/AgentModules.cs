@@ -18,15 +18,15 @@ public partial class AgentModules : Node
     public event Action PlayerVisibilityChanged;
     public Vector2 LastVisiblePlayerPosition { get; private set; }
     public float TimeSincePlayerVisible { get; private set; } = 0f;
+    public Vector2 PlayerDirection { get; private set; }
 
     PlayerController player;
+    Vector2 pastPlayerPosition;
 
     public override void _Ready()
     {
-        if (GameManager.Instance == null){
-            GD.PrintErr("Game Manager is null!!!!!!!!!!!");
-        }
         player = GameManager.Instance.Player;
+        pastPlayerPosition = player.GlobalPosition;
     }
 
     public override void _Process(double delta)
@@ -40,6 +40,9 @@ public partial class AgentModules : Node
         {
             TimeSincePlayerVisible += (float)delta;
         }
+        PlayerDirection = (player.GlobalPosition - pastPlayerPosition).Normalized();
+
+        pastPlayerPosition = player.GlobalPosition;
     }
     void UpdatePlayerDetection()
     {
