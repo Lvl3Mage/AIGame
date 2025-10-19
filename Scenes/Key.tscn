@@ -28,7 +28,7 @@ lerpFactor = 3.0
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -13)
 color = Color(0.39286378, 0.27617922, 0.67902565, 1)
-energy = 0.1
+energy = 0.8
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_i3td7")
 texture_scale = 4.0

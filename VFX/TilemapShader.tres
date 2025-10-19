@@ -4,3 +4,4 @@
 
 [resource]
 shader = ExtResource("1_qmta5")
+shader_parameter/new_color = Color(0.21303353, 0.19457966, 0.38573062, 1)
