@@ -12,6 +12,7 @@ public partial class Door : Node2D
     [Export] Texture2D openDoorSprite;
     [Export] PointLight2D light2D;
     [Export] float openSoundVolume = 1f;
+    [Export] float shakeStrength = 15f;
 
     bool opened = false;
     Texture2D closedDoorSprite;
@@ -27,6 +28,7 @@ public partial class Door : Node2D
 
         sprite.Texture = openDoorSprite;
 
+        _ = GameManager.Instance.Camera.ScreenShake(shakeStrength, fadeSpeed);
         await MathUtility.LerpAsync(() => light2D.Color.G, v => light2D.Color = new Color(light2D.Color.R, v, light2D.Color.B, light2D.Color.A), 2f, fadeSpeed);
         _ = MathUtility.LerpAsync(() => light2D.Energy, v => light2D.Energy = v, 0f, fadeSpeed);
         AudioManager.PlayAudio2D(SoundLibrary.Instance.DoorOpen, this, openSoundVolume);

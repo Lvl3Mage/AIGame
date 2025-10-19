@@ -16,6 +16,8 @@ public partial class PlayerController : CharacterBody2D
     [Export] float stepSoundPitch = 1f;
     [Export] float stepSoundVolume = 1f;
     [Export] float deathSoundVolume = 1f;
+    [Export] float deathScreenshakeStrength = 20f;
+    [Export] float deathScreenshakeDuration = 0.3f;
 
     public bool LockMovement { get; set; }
     public bool HasWon { get; set; }
@@ -80,7 +82,8 @@ public partial class PlayerController : CharacterBody2D
         LockMovement = true;
         Velocity = Vector2.Zero;
         AudioManager.PlayAudio2D(SoundLibrary.Instance.PlayerDeath, this, deathSoundVolume);
-        
+        _ = GameManager.Instance.Camera.ScreenShake(deathScreenshakeStrength, deathScreenshakeDuration);
+
         _ = MathUtility.LerpAsync(getRedColor, setRedColor, 255f, dieAnimationTime);
         await MathUtility.LerpAsync(getRotation, setRotation, 90f, dieAnimationTime);
 

@@ -8,6 +8,8 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 {
 	[Export] AgentModules modules;
 	[Export] CharacterBody2D enemyBody;
+	[Export] PointLight2D light2D;
+	[Export] Color lightColor = Colors.White;
 	[Export] float growlsVolume = 0.5f;
 	[Export] float growlFrequency = 2;
 	[Export] float growlRandomization = 0.4f;
@@ -40,6 +42,7 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 	public void StartBehavior()
 	{
 		isActive = true;
+		light2D.Color = lightColor;
 		CreateGrowlTimer();
 	}
 
