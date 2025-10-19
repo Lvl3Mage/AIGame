@@ -27,21 +27,18 @@ public partial class GameManager : Node
 			return;
 		}
 		Instance = this;
-	}
 
-	public override void _Ready()
-	{
 		Node root = GetTree().Root;
-		GD.Print("Player count: " + root.GetAllChildrenOfType<PlayerController>().Count());
 		Player = root.GetAllChildrenOfType<PlayerController>().First();
 		GridNav = root.GetAllChildrenOfType<GridNavigation>().First();
 		GridDef = root.GetAllChildrenOfType<GridDefinition>().First();
 		screenTransition = root.GetAllChildrenOfType<Transition>().First();
-		GD.Print(Player);
+	}
 
+	public override void _Ready()
+	{
 		screenTransition.Scale = Vector2.One;
 		screenTransition.Visible = true;
-
 		DelayFadeOut();
 	}
 

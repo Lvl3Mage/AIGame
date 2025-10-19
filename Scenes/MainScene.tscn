@@ -1,20 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf3oj5noao8fe"]
+[gd_scene load_steps=4 format=3 uid="uid://cf3oj5noao8fe"]
 
 [ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Common/GameManager.cs" id="1_7rqgy"]
 [ext_resource type="PackedScene" uid="uid://duewf84pi8phq" path="res://Scenes/GameLevel.tscn" id="1_hpc76"]
 [ext_resource type="PackedScene" uid="uid://dy07t4su082km" path="res://Scenes/Transition.tscn" id="2_tr2i4"]
-[ext_resource type="PackedScene" uid="uid://joykt6nwtr80" path="res://Scenes/WinScene.tscn" id="4_q68mp"]
 
-[node name="Main" type="Node2D"]
+[node name="Main2" type="Node2D"]
 y_sort_enabled = true
 metadata/_edit_lock_ = true
 
 [node name="GameLevel" parent="." instance=ExtResource("1_hpc76")]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("GameLevel")]
+[node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_7rqgy")
-GameLevel = NodePath("../GameLevel")
-winScreenScene = ExtResource("4_q68mp")
 
 [node name="GameInterface" type="CanvasLayer" parent="."]
 
