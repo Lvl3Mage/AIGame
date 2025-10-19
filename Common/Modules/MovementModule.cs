@@ -17,7 +17,6 @@ public partial class MovementModule : Node
     {
         Vector2 velocity = agentBody.Velocity;
         Vector2 newVelocity = velocity.MoveToward(targetVelocity, acceleration * (float)delta);
-        DebugDraw2D.SetText("Velocity", newVelocity.ToString());
         agentBody.Velocity = newVelocity;
         agentBody.MoveAndSlide();
 

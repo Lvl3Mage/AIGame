@@ -1,7 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxjjt2whtbm5p"]
+[gd_scene load_steps=7 format=3 uid="uid://cxjjt2whtbm5p"]
 
 [ext_resource type="Script" uid="uid://c6m3dcx5txhav" path="res://Scripts/DiamondKey.cs" id="1_i3td7"]
 [ext_resource type="Texture2D" uid="uid://c8nlrmc7wncpu" path="res://Sprites/Key.png" id="1_og2wv"]
+
+[sub_resource type="Gradient" id="Gradient_i3td7"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i3td7"]
+gradient = SubResource("Gradient_i3td7")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3td7"]
 radius = 72.11102
@@ -14,6 +23,15 @@ z_index = 100
 script = ExtResource("1_i3td7")
 CollectionArea = NodePath("CollectionArea2D")
 InsertKeyArea = NodePath("InsertKeyArea2D")
+lerpFactor = 3.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -13)
+color = Color(0.39286378, 0.27617922, 0.67902565, 1)
+energy = 0.1
+shadow_filter = 2
+texture = SubResource("GradientTexture2D_i3td7")
+texture_scale = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

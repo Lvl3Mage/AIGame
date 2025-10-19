@@ -46,7 +46,6 @@ public partial class AgentModules : Node
         {
             LineOfSightRay.TargetPosition = AgentBody.ToLocal(player.GlobalPosition);
             LineOfSightRay.ForceRaycastUpdate();
-            DebugDraw2D.SetText("Sight check");
             if (LineOfSightRay.GetCollider() == player)
             {
                 LastVisiblePlayerPosition = player.GlobalPosition;

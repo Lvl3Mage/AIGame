@@ -1,15 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://b06f4qtjscki6"]
+[gd_scene load_steps=6 format=3 uid="uid://b06f4qtjscki6"]
 
 [ext_resource type="Script" uid="uid://ca6yggfdlfqv0" path="res://Scripts/Door.cs" id="1_mw28t"]
 [ext_resource type="Texture2D" uid="uid://bfp0q7iixtftl" path="res://Sprites/DoorClosed.png" id="2_mw28t"]
+
+[sub_resource type="Gradient" id="Gradient_f140w"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mw28t"]
+gradient = SubResource("Gradient_f140w")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38ogf"]
 size = Vector2(117, 100)
 
 [node name="Door" type="Node2D" node_paths=PackedStringArray("sprite", "collider")]
+scale = Vector2(1.6, 1.6)
 script = ExtResource("1_mw28t")
 sprite = NodePath("Sprite2D")
 collider = NodePath("StaticBody2D/CollisionShape2D")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0.625, -45)
+scale = Vector2(0.99999994, 0.99999994)
+color = Color(0.88235295, 0.7411765, 0.42745098, 0.5568628)
+energy = 0.01
+shadow_enabled = true
+shadow_filter = 2
+texture = SubResource("GradientTexture2D_mw28t")
+texture_scale = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

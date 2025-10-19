@@ -31,7 +31,6 @@ public partial class CharacterAnimationModule : Node2D
             float currentAttenuation = Mathf.InverseLerp(minVel, maxVel, clampedVel);
             velocityAttenuation = Mathf.Lerp(velocityAttenuation, currentAttenuation, MathUtility.ComputeLerpWeight(10f, (float)delta));
             float offsetY = Mathf.Abs(Mathf.Sin(time * Frequency)) * AmplitudeMultiplier * velocityAttenuation;
-            DebugDraw2D.SetText("offsetY player", offsetY.ToString());
             Position = new Vector2(0, -offsetY);
         }
     }
