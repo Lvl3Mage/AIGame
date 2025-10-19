@@ -17,7 +17,7 @@ GameLevel = NodePath("../GameLevel")
 winScreenScene = ExtResource("4_q68mp")
 
 [node name="GameInterface" type="CanvasLayer" parent="."]
-layer = 10
+layer = 100
 
 [node name="Effects" type="Control" parent="GameInterface"]
 layout_mode = 3
