@@ -91,10 +91,13 @@ position = Vector2(7640, 1473)
 [node name="DoorB" parent="Environment" instance=ExtResource("12_vu6lt")]
 position = Vector2(541, 1473)
 
-[node name="Player" parent="." groups=["player"] instance=ExtResource("9_tmw4s")]
+[node name="Key" parent="." instance=ExtResource("11_ow0hr")]
+position = Vector2(7269.416, 1597.6877)
+
+[node name="Player" parent="." instance=ExtResource("9_tmw4s")]
 light_mask = 2
 y_sort_enabled = true
-position = Vector2(3189, 5113)
+position = Vector2(7645, 1925)
 dieAnimationTime = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("followTarget")]

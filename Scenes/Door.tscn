@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b06f4qtjscki6"]
+[gd_scene load_steps=8 format=3 uid="uid://b06f4qtjscki6"]
 
 [ext_resource type="Script" uid="uid://ca6yggfdlfqv0" path="res://Scripts/Door.cs" id="1_mw28t"]
+[ext_resource type="Texture2D" uid="uid://n3kjlqd65hap" path="res://Sprites/Puerta2.png" id="2_1fk65"]
 [ext_resource type="Material" uid="uid://b81xwcxguysrk" path="res://VFX/TilemapShaderMaterial.tres" id="2_7mbvs"]
 [ext_resource type="Texture2D" uid="uid://bfp0q7iixtftl" path="res://Sprites/DoorClosed.png" id="2_mw28t"]
 
@@ -16,11 +17,13 @@ fill_to = Vector2(0, 0.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38ogf"]
 size = Vector2(117, 100)
 
-[node name="Door" type="Node2D" node_paths=PackedStringArray("sprite", "collider")]
+[node name="Door" type="Node2D" node_paths=PackedStringArray("sprite", "collider", "light2D")]
 scale = Vector2(1.6, 1.6)
 script = ExtResource("1_mw28t")
 sprite = NodePath("Sprite2D")
 collider = NodePath("StaticBody2D/CollisionShape2D")
+openDoorSprite = ExtResource("2_1fk65")
+light2D = NodePath("PointLight2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("2_7mbvs")
