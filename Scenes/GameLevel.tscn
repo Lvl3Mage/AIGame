@@ -16,7 +16,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrcb1"]
 shader = ExtResource("6_mrcb1")
-shader_parameter/shaded_color = Color(0, 0, 0, 1)
+shader_parameter/shaded_color = Color(0.07695643, 0.062432915, 0.11799968, 1)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -94,7 +94,8 @@ position = Vector2(541, 1473)
 [node name="Player" parent="." groups=["player"] instance=ExtResource("9_tmw4s")]
 light_mask = 2
 y_sort_enabled = true
-position = Vector2(3684, 6210)
+position = Vector2(3189, 5113)
+dieAnimationTime = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("followTarget")]
 zoom = Vector2(0.6, 0.6)
@@ -115,7 +116,7 @@ yOffset = -50.0
 metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("10_ioiu6")]
-position = Vector2(3162, 4569)
+position = Vector2(3522, 4933)
 
 [node name="DebugDrawQueue" type="Node2D" parent="."]
 script = ExtResource("7_e0o5i")
