@@ -72,7 +72,7 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
 scale = Vector2(50, 50)
 shape = SubResource("CircleShape2D_6bs3c")
-debug_color = Color(0.8980392, 0, 0.15294118, 0.050980393)
+debug_color = Color(0.8980392, 0, 0.15294118, 0)
 metadata/_edit_lock_ = true
 
 [node name="DamageArea2D" type="Area2D" parent="."]

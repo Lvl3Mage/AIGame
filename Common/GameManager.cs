@@ -39,7 +39,7 @@ public partial class GameManager : Node
 	{
 		screenTransition.Scale = Vector2.One;
 		screenTransition.Visible = true;
-		DelayedFadeOut();
+		_ = DelayedFadeOut();
 	}
 
 	public override void _ExitTree()

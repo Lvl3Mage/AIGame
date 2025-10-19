@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ca6yggfdlfqv0" path="res://Scripts/Door.cs" id="1_mw28t"]
 [ext_resource type="Texture2D" uid="uid://n3kjlqd65hap" path="res://Sprites/Puerta2.png" id="2_1fk65"]
-[ext_resource type="Material" uid="uid://b81xwcxguysrk" path="res://VFX/TilemapShaderMaterial.tres" id="2_7mbvs"]
+[ext_resource type="Material" uid="uid://b81xwcxguysrk" path="res://VFX/Visuals/TilemapShaderMaterial.tres" id="2_7mbvs"]
 [ext_resource type="Texture2D" uid="uid://bfp0q7iixtftl" path="res://Sprites/DoorClosed.png" id="2_mw28t"]
 
 [sub_resource type="Gradient" id="Gradient_f140w"]
