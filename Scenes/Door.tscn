@@ -21,21 +21,20 @@ script = ExtResource("1_mw28t")
 sprite = NodePath("Sprite2D")
 collider = NodePath("StaticBody2D/CollisionShape2D")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.42527768, -121.88505)
+texture = ExtResource("2_mw28t")
+offset = Vector2(50.574722, 29.885065)
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0.625, -45)
 scale = Vector2(0.99999994, 0.99999994)
-color = Color(0.88235295, 0.7411765, 0.42745098, 0.5568628)
-energy = 0.9
+color = Color(0.88, 0.73509336, 0.42240003, 1)
+energy = 0.5
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_mw28t")
 texture_scale = 5.0
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0.4252777, -121.88506)
-texture = ExtResource("2_mw28t")
-offset = Vector2(50.574722, 29.885065)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0.4252777, -121.88506)
