@@ -1,19 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://8pas1mruis60"]
+[gd_scene load_steps=8 format=3 uid="uid://8pas1mruis60"]
 
 [ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Common/PlayerController.cs" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://bpibmcln7tgde" path="res://Sprites/Player.png" id="2_gntrk"]
 [ext_resource type="Script" uid="uid://brj5wymtuq8x" path="res://Common/Modules/TopdownMovementModule.cs" id="3_dewec"]
 [ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="4_dewec"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
-size = Vector2(57, 32)
+[sub_resource type="Gradient" id="Gradient_dewec"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule")]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dewec"]
+gradient = SubResource("Gradient_dewec")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
+radius = 47.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule", "sprite")]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 29
 motion_mode = 1
 script = ExtResource("1_kyqiw")
 movementModule = NodePath("TopdownMovementModule")
+sprite = NodePath("CharacterAnimationModule/Sprite2D")
 
 [node name="TopdownMovementModule" type="Node2D" parent="." node_paths=PackedStringArray("animationModule")]
 position = Vector2(4.2000046, -65.35)
@@ -21,16 +31,28 @@ script = ExtResource("3_dewec")
 animationModule = NodePath("../CharacterAnimationModule")
 metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_gntrk")
-
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
 script = ExtResource("4_dewec")
-minVel = -20.0
+AmplitudeMultiplier = 16.0
+Frequency = 13.0
+minVel = 0.0
 metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule"]
 light_mask = 2
+texture_filter = 1
 position = Vector2(4.200004, -65.34999)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_gntrk")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.96143466, 0.84411556, 0.6676371, 1)
+shadow_enabled = true
+shadow_filter = 2
+texture = SubResource("GradientTexture2D_dewec")
+texture_scale = 16.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19)
+shape = SubResource("CircleShape2D_dewec")
+debug_color = Color(0.5325009, 0.56959665, 0.085515074, 0.41960785)

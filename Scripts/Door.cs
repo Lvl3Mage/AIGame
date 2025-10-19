@@ -4,7 +4,7 @@ using System;
 namespace Game;
 public partial class Door : Node2D
 {
-    [Export] public Key NeededKey { get; private set; }
+    [Export] public Node2D NeededKey { get; private set; }
     [Export] float fadeSpeed = 1.5f;
     [Export] public Sprite2D sprite;
     [Export] public CollisionShape2D collider;
@@ -15,15 +15,15 @@ public partial class Door : Node2D
     public void Open()
     {
         if (opened) return;
+        Callable.From(() => collider.Disabled = true).CallDeferred();
         opened = true;
         fading = true;
-        collider.Disabled = false;
     }
 
     public void Close()
     {
         sprite.Modulate = new Color(1, 1, 1, 1);
-        collider.Disabled = false;
+        Callable.From(() => collider.Disabled = true).CallDeferred();
         opened = false;
         fading = false;
     }
@@ -37,7 +37,6 @@ public partial class Door : Node2D
             {
                 newAlpha = 0;
                 fading = false;
-                collider.Disabled = true;
             }
 
             sprite.Modulate = new Color(1, 1, 1, newAlpha);

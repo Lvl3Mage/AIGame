@@ -1,30 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=11 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://wegqvvca6jau" path="res://Common/AgentControl/BehaviourManagement/AgentBlackboard.cs" id="2_6bs3c"]
-[ext_resource type="Script" uid="uid://d1bfrfgdaaswj" path="res://Common/AgentControl/BehaviourManagement/BehaviourTreeController.cs" id="2_wovta"]
-[ext_resource type="Texture2D" uid="uid://daffctvq51yk2" path="res://Sprites/Circle.png" id="3_1exfc"]
+[ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="2_wovta"]
 [ext_resource type="Script" uid="uid://dabgxqstmcqhq" path="res://Common/AgentControl/BehaviourManagement/ChaseBehaviour.cs" id="3_xeo28"]
 [ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="5_mo1ky"]
+[ext_resource type="Script" uid="uid://c63ulmuxsreim" path="res://Common/AgentControl/BehaviourManagement/AgentBehaviourStarter.cs" id="5_uoxpr"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
+[ext_resource type="Texture2D" uid="uid://caghhbbhm25mt" path="res://Sprites/Alertador1.png" id="7_idouy"]
 [ext_resource type="Script" uid="uid://cii6jfpta3bmh" path="res://Common/Modules/LoseConditionModule.cs" id="7_uoxpr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6bs3c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xeo28"]
 radius = 32.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6bs3c"]
-
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
 motion_mode = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.82702, 0.296638, 0.313166, 1)
-scale = Vector2(2, 2)
-texture = ExtResource("3_1exfc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CircleShape2D_xeo28")
 
 [node name="AgentBlackboard" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "LineOfSightRay", "MovementModule")]
 script = ExtResource("2_6bs3c")
@@ -32,27 +24,6 @@ AgentBody = NodePath("..")
 DetectionArea = NodePath("../DetectionArea2D")
 LineOfSightRay = NodePath("../LineOfSightRayCast2D")
 MovementModule = NodePath("../MovementModule")
-
-[node name="BehaviourMachineModule" type="Node" parent="."]
-script = ExtResource("2_wovta")
-
-[node name="ChaseBehaviour" type="Node" parent="BehaviourMachineModule"]
-script = ExtResource("3_xeo28")
-
-[node name="InvestigateBehaviour" type="Node" parent="BehaviourMachineModule"]
-script = ExtResource("5_mo1ky")
-metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
-
-[node name="LineOfSightRayCast2D" type="RayCast2D" parent="."]
-collision_mask = 3
-
-[node name="DetectionArea2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
-scale = Vector2(50, 50)
-shape = SubResource("CircleShape2D_6bs3c")
 
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
 script = ExtResource("7_6bs3c")
@@ -63,3 +34,43 @@ metadata/_custom_type_script = "uid://dcr5wi8h1f7k5"
 script = ExtResource("7_uoxpr")
 agentBody = NodePath("..")
 metadata/_custom_type_script = "uid://cii6jfpta3bmh"
+
+[node name="LineOfSightRayCast2D" type="RayCast2D" parent="."]
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="DetectionArea2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
+scale = Vector2(50, 50)
+shape = SubResource("CircleShape2D_6bs3c")
+debug_color = Color(0.8980392, 0, 0.15294118, 0.050980393)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("7_idouy")
+offset = Vector2(0, -72)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_xeo28")
+
+[node name="AgentBehaviourStarter" type="Node" parent="."]
+script = ExtResource("5_uoxpr")
+metadata/_custom_type_script = "uid://c63ulmuxsreim"
+
+[node name="BehaviourMachineModule" type="Node" parent="AgentBehaviourStarter"]
+script = ExtResource("2_wovta")
+
+[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("blackboard")]
+script = ExtResource("3_xeo28")
+blackboard = NodePath("../../../AgentBlackboard")
+
+[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("blackboard")]
+script = ExtResource("5_mo1ky")
+blackboard = NodePath("../../../AgentBlackboard")
+metadata/_custom_type_script = "uid://bt16bo1hoxuy4"

@@ -2,9 +2,9 @@ using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
-public partial class PatrolBehaviour : Node, IAgentBehaviour
+public partial class PatrolBehaviour : Node, IPrioritizedBehaviour
 {
-    [Export] private AgentBlackboard _blackboard;
+    [Export] private AgentModules modules;
     [Export] private Vector2[] _patrolPoints = [];
     [Export(PropertyHint.Range, "0,1000,10")] private float _arrivalThreshold = 40f;
     [Export]
@@ -14,7 +14,7 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
     private float _waypointPauseTime = 2.0f;
 
 
-    public IAgentBehaviour.Priority CurrentPriority { get; set; } = IAgentBehaviour.Priority.Low;
+    public IPrioritizedBehaviour.Priority CurrentPriority { get; set; } = IPrioritizedBehaviour.Priority.Low;
 
     private int _currentPatrolIndex = 0;
     private bool _isActive = false;
@@ -30,7 +30,7 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
     }
 
 
-    public IAgentBehaviour.Priority GetPriority()
+    public IPrioritizedBehaviour.Priority GetPriority()
     {
         return CurrentPriority;
     }
@@ -94,7 +94,7 @@ public partial class PatrolBehaviour : Node, IAgentBehaviour
         if (pointIndex < 0 || pointIndex >= _patrolPoints.Length) return;
 
         GD.Print($"Agente: Moviéndose al punto de patrulla {pointIndex}.");
-        Vector2I start = (Vector2I)_blackboard.AgentBody.GlobalPosition;
+        Vector2I start = (Vector2I)modules.AgentBody.GlobalPosition;
         Vector2I end = (Vector2I)_patrolPoints[pointIndex];
 
         // var path = GameManager.Instance.GridNav?.FindPath(start, end);

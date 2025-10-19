@@ -7,7 +7,7 @@ using Godot.Collections;
 namespace Game.Common.AgentControl.BehaviourManagement;
 
 [GlobalClass]
-public partial class AgentBlackboard : Node
+public partial class AgentModules : Node
 {
     [Export] public Node2D AgentBody { get; private set; }
     [Export] public Area2D DetectionArea { get; private set; }
@@ -46,7 +46,6 @@ public partial class AgentBlackboard : Node
         {
             LineOfSightRay.TargetPosition = AgentBody.ToLocal(player.GlobalPosition);
             LineOfSightRay.ForceRaycastUpdate();
-            DebugDraw2D.SetText("Sight check");
             if (LineOfSightRay.GetCollider() == player)
             {
                 LastVisiblePlayerPosition = player.GlobalPosition;

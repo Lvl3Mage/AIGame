@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="AIGame"
-run/main_scene="uid://cf3oj5noao8fe"
+run/main_scene="uid://duewf84pi8phq"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
@@ -57,3 +57,5 @@ moveDown={
 2d_physics/layer_1="Terrain"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemies"
+2d_physics/layer_4="Keys"
+2d_physics/layer_5="Door"

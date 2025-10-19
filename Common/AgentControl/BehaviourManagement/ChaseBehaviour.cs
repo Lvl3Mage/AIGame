@@ -2,9 +2,9 @@ using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
-public partial class ChaseBehaviour : Node, IAgentBehaviour
+public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 {
-	[Export] AgentBlackboard blackboard;
+	[Export] AgentModules modules;
 	[Export] float chaseSpeed = 100f;
 
 	bool isActive;
@@ -15,9 +15,9 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 		player = GameManager.Instance.Player;
 	}
 
-	public IAgentBehaviour.Priority GetPriority()
+	public IPrioritizedBehaviour.Priority GetPriority()
 	{
-		return blackboard.PlayerVisible ? IAgentBehaviour.Priority.High : IAgentBehaviour.Priority.Disabled;
+		return modules.PlayerVisible ? IPrioritizedBehaviour.Priority.Important : IPrioritizedBehaviour.Priority.Disabled;
 	}
 
 	public void StartBehavior()
@@ -28,7 +28,7 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 	public void StopBehavior()
 	{
 		isActive = false;
-		blackboard.MovementModule.SetTargetVelocity(Vector2.Zero);
+		modules.MovementModule.SetTargetVelocity(Vector2.Zero);
 	}
 
 	public override void _Process(double delta)
@@ -36,7 +36,7 @@ public partial class ChaseBehaviour : Node, IAgentBehaviour
 		DebugDraw2D.SetText("Chase", GetPriority().ToString());
 		DebugDraw2D.SetText("Active", isActive.ToString());
 		if (!isActive) return;
-		Vector2 targetDirection = (player.GlobalPosition - blackboard.AgentBody.GlobalPosition).Normalized();
-		blackboard.MovementModule.SetTargetVelocity(targetDirection * chaseSpeed);
+		Vector2 targetDirection = (player.GlobalPosition - modules.AgentBody.GlobalPosition).Normalized();
+		modules.MovementModule.SetTargetVelocity(targetDirection * chaseSpeed);
 	}
 }

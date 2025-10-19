@@ -12,8 +12,6 @@ namespace Game.Common.AgentControl.Navigation;
 [GlobalClass]
 public partial class GridNavigation : Node2D
 {
-	[Export] CharacterBody2D enemy;
-	[Export] CharacterBody2D player;
 	[Export] GridDefinition grid;
 
 	GridCell[,] gridCells;

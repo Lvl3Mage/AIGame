@@ -4,30 +4,30 @@ using Godot;
 namespace Game.Common.AgentControl.BehaviourManagement;
 
 [GlobalClass]
-public partial class InvestigateBehaviour : Node, IAgentBehaviour
+public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 {
-	[Export] AgentBlackboard blackboard;
+	[Export] AgentModules modules;
 	bool isActive;
 	readonly PathFollower investigationPath = new();
 
 	public override void _Ready()
 	{
-		blackboard.PlayerVisibilityChanged += OnPlayerVisibilityChanged;
+		modules.PlayerVisibilityChanged += OnPlayerVisibilityChanged;
 	}
 
 	void OnPlayerVisibilityChanged()
 	{
 		investigationPath.SetPoints(GameManager.Instance.GridNav.GetPathBetween(
-				blackboard.AgentBody.GlobalPosition,
-				blackboard.LastVisiblePlayerPosition
+				modules.AgentBody.GlobalPosition,
+				modules.LastVisiblePlayerPosition
 			)
 		);
 	}
 
-	public IAgentBehaviour.Priority GetPriority()
+	public IPrioritizedBehaviour.Priority GetPriority()
 	{
-		if (investigationPath.PathComplete()) return IAgentBehaviour.Priority.Disabled;
-		return IAgentBehaviour.Priority.Low;
+		if (investigationPath.PathComplete()) return IPrioritizedBehaviour.Priority.Disabled;
+		return IPrioritizedBehaviour.Priority.Low;
 	}
 
 	public void StartBehavior()
@@ -38,7 +38,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
 	public void StopBehavior()
 	{
 		isActive = false;
-		blackboard.MovementModule.SetTargetVelocity(Vector2.Zero);
+		modules.MovementModule.SetTargetVelocity(Vector2.Zero);
 	}
 
 	[Export] float moveSpeed = 100;
@@ -63,7 +63,7 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
 			return;
 		}
 
-		float distance = (target.Value - blackboard.AgentBody.GlobalPosition).LengthSquared();
+		float distance = (target.Value - modules.AgentBody.GlobalPosition).LengthSquared();
 		if (distance <= investigateRadius*investigateRadius){
 			investigationPath.AdvancePath();
 		}
@@ -71,11 +71,11 @@ public partial class InvestigateBehaviour : Node, IAgentBehaviour
 
 	void MoveAlongPath()
 	{
-		Vector2? dir = investigationPath?.GetTargetDirection(blackboard.AgentBody.GlobalPosition);
+		Vector2? dir = investigationPath?.GetTargetDirection(modules.AgentBody.GlobalPosition);
 		if (dir == null){
 			return;
 		}
 
-		blackboard.MovementModule.SetTargetVelocity(dir.Value * moveSpeed);
+		modules.MovementModule.SetTargetVelocity(dir.Value * moveSpeed);
 	}
 }
