@@ -25,7 +25,7 @@ public partial class DiamondKey : Node2D
 	{
 		if (body.GetParent() is Door door)
 		{
-			if (door.NeededKey == this && Collected)
+			if (((door.NeededKey == this && door.NeededKey != null) || door.NeededKey == null) && Collected)
 			{
 				door.Open();
 				QueueFree();

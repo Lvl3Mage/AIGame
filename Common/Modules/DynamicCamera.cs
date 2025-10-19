@@ -9,6 +9,11 @@ public partial class DynamicCamera : Camera2D
 	[Export] Node2D followTarget;
 	private Vector2 targetOffset = Vector2.Zero;
 
+	public override void _Ready()
+	{
+		GlobalPosition = followTarget.GlobalPosition;
+	}
+	
 	public override void _Process(double delta)
 	{
 		Vector2 mousePos = GetViewport().GetMousePosition();
