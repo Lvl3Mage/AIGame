@@ -45,12 +45,14 @@ public static class GodotExtensions
 				yield return grandChild;
 		}
 	}
-    public static T GetRandomElement<T>(this IList<T> list)
-    {
-        if (list == null || list.Count == 0)
-            throw new InvalidOperationException("Cannot get random element from an empty or null list.");
+	public static T GetRandomElement<T>(this IList<T> list)
+	{
+		if (list == null || list.Count == 0)
+			throw new InvalidOperationException("Cannot get random element from an empty or null list.");
 
-        int index = (int)(GD.Randi() % list.Count);
-        return list[index];
-    }
+		int index = (int)(GD.Randi() % list.Count);
+		return list[index];
+	}
+	
+	public static Window? GetSceneRoot() => Engine.GetMainLoop() is SceneTree tree ? tree.Root : null;
 }

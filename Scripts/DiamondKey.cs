@@ -1,8 +1,6 @@
 using Game.Common;
 using Game.Common.Utility;
 using Godot;
-using System;
-using System.Diagnostics;
 
 namespace Game;
 public partial class DiamondKey : Node2D
@@ -11,6 +9,8 @@ public partial class DiamondKey : Node2D
 	[Export] public Area2D InsertKeyArea { get; set; }
 	[Export] float lerpFactor = 0.2f;
 	[Export] float yOffset = -20f;
+	[Export] float collectKeyVolume = 1f;
+	[Export] float insertKeyVolume = 1f;
 	public bool Collected { get; set; } = false;
 
 	bool collided = false;
@@ -28,6 +28,7 @@ public partial class DiamondKey : Node2D
 			if (((door.NeededKey == this && door.NeededKey != null) || door.NeededKey == null) && Collected)
 			{
 				door.Open();
+				AudioManager.PlayAudio2D(SoundLibrary.Instance.KeyInsert, door, insertKeyVolume);
 				QueueFree();
 			}
 		}
@@ -35,7 +36,11 @@ public partial class DiamondKey : Node2D
 
     private void CheckPlayerCollection(Node2D body) // Manage player collection
 	{
-		if (body == GameManager.Instance.Player) Collected = true;
+		if (body == GameManager.Instance.Player && !Collected)
+		{
+			AudioManager.PlayAudio2D(SoundLibrary.Instance.KeyCollect, this, collectKeyVolume);
+			Collected = true;
+		}
 	}
 
 	public override void _Process(double delta)

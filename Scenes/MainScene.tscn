@@ -1,19 +1,80 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf3oj5noao8fe"]
+[gd_scene load_steps=47 format=3 uid="uid://cf3oj5noao8fe"]
 
 [ext_resource type="Script" uid="uid://bx6nqcucqj7k3" path="res://Common/GameManager.cs" id="1_7rqgy"]
 [ext_resource type="PackedScene" uid="uid://duewf84pi8phq" path="res://Scenes/GameLevel.tscn" id="1_hpc76"]
 [ext_resource type="PackedScene" uid="uid://dy07t4su082km" path="res://Scenes/Transition.tscn" id="2_tr2i4"]
+[ext_resource type="PackedScene" uid="uid://joykt6nwtr80" path="res://Scenes/WinScene.tscn" id="4_q68mp"]
+[ext_resource type="Script" uid="uid://de0gdf4v54k6m" path="res://Common/SoundLibrary.cs" id="4_uuu6x"]
+[ext_resource type="AudioStream" uid="uid://cm56dpfwg117s" path="res://VFX/Music/BackgroundMusic.mp3" id="5_8um71"]
+[ext_resource type="AudioStream" uid="uid://bbjo2vxx65mnx" path="res://VFX/Music/VictoryMusic.mp3" id="6_hkvke"]
+[ext_resource type="AudioStream" uid="uid://bcuutumeub3q2" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle2.mp3" id="8_ywy86"]
+[ext_resource type="AudioStream" uid="uid://drg6hpc8k0an5" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle3.mp3" id="9_goiu7"]
+[ext_resource type="AudioStream" uid="uid://decn3e32j8c1a" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle4.mp3" id="10_fqfjr"]
+[ext_resource type="AudioStream" uid="uid://dy84s5jtobimh" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle5.mp3" id="11_oqotn"]
+[ext_resource type="AudioStream" uid="uid://o1hcwhcy881p" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle6.mp3" id="12_eebff"]
+[ext_resource type="AudioStream" uid="uid://dhof1wp1mgal3" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle7.mp3" id="13_qtnps"]
+[ext_resource type="AudioStream" uid="uid://cdol8m0h7kw17" path="res://VFX/Sounds/AlertadorIdle/AlertadorIdle8.mp3" id="14_b420t"]
+[ext_resource type="AudioStream" uid="uid://x26ei63h2pfw" path="res://VFX/Sounds/AlertadorAlert.mp3" id="15_obop7"]
+[ext_resource type="AudioStream" uid="uid://jy7hvy2jp6lx" path="res://VFX/Sounds/BossIdle/Boss1.mp3" id="16_0gkln"]
+[ext_resource type="AudioStream" uid="uid://du14rtmdowm0r" path="res://VFX/Sounds/BossIdle/Boss2.mp3" id="17_e2ql2"]
+[ext_resource type="AudioStream" uid="uid://4hsfib8hl21d" path="res://VFX/Sounds/BossIdle/Boss3.mp3" id="18_dn1w2"]
+[ext_resource type="AudioStream" uid="uid://bh63gnp7d0k12" path="res://VFX/Sounds/BossIdle/Boss4.mp3" id="19_pa4y5"]
+[ext_resource type="AudioStream" uid="uid://s882jxaddk5y" path="res://VFX/Sounds/BossIdle/Boss5.mp3" id="20_jnakw"]
+[ext_resource type="AudioStream" uid="uid://bqmokdlavljx8" path="res://VFX/Sounds/BossIdle/Boss6.mp3" id="21_a7b38"]
+[ext_resource type="AudioStream" uid="uid://brrcmjjwi0b22" path="res://VFX/Sounds/BossIdle/Boss7.mp3" id="22_w0aut"]
+[ext_resource type="AudioStream" uid="uid://dty8p08s2o7fl" path="res://VFX/Sounds/BossIdle/Boss8.mp3" id="23_1ixrr"]
+[ext_resource type="AudioStream" uid="uid://cv38lbviydtwa" path="res://VFX/Sounds/BossIdle/Boss9.mp3" id="24_7wyr4"]
+[ext_resource type="AudioStream" uid="uid://coppbogrw77kn" path="res://VFX/Sounds/BossRoar.mp3" id="25_7aq6o"]
+[ext_resource type="AudioStream" uid="uid://dg2247i73eaxy" path="res://VFX/Sounds/KeyCollect.mp3" id="26_ukagr"]
+[ext_resource type="AudioStream" uid="uid://dohimrhqms314" path="res://VFX/Sounds/KeyInsert.mp3" id="27_767ms"]
+[ext_resource type="AudioStream" uid="uid://dpgt1mh20ogi6" path="res://VFX/Sounds/DoorOpen.mp3" id="28_ely0l"]
+[ext_resource type="AudioStream" uid="uid://jubd6u67v3s2" path="res://VFX/Sounds/PlayerSteps/Step1.mp3" id="29_g550h"]
+[ext_resource type="AudioStream" uid="uid://vaj1d8dbibe1" path="res://VFX/Sounds/PlayerSteps/Step2.mp3" id="30_rnpf7"]
+[ext_resource type="AudioStream" uid="uid://b652wjse7vii0" path="res://VFX/Sounds/PlayerSteps/Step3.mp3" id="31_mxykn"]
+[ext_resource type="AudioStream" uid="uid://5q5pxfta75h2" path="res://VFX/Sounds/PlayerSteps/Step4.mp3" id="32_awmh5"]
+[ext_resource type="AudioStream" uid="uid://bt10u03cm3oay" path="res://VFX/Sounds/PlayerSteps/Step5.mp3" id="33_nod4m"]
+[ext_resource type="AudioStream" uid="uid://ba5vqtx54vxvg" path="res://VFX/Sounds/PlayerSteps/Step6.mp3" id="34_7gb0p"]
+[ext_resource type="AudioStream" uid="uid://druo628sdx7k" path="res://VFX/Sounds/PlayerSteps/Step7.mp3" id="35_1bui0"]
+[ext_resource type="AudioStream" uid="uid://cn6qfjatubc1y" path="res://VFX/Sounds/PlayerSteps/Step8.mp3" id="36_iwhv0"]
+[ext_resource type="AudioStream" uid="uid://dqa6ujsm0e73f" path="res://VFX/Sounds/PlayerSteps/Step9.mp3" id="37_reede"]
+[ext_resource type="AudioStream" uid="uid://bewujdo7na14b" path="res://VFX/Sounds/PlayerSteps/Step10.mp3" id="38_jv1ax"]
+[ext_resource type="AudioStream" uid="uid://dcjlluwscegvx" path="res://VFX/Sounds/PlayerSteps/Step11.mp3" id="39_iv865"]
+[ext_resource type="AudioStream" uid="uid://dd2s2yyrn5gvv" path="res://VFX/Sounds/PlayerSteps/Step12.mp3" id="40_qanbq"]
+[ext_resource type="AudioStream" uid="uid://dh7rkecpn5e28" path="res://VFX/Sounds/PlayerSteps/Step13.mp3" id="41_c3yea"]
+[ext_resource type="AudioStream" uid="uid://ba70omo7wbdg6" path="res://VFX/Sounds/PlayerSteps/Step14.mp3" id="42_13c30"]
+[ext_resource type="AudioStream" uid="uid://cfiu7iho5pqqr" path="res://VFX/Sounds/PlayerSteps/Step15.mp3" id="43_5viha"]
+[ext_resource type="AudioStream" uid="uid://cs48pq6u5b88r" path="res://VFX/Sounds/PlayerSteps/Step16.mp3" id="44_5hmhi"]
+[ext_resource type="AudioStream" uid="uid://8e50ftk6ms6f" path="res://VFX/Sounds/PlayerDeath.mp3" id="45_i8dgf"]
+[ext_resource type="AudioStream" uid="uid://bvvscjp2wsmtg" path="res://VFX/Sounds/Transition.mp3" id="46_3wspw"]
 
-[node name="Main2" type="Node2D"]
+[node name="Main" type="Node2D"]
 y_sort_enabled = true
 metadata/_edit_lock_ = true
 
 [node name="GameLevel" parent="." instance=ExtResource("1_hpc76")]
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("GameLevel")]
 script = ExtResource("1_7rqgy")
+GameLevel = NodePath("../GameLevel")
+winScreenScene = ExtResource("4_q68mp")
+
+[node name="SoundLibrary" type="Node" parent="."]
+script = ExtResource("4_uuu6x")
+BackgroundMusic = ExtResource("5_8um71")
+VictoryMusic = ExtResource("6_hkvke")
+AlertadorIdle = Array[AudioStream]([ExtResource("8_ywy86"), ExtResource("9_goiu7"), ExtResource("10_fqfjr"), ExtResource("11_oqotn"), ExtResource("12_eebff"), ExtResource("13_qtnps"), ExtResource("14_b420t")])
+AlertadorAlert = ExtResource("15_obop7")
+BossIdle = Array[AudioStream]([ExtResource("16_0gkln"), ExtResource("17_e2ql2"), ExtResource("18_dn1w2"), ExtResource("19_pa4y5"), ExtResource("20_jnakw"), ExtResource("21_a7b38"), ExtResource("22_w0aut"), ExtResource("23_1ixrr"), ExtResource("24_7wyr4")])
+BossRoar = ExtResource("25_7aq6o")
+KeyCollect = ExtResource("26_ukagr")
+KeyInsert = ExtResource("27_767ms")
+DoorOpen = ExtResource("28_ely0l")
+PlayerSteps = Array[AudioStream]([ExtResource("29_g550h"), ExtResource("30_rnpf7"), ExtResource("31_mxykn"), ExtResource("32_awmh5"), ExtResource("33_nod4m"), ExtResource("34_7gb0p"), ExtResource("35_1bui0"), ExtResource("36_iwhv0"), ExtResource("37_reede"), ExtResource("38_jv1ax"), ExtResource("39_iv865"), ExtResource("40_qanbq"), ExtResource("41_c3yea"), ExtResource("42_13c30"), ExtResource("43_5viha"), ExtResource("44_5hmhi")])
+PlayerDeath = ExtResource("45_i8dgf")
+Transition = ExtResource("46_3wspw")
 
 [node name="GameInterface" type="CanvasLayer" parent="."]
+layer = 100
 
 [node name="Effects" type="Control" parent="GameInterface"]
 layout_mode = 3
@@ -29,5 +90,6 @@ metadata/_edit_lock_ = true
 visible = false
 layout_mode = 1
 TransitionTime = 0.8
+soundVolume = 0.3
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true

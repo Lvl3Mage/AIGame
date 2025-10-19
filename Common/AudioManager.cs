@@ -1,9 +1,12 @@
-using Game.Common;
+using Game.Common.AgentControl.BehaviourManagement;
 using Game.Common.Utility;
 using Godot;
+using System;
 using System.Collections.Generic;
 
-public static partial class AudioManager
+namespace Game.Common;
+
+public static class AudioManager
 {
     class Audio(AudioStreamPlayer player, float volumeDb)
     {
@@ -36,33 +39,26 @@ public static partial class AudioManager
     }
 
     static readonly AudioGroup rootGroup = new(null, null); // Root group is the only one without parent nor name
+    static readonly Dictionary<string, AudioGroup> groupLookup = [];
 
     public static void CreateGroup(string groupName, string parentGroup = null)
     {
-        AudioGroup newGroup = GetGroup(groupName);
-
-        if (newGroup != null) // Group already exists
+        if (groupLookup.ContainsKey(groupName))
         {
             GD.PushWarning($"Trying to create an already existent group ({groupName}).");
             return;
         }
 
-        AudioGroup parent;
-
-        if (parentGroup == null) parent = rootGroup;
-        else
+        AudioGroup parent = string.IsNullOrEmpty(parentGroup) ? rootGroup : GetGroup(parentGroup);
+        if (parent == null)
         {
-            parent = GetGroup(parentGroup);
-
-            if (parent == null)
-            {
-                GD.PushError($"Parent gruop ({parentGroup}) does not exist.");
-                return;
-            }
+            GD.PushError($"Parent group ({parentGroup}) does not exist.");
+            return;
         }
 
-        newGroup = new AudioGroup(groupName, parent);
+        AudioGroup newGroup = new(groupName, parent);
         parent.ChildrenGroups.Add(newGroup);
+        groupLookup[groupName] = newGroup;
     }
 
     public static AudioStreamPlayer PlayAudio(AudioStream stream, float volume = 1f, float pitch = 1f, string group = null)
@@ -83,7 +79,7 @@ public static partial class AudioManager
             VolumeDb = LinearToDb(volume * audioGroup.GlobalVolumeFactor),
             PitchScale = pitch,
         };
-        GameManager.Instance.AddChild(player);
+        GodotExtensions.GetSceneRoot().AddChild(player);
         Audio audio = new(player, volume);
         audioGroup.Members.Add(audio);
 
@@ -111,7 +107,7 @@ public static partial class AudioManager
         if (stream == null) return null;
 
         AudioGroup audioGroup = (group == null) ? rootGroup : GetGroup(group);
-
+        
         if (audioGroup == null)
         {
             GD.PushError($"Trying to play audio 2D on inexistent group ({group}).");
@@ -141,7 +137,7 @@ public static partial class AudioManager
         return player;
     }
 
-    public static AudioStreamPlayer2D PlayAudio2D(AudioStream[] streams, Node2D source, float volume = 1f, float pitch = 1f, string group = "")
+    public static AudioStreamPlayer2D PlayAudio2D(AudioStream[] streams, Node2D source, float volume = 1f, float pitch = 1f, string group = null)
     {
         if (streams == null || streams.Length == 0) return null;
         return PlayAudio2D(streams.GetRandomElement(), source, volume, pitch, group);
@@ -173,6 +169,7 @@ public static partial class AudioManager
     {
         StopAll();
         rootGroup.ChildrenGroups.Clear();
+        groupLookup.Clear();
     }
 
     static bool DeleteGroup(AudioGroup group)
@@ -270,27 +267,12 @@ public static partial class AudioManager
             UpdateVolumeDb(subgroup);
     }
 
-    static AudioGroup GetGroup(string groupName, AudioGroup root)
+    static AudioGroup GetGroup(string groupName)
     {
-        if (root == null) return null;
-
-        var stack = new Stack<AudioGroup>();
-        stack.Push(root);
-
-        while (stack.Count > 0)
-        {
-            AudioGroup current = stack.Pop();
-
-            if (current.Name == groupName) return current;
-
-            foreach (var child in current.ChildrenGroups)
-                stack.Push(child);
-        }
-
+        if (groupLookup.TryGetValue(groupName, out var group))
+            return group;
         return null;
     }
-
-    static AudioGroup GetGroup(string groupName) => GetGroup(groupName, rootGroup);
 
     static float LinearToDb(float linear) => (linear <= 0) ? -80f : 20f * Mathf.Log(linear);
 }

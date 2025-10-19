@@ -49,7 +49,7 @@ damageArea = NodePath("../DamageArea2D")
 metadata/_custom_type_script = "uid://cii6jfpta3bmh"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.97, 0.15520003, 0.15520003, 1)
+color = Color(0.4204862, 0.66123873, 0.8983556, 1)
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_6bs3c")
@@ -72,7 +72,7 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
 scale = Vector2(50, 50)
 shape = SubResource("CircleShape2D_6bs3c")
-debug_color = Color(0.8980392, 0, 0.15294118, 0.050980393)
+debug_color = Color(0.8980392, 0, 0.15294118, 0)
 metadata/_edit_lock_ = true
 
 [node name="DamageArea2D" type="Area2D" parent="."]
@@ -95,13 +95,22 @@ metadata/_custom_type_script = "uid://c63ulmuxsreim"
 [node name="BehaviourMachineModule" type="Node" parent="AgentBehaviourStarter"]
 script = ExtResource("2_wovta")
 
-[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
+[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules", "enemyBody", "light2D")]
 script = ExtResource("3_xeo28")
 modules = NodePath("../../../AgentBlackboard")
+enemyBody = NodePath("../../..")
+light2D = NodePath("../../../PointLight2D")
+lightColor = Color(0.97, 0.15520003, 0.15520003, 1)
 chaseSpeed = 300.0
+alertVolume = 1.2
+screamDuration = 1.5
 
-[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
+[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules", "enemyBody", "light2D")]
 script = ExtResource("5_mo1ky")
 modules = NodePath("../../../AgentBlackboard")
+enemyBody = NodePath("../../..")
+light2D = NodePath("../../../PointLight2D")
+lightColor = Color(0.8722031, 0.34580135, 0, 1)
+growlsVolume = 0.3
 moveSpeed = 300.0
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"

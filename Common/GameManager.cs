@@ -11,10 +11,13 @@ public partial class GameManager : Node
 {
 	[Export] public Node2D GameLevel { get; private set; }
 	[Export] float transitionDelay = 0.6f;
+	[Export] float bgMusicVolume = 0.5f;
+	[Export] float winMusicVolume = 0.5f;
 	[Export] PackedScene winScreenScene;
 
 	public static GameManager Instance { get; private set; }
 	public PlayerController Player { get; private set; }
+	public DynamicCamera Camera { get; private set; }
 	public GridNavigation GridNav { get; private set; }
 	public GridDefinition GridDef { get; private set; }
 	Transition screenTransition;
@@ -30,16 +33,20 @@ public partial class GameManager : Node
 
 		Node root = GetTree().Root;
 		Player = root.GetAllChildrenOfType<PlayerController>().First();
+		Camera = root.GetAllChildrenOfType<DynamicCamera>().First();
 		GridNav = root.GetAllChildrenOfType<GridNavigation>().First();
 		GridDef = root.GetAllChildrenOfType<GridDefinition>().First();
 		screenTransition = root.GetAllChildrenOfType<Transition>().First();
 	}
 
-	public override void _Ready()
+	public override async void _Ready()
 	{
+		Callable.From(() => AudioManager.PlayAudio2D(SoundLibrary.Instance.BackgroundMusic, Player, bgMusicVolume)).CallDeferred();
+		Player.LockMovement = true;
 		screenTransition.Scale = Vector2.One;
 		screenTransition.Visible = true;
-		DelayFadeOut();
+		await DelayedFadeOut();
+		Player.LockMovement = false;
 	}
 
 	public override void _ExitTree()
@@ -51,12 +58,15 @@ public partial class GameManager : Node
 
 	public async Task WinGame()
     {
-		Player.hasWon = true;
+		Player.HasWon = true;
 		Player.LockMovement = true;
-		await Task.Delay(1500);
 		await screenTransition.FadeIn();
-		winScreenScene.InstantiateUnderAs<Control>(GetTree().CurrentScene);
+		winScreenScene.InstantiateUnderAs<CanvasLayer>(GetTree().CurrentScene);
 		GameLevel.QueueFree();
+		_ = DelayedFadeOut();
+		await Task.Delay((int)(transitionDelay * 1000));
+		await Task.Delay((int)screenTransition.TransitionTime / 2 * 1000); // Await until halfway through fade out
+		AudioManager.PlayAudio(SoundLibrary.Instance.VictoryMusic, winMusicVolume);
     }
 
 	async Task InitialiseNewGame()
@@ -65,7 +75,7 @@ public partial class GameManager : Node
 		GetTree().ReloadCurrentScene();
 	}
 
-	async void DelayFadeOut()
+	async Task DelayedFadeOut()
 	{
 		await Task.Delay((int)(transitionDelay * 1000));
 		await screenTransition.FadeOut();

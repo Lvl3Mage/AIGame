@@ -7,9 +7,6 @@ namespace Game.Common.Modules;
 [GlobalClass]
 public partial class CharacterAnimationModule : Node2D
 {
-
-    //sety = abs(sin(tiempo * frecuencia)) * amplitud
-
     [Export(PropertyHint.Range, "0.0, 50.0")]
     public float AmplitudeMultiplier { get; set; } = 30.0f;
     [Export(PropertyHint.Range, "0.1, 50.0")]
@@ -19,10 +16,8 @@ public partial class CharacterAnimationModule : Node2D
     float time = 0.0f;
     float velocityAttenuation = 0.0f;
 
-
     public override void _Process(double delta)
     {
-        //float amplitude = characterBody.Velocity * AmplitudeMultiplier;
         if (GetParent() is CharacterBody2D characterBody)
         {
             time += (float)delta;
