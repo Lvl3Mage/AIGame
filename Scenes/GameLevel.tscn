@@ -45,6 +45,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ScreenTransition" parent="GameInterface/Effects" instance=ExtResource("1_mrcb1")]
+visible = false
 layout_mode = 1
 TransitionTime = 0.8
 metadata/_edit_use_anchors_ = true
@@ -80,6 +81,7 @@ metadata/_edit_lock_ = true
 
 [node name="Environment" type="Node2D" parent="."]
 modulate = Color(0.15881997, 0.15088442, 0.28670534, 1)
+metadata/_edit_lock_ = true
 
 [node name="BG layer" type="TileMapLayer" parent="Environment"]
 show_behind_parent = true
@@ -105,13 +107,14 @@ position = Vector2(541, 1473)
 [node name="Player" parent="." groups=["player"] instance=ExtResource("9_tmw4s")]
 light_mask = 2
 y_sort_enabled = true
-position = Vector2(955, 1566)
+position = Vector2(3684, 6210)
 
 [node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("followTarget")]
 zoom = Vector2(0.6, 0.6)
 script = ExtResource("8_1y6uj")
 SmoothSpeed = 10.0
 followTarget = NodePath("..")
+metadata/_edit_lock_ = true
 
 [node name="KeyA" parent="." instance=ExtResource("11_ow0hr")]
 position = Vector2(381, 2056)
