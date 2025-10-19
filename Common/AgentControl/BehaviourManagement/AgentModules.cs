@@ -23,6 +23,9 @@ public partial class AgentModules : Node
 
     public override void _Ready()
     {
+        if (GameManager.Instance == null){
+            GD.PrintErr("Game Manager is null!!!!!!!!!!!");
+        }
         player = GameManager.Instance.Player;
     }
 

@@ -7,7 +7,7 @@ namespace Game.Common.AgentControl;
 public partial class AgentDirector : Node
 {
 
-	public over
+	// public over
 	[Export] float taskExpiryTime = 10f;
 	readonly List<AgentTask> activeTasks = [];
 	float accumulatedSightingStrength = 0f;

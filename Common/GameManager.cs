@@ -18,15 +18,8 @@ public partial class GameManager : Node
 	public GridNavigation GridNav { get; private set; }
 	public GridDefinition GridDef { get; private set; }
 	Transition screenTransition;
-
-	public override void _Ready()
+	public override void _EnterTree()
 	{
-		Node root = GetTree().Root;
-		Player = root.GetAllChildrenOfType<PlayerController>().First();
-		GridNav = root.GetAllChildrenOfType<GridNavigation>().First();
-		GridDef = root.GetAllChildrenOfType<GridDefinition>().First();
-		screenTransition = root.GetAllChildrenOfType<Transition>().First();
-		GD.Print(Player);
 		if (Instance != null)
 		{
 			GD.PrintErr("Multiple GameManager instances detected. There should only be one GameManager in the scene tree.");
@@ -34,6 +27,17 @@ public partial class GameManager : Node
 			return;
 		}
 		Instance = this;
+	}
+
+	public override void _Ready()
+	{
+		Node root = GetTree().Root;
+		GD.Print("Player count: " + root.GetAllChildrenOfType<PlayerController>().Count());
+		Player = root.GetAllChildrenOfType<PlayerController>().First();
+		GridNav = root.GetAllChildrenOfType<GridNavigation>().First();
+		GridDef = root.GetAllChildrenOfType<GridDefinition>().First();
+		screenTransition = root.GetAllChildrenOfType<Transition>().First();
+		GD.Print(Player);
 
 		screenTransition.Scale = Vector2.One;
 		screenTransition.Visible = true;
