@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://duewf84pi8phq"]
+[gd_scene load_steps=16 format=4 uid="uid://duewf84pi8phq"]
 
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="2_mrcb1"]
 [ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="3_boklw"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://3wtj01h2ugjy" path="res://Scenes/Goal.tscn" id="10_x4g3l"]
 [ext_resource type="PackedScene" uid="uid://cxjjt2whtbm5p" path="res://Scenes/Key.tscn" id="11_ow0hr"]
 [ext_resource type="PackedScene" uid="uid://b06f4qtjscki6" path="res://Scenes/Door.tscn" id="12_vu6lt"]
+[ext_resource type="Script" uid="uid://b28l0c35p8scv" path="res://Common/AgentControl/AgentDirector.cs" id="13_boklw"]
+[ext_resource type="Script" uid="uid://bffuc6a3rpxfd" path="res://Common/AgentControl/Strategies/PlayerHuntStrategy.cs" id="14_x4g3l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrcb1"]
 shader = ExtResource("6_mrcb1")
@@ -41,9 +43,11 @@ metadata/_edit_lock_ = true
 
 [node name="DoorA" parent="Environment" instance=ExtResource("12_vu6lt")]
 position = Vector2(7640, 1473)
+openSoundVolume = 1.0
 
 [node name="DoorB" parent="Environment" instance=ExtResource("12_vu6lt")]
 position = Vector2(541, 1473)
+openSoundVolume = 1.0
 
 [node name="Goal" parent="." instance=ExtResource("10_x4g3l")]
 position = Vector2(541, 281)
@@ -53,6 +57,8 @@ metadata/_edit_lock_ = true
 light_mask = 2
 position = Vector2(3672, 5891)
 dieAnimationTime = 0.5
+stepSoundInterval = 0.4
+stepSoundVolume = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("followTarget")]
 zoom = Vector2(0.6, 0.6)
@@ -64,10 +70,14 @@ metadata/_edit_lock_ = true
 [node name="KeyA" parent="." instance=ExtResource("11_ow0hr")]
 position = Vector2(381, 2056)
 yOffset = -80.0
+collectKeyVolume = 1.0
+insertKeyVolume = 1.0
 
 [node name="KeyB" parent="." instance=ExtResource("11_ow0hr")]
 position = Vector2(8243, 1829)
 yOffset = -50.0
+collectKeyVolume = 1.0
+insertKeyVolume = 1.0
 
 [node name="Enemies" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
@@ -102,3 +112,11 @@ metadata/_custom_type_script = "uid://v1cehc3jy46d"
 metadata/_edit_lock_ = true
 
 [node name="Timer" type="Timer" parent="GridDefinition"]
+
+[node name="AgentDirector" type="Node" parent="."]
+script = ExtResource("13_boklw")
+metadata/_custom_type_script = "uid://b28l0c35p8scv"
+
+[node name="PlayerHuntStrategy" type="Node" parent="AgentDirector"]
+script = ExtResource("14_x4g3l")
+metadata/_custom_type_script = "uid://bffuc6a3rpxfd"

@@ -26,9 +26,9 @@ public partial class AgentDirector : Node
 		}
 		Instance = this;
 		taskCreationStrategies = this.GetChildrenOfType<IAgentTaskProvider>().ToArray();
-		foreach (IAgentTaskProvider strategy in taskCreationStrategies){
-			strategy.OnNewTasksCreated += AddNewTasks;
-		}
+		// foreach (IAgentTaskProvider strategy in taskCreationStrategies){
+		// 	strategy.OnNewTasksCreated += AddNewTasks;
+		// }
 
 		playerVisibleEventListener = this.GetChildrenOfType<IAgentEventListener<PlayerVisibleEvent>>().ToArray();
 	}
