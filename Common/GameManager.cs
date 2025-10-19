@@ -39,7 +39,7 @@ public partial class GameManager : Node
 	{
 		screenTransition.Scale = Vector2.One;
 		screenTransition.Visible = true;
-		DelayFadeOut();
+		DelayedFadeOut();
 	}
 
 	public override void _ExitTree()
@@ -53,10 +53,10 @@ public partial class GameManager : Node
     {
 		Player.hasWon = true;
 		Player.LockMovement = true;
-		await Task.Delay(1500);
 		await screenTransition.FadeIn();
-		winScreenScene.InstantiateUnderAs<Control>(GetTree().CurrentScene);
+		winScreenScene.InstantiateUnderAs<CanvasLayer>(GetTree().CurrentScene);
 		GameLevel.QueueFree();
+		await DelayedFadeOut();
     }
 
 	async Task InitialiseNewGame()
@@ -65,7 +65,7 @@ public partial class GameManager : Node
 		GetTree().ReloadCurrentScene();
 	}
 
-	async void DelayFadeOut()
+	async Task DelayedFadeOut()
 	{
 		await Task.Delay((int)(transitionDelay * 1000));
 		await screenTransition.FadeOut();
