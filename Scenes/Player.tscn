@@ -18,6 +18,7 @@ fill_to = Vector2(0, 0.5)
 radius = 47.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule", "sprite")]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 29
 motion_mode = 1

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://3wtj01h2ugjy"]
+
+[ext_resource type="Script" uid="uid://dfd5hg6ed4qht" path="res://Scripts/Goal.cs" id="1_7hjqj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_850ti"]
+size = Vector2(210.25, 190.25)
+
+[node name="Goal" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_7hjqj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_850ti")
+debug_color = Color(0, 0.6156863, 0, 0.41960785)
