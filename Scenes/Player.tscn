@@ -19,7 +19,7 @@ fill_to = Vector2(0, 0.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
 radius = 47.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule", "sprite", "animationModule")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule", "sprite", "animationModule", "collider")]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 29
@@ -28,6 +28,7 @@ script = ExtResource("1_kyqiw")
 movementModule = NodePath("TopdownMovementModule")
 sprite = NodePath("CharacterAnimationModule/Sprite2D")
 animationModule = NodePath("CharacterAnimationModule")
+collider = NodePath("CollisionShape2D")
 dieAnimationTime = 0.2
 stepSoundInterval = 0.3
 stepSoundVolume = 0.4
@@ -65,6 +66,7 @@ texture = SubResource("GradientTexture2D_dewec")
 texture_scale = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -19)
 shape = SubResource("CircleShape2D_dewec")
 debug_color = Color(0.5325009, 0.56959665, 0.085515074, 0.41960785)

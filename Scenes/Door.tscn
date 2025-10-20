@@ -48,6 +48,7 @@ collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
 position = Vector2(2.5, 77)
 shape = SubResource("RectangleShape2D_38ogf")
 debug_color = Color(0.30588236, 0.6156863, 0.33333334, 0.1764706)

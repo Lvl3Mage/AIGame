@@ -4,10 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://c8nlrmc7wncpu" path="res://Sprites/Key.png" id="1_og2wv"]
 
 [sub_resource type="Gradient" id="Gradient_i3td7"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0.48307693, 0.9230769, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i3td7"]
 gradient = SubResource("Gradient_i3td7")
+width = 100
+height = 100
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0.5)
@@ -43,6 +46,7 @@ position = Vector2(0.5, -12.5)
 texture = ExtResource("1_og2wv")
 
 [node name="InsertKeyArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 16
 
@@ -52,6 +56,7 @@ shape = SubResource("CircleShape2D_i3td7")
 debug_color = Color(0.33863094, 0.6060093, 0.4050014, 0.41960785)
 
 [node name="CollectionArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 18
 

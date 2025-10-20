@@ -8,11 +8,11 @@ namespace Game.Common.Modules;
 public partial class CharacterAnimationModule : Node2D
 {
     [Export(PropertyHint.Range, "0.0, 50.0")]
-    public float AmplitudeMultiplier { get; set; } = 30.0f;
+    public float AmplitudeMultiplier { get; set; } = 16.0f;
     [Export(PropertyHint.Range, "0.1, 50.0")]
-    public float Frequency { get; set; } = 8.0f;
+    public float Frequency { get; set; } = 13.0f;
     [Export] float maxVel = 100f;
-    [Export] float minVel = 20f;
+    [Export] float minVel = 0f;
     float time = 0.0f;
     float velocityAttenuation = 0.0f;
 

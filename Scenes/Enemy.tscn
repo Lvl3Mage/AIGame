@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=15 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_uoxpr"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="2_wovta"]
 [ext_resource type="Script" uid="uid://dabgxqstmcqhq" path="res://Common/AgentControl/BehaviourManagement/ChaseBehaviour.cs" id="3_xeo28"]
+[ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="4_idouy"]
 [ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="5_mo1ky"]
 [ext_resource type="Script" uid="uid://c63ulmuxsreim" path="res://Common/AgentControl/BehaviourManagement/AgentBehaviourStarter.cs" id="5_uoxpr"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
@@ -34,12 +35,14 @@ y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 
-[node name="AgentBlackboard" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "LineOfSightRay", "MovementModule")]
+[node name="AgentModules" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "LineOfSightRay", "MovementModule", "Sprite")]
 script = ExtResource("1_uoxpr")
 AgentBody = NodePath("..")
 DetectionArea = NodePath("../DetectionArea2D")
 LineOfSightRay = NodePath("../LineOfSightRayCast2D")
 MovementModule = NodePath("../MovementModule")
+Sprite = NodePath("../CharacterAnimationModule/Sprite2D")
+metadata/_custom_type_script = "uid://hc5gm2h0ak2l"
 
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
 script = ExtResource("7_6bs3c")
@@ -60,14 +63,21 @@ shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_6bs3c")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-light_mask = 2
-texture = ExtResource("7_idouy")
-offset = Vector2(0, -72)
-
 [node name="LineOfSightRayCast2D" type="RayCast2D" parent="."]
 collision_mask = 3
 metadata/_edit_lock_ = true
+
+[node name="CharacterAnimationModule" type="Node2D" parent="."]
+script = ExtResource("4_idouy")
+AmplitudeMultiplier = 16.0
+Frequency = 13.0
+minVel = 0.0
+metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule"]
+light_mask = 2
+texture = ExtResource("7_idouy")
+offset = Vector2(0, -72)
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
 collision_layer = 4
@@ -81,6 +91,7 @@ debug_color = Color(0.8980392, 0, 0.15294118, 0)
 metadata/_edit_lock_ = true
 
 [node name="DamageArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 metadata/_edit_lock_ = true
@@ -97,23 +108,23 @@ shape = SubResource("CircleShape2D_xeo28")
 script = ExtResource("5_uoxpr")
 metadata/_custom_type_script = "uid://c63ulmuxsreim"
 
-[node name="BehaviourMachineModule" type="Node" parent="AgentBehaviourStarter"]
+[node name="PriorityBehaviourSelector" type="Node" parent="AgentBehaviourStarter"]
 script = ExtResource("2_wovta")
+metadata/_custom_type_script = "uid://cj72wlh7incyf"
 
-[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules", "enemyBody", "light2D")]
+[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules", "light2D")]
 script = ExtResource("3_xeo28")
-modules = NodePath("../../../AgentBlackboard")
-enemyBody = NodePath("../../..")
+modules = NodePath("../../../AgentModules")
 light2D = NodePath("../../../PointLight2D")
 lightColor = Color(0.97, 0.15520003, 0.15520003, 1)
 chaseSpeed = 300.0
 alertVolume = 1.2
 screamDuration = 1.5
+metadata/_custom_type_script = "uid://dabgxqstmcqhq"
 
-[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules", "enemyBody", "light2D")]
+[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules", "light2D")]
 script = ExtResource("5_mo1ky")
-modules = NodePath("../../../AgentBlackboard")
-enemyBody = NodePath("../../..")
+modules = NodePath("../../../AgentModules")
 light2D = NodePath("../../../PointLight2D")
 lightColor = Color(0.8722031, 0.34580135, 0, 1)
 growlsVolume = 0.3

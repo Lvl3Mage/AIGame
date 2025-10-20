@@ -3,10 +3,10 @@ using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
+[GlobalClass]
 public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 {
 	[Export] AgentModules modules;
-	[Export] CharacterBody2D enemyBody;
 	[Export] PointLight2D light2D;
 	[Export] Color lightColor = Colors.White;
 	[Export] float chaseSpeed = 100f;
@@ -36,7 +36,7 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 		isActive = true;
 		isScreaming = true;
 		light2D.Color = lightColor;
-		AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorAlert, enemyBody, alertVolume).Finished += Growl;
+		AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorAlert, modules.AgentBody, alertVolume).Finished += Growl;
 		GetTree().CreateTimer(screamDuration).Timeout += () => isScreaming = false;
 		_ = GameManager.Instance.Camera.ScreenShake(shakeStrength, screamDuration);
 	}
@@ -61,8 +61,10 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 		if (!isActive) return;
 		Vector2 targetDirection = (player.GlobalPosition - modules.AgentBody.GlobalPosition).Normalized();
 		float screamFactor = isScreaming ? 0f : 1f;
-		modules.MovementModule.SetTargetVelocity(targetDirection * chaseSpeed);
-		AgentDirector.Instance.AddPlayerVisibleEvent(new PlayerVisibleEvent{
+
+		modules.MovementModule.SetTargetVelocity(targetDirection * chaseSpeed * screamFactor);
+		AgentDirector.Instance.AddPlayerVisibleEvent(new PlayerVisibleEvent
+		{
 			PlayerPosition = player.GlobalPosition,
 			PlayerDirection = modules.PlayerDirection,
 			Strength = 5f * (float)delta,
@@ -76,8 +78,7 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 		isScreaming = false;
 		if (!isActive) return;
 
-		AudioStreamPlayer2D player = AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, enemyBody, growlsVolume);
+		AudioStreamPlayer2D player = AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, modules.AgentBody, growlsVolume);
 		player.Finished += Growl;
-
 	}
 }
