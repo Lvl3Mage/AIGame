@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://8pas1mruis60"]
+[gd_scene load_steps=9 format=3 uid="uid://8pas1mruis60"]
 
 [ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Scripts/PlayerController.cs" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://bpibmcln7tgde" path="res://Sprites/Player.png" id="2_gntrk"]
+[ext_resource type="Script" uid="uid://binjbolnj0dgb" path="res://Common/Modules/SquishModule.cs" id="3_5ixxa"]
 [ext_resource type="Script" uid="uid://brj5wymtuq8x" path="res://Common/Modules/TopdownMovementModule.cs" id="3_dewec"]
 [ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="4_dewec"]
 
@@ -19,16 +20,17 @@ fill_to = Vector2(0, 0.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_dewec"]
 radius = 47.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule", "sprite", "animationModule", "collider")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementModule", "sprite", "animationModule", "squishModule", "collider")]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 29
 motion_mode = 1
 script = ExtResource("1_kyqiw")
 movementModule = NodePath("TopdownMovementModule")
-sprite = NodePath("CharacterAnimationModule/Sprite2D")
+sprite = NodePath("CharacterAnimationModule/SquishModule/Sprite2D")
 animationModule = NodePath("CharacterAnimationModule")
-collider = NodePath("CollisionShape2D")
+squishModule = NodePath("CharacterAnimationModule/SquishModule")
+collider = NodePath("TerrainCollider2D")
 dieAnimationTime = 0.2
 stepSoundInterval = 0.3
 stepSoundVolume = 0.4
@@ -36,7 +38,6 @@ stepSoundVolume = 0.4
 [node name="TopdownMovementModule" type="Node2D" parent="." node_paths=PackedStringArray("animationModule")]
 position = Vector2(4.2000046, -65.35)
 script = ExtResource("3_dewec")
-MaxMoveSpeed = 1000.0
 animationModule = NodePath("../CharacterAnimationModule")
 metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
@@ -44,15 +45,23 @@ metadata/_custom_type_script = "uid://brj5wymtuq8x"
 script = ExtResource("4_dewec")
 metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule"]
+[node name="SquishModule" type="Node2D" parent="CharacterAnimationModule"]
+position = Vector2(0, 5.684342e-14)
+scale = Vector2(0.99999994, 0.99999994)
+script = ExtResource("3_5ixxa")
+MinValueThreshold = 0.0
+MaxValueThreshold = 50.0
+metadata/_custom_type_script = "uid://binjbolnj0dgb"
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule/SquishModule"]
 light_mask = 2
 texture_filter = 1
-position = Vector2(0, 9.536743e-07)
+position = Vector2(0, 9.5367426e-07)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_gntrk")
 offset = Vector2(42.00004, -653.4999)
 
-[node name="PointLight2D" type="PointLight2D" parent="CharacterAnimationModule"]
+[node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(7.6293945e-06, -18.999992)
 scale = Vector2(0.99999994, 0.99999994)
 color = Color(0.9701124, 0.81832045, 0.48652142, 1)
@@ -62,7 +71,7 @@ shadow_filter = 2
 texture = SubResource("GradientTexture2D_dewec")
 texture_scale = 20.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="TerrainCollider2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, -19)
 shape = SubResource("CircleShape2D_dewec")

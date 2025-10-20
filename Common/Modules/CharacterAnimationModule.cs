@@ -13,6 +13,9 @@ public partial class CharacterAnimationModule : Node2D
     public float Frequency { get; set; } = 13.0f;
     [Export] float maxVel = 100f;
     [Export] float minVel = 0f;
+
+    public float OffsetY { get; private set; }
+
     float time = 0.0f;
     float velocityAttenuation = 0.0f;
 
@@ -25,8 +28,8 @@ public partial class CharacterAnimationModule : Node2D
             float clampedVel = Mathf.Clamp(currentVelocity, minVel, maxVel);
             float currentAttenuation = Mathf.InverseLerp(minVel, maxVel, clampedVel);
             velocityAttenuation = Mathf.Lerp(velocityAttenuation, currentAttenuation, MathUtility.ComputeLerpWeight(10f, (float)delta));
-            float offsetY = Mathf.Abs(Mathf.Sin(time * Frequency)) * AmplitudeMultiplier * velocityAttenuation;
-            Position = new Vector2(0, -offsetY);
+            OffsetY = Mathf.Abs(Mathf.Sin(time * Frequency)) * AmplitudeMultiplier * velocityAttenuation;
+            Position = new Vector2(0, -OffsetY);
         }
     }
 }

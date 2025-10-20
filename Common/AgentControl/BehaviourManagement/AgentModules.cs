@@ -3,6 +3,7 @@ using System.Linq;
 using Godot;
 using Game.Common.Modules;
 using Godot.Collections;
+using Game.Global;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
@@ -11,8 +12,11 @@ public partial class AgentModules : Node
 {
     [Export] public CharacterBody2D AgentBody { get; private set; }
     [Export] public Area2D DetectionArea { get; private set; }
+    [Export] public Area2D FarsightArea { get; private set; }
     [Export] public RayCast2D LineOfSightRay { get; private set; }
     [Export] public MovementModule MovementModule { get; private set; }
+    [Export] public SquishModule SquishModule { get; private set; }
+    [Export] public CharacterAnimationModule CharacterAnimationModule { get; private set; }
     [Export] public Sprite2D Sprite { get; private set; }
 
     public bool PlayerVisible { get; private set; } = false;
@@ -45,32 +49,31 @@ public partial class AgentModules : Node
 
         pastPlayerPosition = player.GlobalPosition;
 
-        // Flip animation
+        // Animate sprite
         if (AgentBody.Velocity.X > 0) Sprite.FlipH = false;
         else if (AgentBody.Velocity.X < 0) Sprite.FlipH = true;
+
+        SquishModule.UpdateDynamicScaling(CharacterAnimationModule.OffsetY);
     }
     void UpdatePlayerDetection()
     {
-        Array<Node2D> bodiesInArea = DetectionArea.GetOverlappingBodies();
-        bool playerInArea = bodiesInArea.Any(body => body == player);
-        if (playerInArea)
+        Array<Node2D> bodiesInDetectionArea = DetectionArea.GetOverlappingBodies();
+        Array<Node2D> bodiesInFarsightArea = FarsightArea.GetOverlappingBodies();
+
+        LineOfSightRay.TargetPosition = AgentBody.ToLocal(player.GlobalPosition);
+        LineOfSightRay.ForceRaycastUpdate();
+
+        bool hasLineOfSight = LineOfSightRay.GetCollider() == player;
+        bool playerInDetectionArea = bodiesInDetectionArea.Any(body => body == player);
+        bool playerInFarsightArea = bodiesInFarsightArea.Any(body => body == player);
+
+        if (hasLineOfSight && playerInDetectionArea)
         {
-            LineOfSightRay.TargetPosition = AgentBody.ToLocal(player.GlobalPosition);
-            LineOfSightRay.ForceRaycastUpdate();
-            if (LineOfSightRay.GetCollider() == player)
-            {
-                LastVisiblePlayerPosition = player.GlobalPosition;
-                SetPlayerVisibility(true);
-            }
-            else
-            {
-                SetPlayerVisibility(false);
-            }
+            LastVisiblePlayerPosition = player.GlobalPosition;
+            SetPlayerVisibility(true);
         }
-        else
-        {
-            SetPlayerVisibility(false);
-        }
+        if (!playerInFarsightArea || !hasLineOfSight) SetPlayerVisibility(false);
+       
     }
 
     void SetPlayerVisibility(bool visible)

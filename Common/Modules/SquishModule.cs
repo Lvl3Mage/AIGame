@@ -24,10 +24,10 @@ public partial class SquishModule : Node2D
 		UpdateMirroring();
 	}
 
-	public void UpdateDynamicScaling(double delta, float value)
+	public void UpdateDynamicScaling(float value)
 	{
 		float deltaVy = value - lastValue;
-		float dt = (float)delta;
+		float dt = (float)GetProcessDeltaTime();
 
 		// Calculate proportional impact strength based on value change
 		float normalizedImpact = Mathf.Abs(deltaVy) / MaxValueThreshold;
