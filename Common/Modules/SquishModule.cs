@@ -1,3 +1,4 @@
+using Game.Common.Utility;
 using Godot;
 
 namespace Game.Global;
@@ -35,7 +36,7 @@ public partial class SquishModule : Node2D
 			impactWeight.X = Mathf.Clamp(normalizedImpact, 0f, 1f);
 
 		lastValue = value;
-		float weight = Logic.ComputeLerpWeight(ImpactDecay, dt);
+		float weight = MathUtility.ComputeLerpWeight(ImpactDecay, dt);
 
 		impactWeight.X = Mathf.Lerp(impactWeight.X, 0f, weight);
 		impactWeight.Y = Mathf.Lerp(impactWeight.Y, 0f, weight);

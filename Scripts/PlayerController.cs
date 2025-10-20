@@ -83,6 +83,7 @@ public partial class PlayerController : CharacterBody2D
         LockMovement = true;
         Velocity = Vector2.Zero;
         Callable.From(() => collider.Disabled = true).CallDeferred();
+        GameManager.Instance.TimeFreezer.FrameFreeze(0f, 0.2f);
         AudioManager.PlayAudio2D(SoundLibrary.Instance.PlayerDeath, this, deathSoundVolume);
         _ = GameManager.Instance.Camera.ScreenShake(deathScreenshakeStrength, deathScreenshakeDuration);
 
