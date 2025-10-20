@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=16 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_uoxpr"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="2_wovta"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
 [ext_resource type="Texture2D" uid="uid://caghhbbhm25mt" path="res://Sprites/Alertador1.png" id="7_idouy"]
 [ext_resource type="Script" uid="uid://cii6jfpta3bmh" path="res://Common/Modules/LoseConditionModule.cs" id="7_uoxpr"]
+[ext_resource type="Script" uid="uid://da48ns7iss6u7" path="res://Common/AgentControl/BehaviourManagement/TaskFulfillBehaviour.cs" id="10_0o0ue"]
 
 [sub_resource type="Gradient" id="Gradient_dewec"]
 offsets = PackedFloat32Array(0.8153846, 0.9230769, 1)
@@ -28,7 +29,7 @@ fill_to = Vector2(0, 0.52136755)
 radius = 64.49806
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xeo28"]
-radius = 48.0
+radius = 25.0
 
 [node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -69,9 +70,6 @@ metadata/_edit_lock_ = true
 
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
 script = ExtResource("4_idouy")
-AmplitudeMultiplier = 16.0
-Frequency = 13.0
-minVel = 0.0
 metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule"]
@@ -130,3 +128,10 @@ lightColor = Color(0.8722031, 0.34580135, 0, 1)
 growlsVolume = 0.3
 moveSpeed = 300.0
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
+
+[node name="TaskFulfillBehaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules")]
+script = ExtResource("10_0o0ue")
+modules = NodePath("../../../AgentModules")
+moveSpeed = 300.0
+navPointRadius = 50.0
+metadata/_custom_type_script = "uid://da48ns7iss6u7"

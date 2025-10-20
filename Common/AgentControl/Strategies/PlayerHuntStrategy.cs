@@ -112,7 +112,6 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 		if (maxItemsToSelect > candidates.Count){
 			maxItemsToSelect = candidates.Count;
 		}
-
 		List<T> results =[];
 		for (int attempt = 0; attempt < maxItemsToSelect; attempt++){
 			T candidate = candidates[(int)(GD.Randi() % candidates.Count)];
@@ -120,7 +119,6 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 				results.Add(candidate);
 			}
 		}
-
 		return results.ToArray();
 	}
 
