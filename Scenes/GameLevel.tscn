@@ -114,9 +114,9 @@ metadata/_edit_lock_ = true
 
 [node name="GridDefinition" type="Node2D" parent="."]
 script = ExtResource("2_mrcb1")
-width = 220
-height = 130
-cellSize = 50.0
+width = 110
+height = 64
+cellSize = 100.0
 debugDraw = false
 metadata/_edit_lock_ = true
 

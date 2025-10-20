@@ -43,7 +43,7 @@ public partial class WanderStrategy : Node, IAgentTaskProvider
 	{
 		CleanupExpiredTasks();
 		int attempts = 0;
-		while (tasks.Count < concurrentWanderTaskAmount && attempts < 10){
+		while (tasks.Count < concurrentWanderTaskAmount && attempts < 1){
 			if (!TryAddTask()){
 				attempts++;
 			}

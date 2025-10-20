@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Game.Common.AgentControl.Strategies;
 using Game.Common.Managers;
@@ -21,6 +22,8 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 		active = true;
 	}
 
+	float timeTaken;
+
 	void SwitchTask(AgentTask task)
 	{
 		if(task == null){
@@ -28,9 +31,8 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 			return;
 		}
 		currentTask = task;
-		currentTask.Reserve();
 		pathFollower.SetPoints(GameManager.Instance.GridNav.GetPathBetween(modules.AgentBody.GlobalPosition, currentTask.TargetPosition));
-
+		currentTask.Reserve();
 	}
 	public override void _Process(double delta)
 	{
