@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://8pas1mruis60"]
 
-[ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Common/PlayerController.cs" id="1_kyqiw"]
+[ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Scripts/PlayerController.cs" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://bpibmcln7tgde" path="res://Sprites/Player.png" id="2_gntrk"]
 [ext_resource type="Script" uid="uid://brj5wymtuq8x" path="res://Common/Modules/TopdownMovementModule.cs" id="3_dewec"]
 [ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="4_dewec"]
@@ -42,9 +42,6 @@ metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
 script = ExtResource("4_dewec")
-AmplitudeMultiplier = 16.0
-Frequency = 13.0
-minVel = 0.0
 metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule"]

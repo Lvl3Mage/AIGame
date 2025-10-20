@@ -1,11 +1,12 @@
 [gd_scene load_steps=109 format=3 uid="uid://xdrqqrpdqmqr"]
 
-[ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Common/PlayerController.cs" id="1_atl77"]
+[ext_resource type="Script" uid="uid://byn43mwv7t8x3" path="res://Scripts/PlayerController.cs" id="1_atl77"]
 [ext_resource type="Script" uid="uid://brj5wymtuq8x" path="res://Common/Modules/TopdownMovementModule.cs" id="2_07mh7"]
 [ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="3_ncby1"]
 [ext_resource type="Texture2D" uid="uid://dbwjiino6x4l1" path="res://Sprites/idle_spritesheet.png" id="4_atl77"]
 [ext_resource type="Texture2D" uid="uid://c4u8k6tb1dd2a" path="res://Sprites/spritesheet_6.png" id="5_ncby1"]
 [ext_resource type="Texture2D" uid="uid://c5o8mkdmck1vt" path="res://Sprites/Walk_spritesheet.png" id="6_66ymt"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
 size = Vector2(57, 32)
