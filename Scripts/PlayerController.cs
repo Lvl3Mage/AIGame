@@ -10,7 +10,8 @@ namespace Game.Common;
 public partial class PlayerController : CharacterBody2D
 {
     [Export] TopdownMovementModule movementModule;
-    [Export] Sprite2D sprite;
+    //[Export] Sprite2D sprite;
+    [Export] AnimatedSprite2D animatedSprite;
     [Export] CharacterAnimationModule animationModule;
     [Export] SquishModule squishModule;
     [Export] CollisionShape2D collider;
@@ -56,8 +57,8 @@ public partial class PlayerController : CharacterBody2D
         movementModule.InputDown = pressDown;
 
         // Animate sprite
-        if (pressRight) sprite.FlipH = false;
-        else if (pressLeft) sprite.FlipH = true;
+        if (pressRight) animatedSprite.FlipH = false;
+        else if (pressLeft) animatedSprite.FlipH = true;
 
         squishModule.UpdateDynamicScaling(animationModule.OffsetY);
     }
@@ -74,11 +75,11 @@ public partial class PlayerController : CharacterBody2D
 
     async Task TriggerDieAnimation()
     {
-        float getRotation() => sprite.RotationDegrees;
-        void setRotation(float v) => sprite.RotationDegrees = v;
+        float getRotation() => animatedSprite.RotationDegrees;
+        void setRotation(float v) => animatedSprite.RotationDegrees = v;
 
-        float getRedColor() => sprite.SelfModulate.R;
-        void setRedColor(float v) => sprite.SelfModulate = new Color(v, sprite.SelfModulate.G, sprite.SelfModulate.B, sprite.SelfModulate.A);
+        float getRedColor() => animatedSprite.SelfModulate.R;
+        void setRedColor(float v) => animatedSprite.SelfModulate = new Color(v, animatedSprite.SelfModulate.G, animatedSprite.SelfModulate.B, animatedSprite.SelfModulate.A);
 
         LockMovement = true;
         Velocity = Vector2.Zero;

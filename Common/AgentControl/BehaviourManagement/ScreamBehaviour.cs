@@ -9,7 +9,6 @@ namespace Game.Common.AgentControl.BehaviourManagement;
 public partial class ScreamBehaviour : Node, IPrioritizedBehaviour
 {
 	[Export] AgentModules modules;
-	[Export] PointLight2D light2D;
 	[Export] Color lightColor = Colors.White;
 	[Export] float alertVolume = 1f;
 	[Export] float growlsVolume = 1f;
@@ -36,7 +35,8 @@ public partial class ScreamBehaviour : Node, IPrioritizedBehaviour
 	public void StartBehavior()
 	{
 		isActive = true;
-		light2D.Color = lightColor;
+		modules.animatedSprite.Play("Alert");
+		modules.light.Color = lightColor;
 
 		Scream(); // Initial scream
 

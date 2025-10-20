@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://duewf84pi8phq" path="res://Scenes/GameLevel.tscn" id="1_hpc76"]
 [ext_resource type="PackedScene" uid="uid://dy07t4su082km" path="res://Scenes/Transition.tscn" id="2_tr2i4"]
 [ext_resource type="Script" uid="uid://dfo5ceup43alw" path="res://Common/Modules/TimeFreezerModule.cs" id="4_8um71"]
-[ext_resource type="PackedScene" path="res://Scenes/WinScene.tscn" id="4_q68mp"]
+[ext_resource type="PackedScene" uid="uid://joykt6nwtr80" path="res://Scenes/WinScene.tscn" id="4_q68mp"]
 [ext_resource type="Script" uid="uid://de0gdf4v54k6m" path="res://Scripts/SoundLibrary.cs" id="4_uuu6x"]
 [ext_resource type="AudioStream" uid="uid://cm56dpfwg117s" path="res://VFX/Music/BackgroundMusic.mp3" id="5_8um71"]
 [ext_resource type="AudioStream" uid="uid://bbjo2vxx65mnx" path="res://VFX/Music/VictoryMusic.mp3" id="6_hkvke"]
@@ -57,8 +57,8 @@ metadata/_edit_lock_ = true
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("GameLevel")]
 script = ExtResource("1_7rqgy")
-GameLevel = NodePath("../GameLevel")
 winScreenScene = ExtResource("4_q68mp")
+GameLevel = NodePath("../GameLevel")
 
 [node name="TimeFreezerModule" type="Node" parent="GameManager"]
 script = ExtResource("4_8um71")
