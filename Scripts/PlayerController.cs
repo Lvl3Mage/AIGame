@@ -11,6 +11,7 @@ public partial class PlayerController : CharacterBody2D
 {
     [Export] TopdownMovementModule movementModule;
     [Export] Sprite2D sprite;
+    //[Export] AnimatedSprite2D sprite;
     [Export] CharacterAnimationModule animationModule;
     [Export] SquishModule squishModule;
     [Export] CollisionShape2D collider;
