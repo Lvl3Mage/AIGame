@@ -14,6 +14,8 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 	[Export] float moveSpeed = 100f;
 	[Export] float navPointRadius = 10f;
 	[Export] IPrioritizedBehaviour.Priority behaviorPriority;
+	[Export] Color backgroundTaskColor = Colors.Green;
+	[Export] Color normalTaskColor = Colors.Blue;
 	AgentTask currentTask = null;
 	PathFollower pathFollower = new();
 	bool active = false;
@@ -45,6 +47,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 			var task = SelectBestTask();
 			if(task != null && task.TaskPriority > currentTask.TaskPriority){
 				SwitchTask(task);
+				AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, modules.AgentBody, 0.5f);
 			}
 		}
 		else{
@@ -55,6 +58,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 			currentTask = null;
 			return;
 		}
+		modules.light.Color = currentTask is{ TaskPriority: AgentTask.Priority.Background } ? backgroundTaskColor : normalTaskColor;
 		MoveAlongPath();
 		TryAdvancePath();
 
@@ -85,7 +89,6 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 		{
 			return;
 		}
-
 		modules.MovementModule.SetTargetVelocity(dir.Value * moveSpeed);
 	}
 	AgentTask SelectBestTask()

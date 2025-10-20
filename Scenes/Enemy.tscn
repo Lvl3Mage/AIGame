@@ -374,7 +374,7 @@ shadow_filter = 2
 texture = SubResource("GradientTexture2D_27ry8")
 
 [node name="LineOfSightRayCast2D" type="RayCast2D" parent="."]
-collision_mask = 3
+collision_mask = 19
 metadata/_edit_lock_ = true
 
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
@@ -466,4 +466,6 @@ modules = NodePath("../../../AgentModules")
 moveSpeed = 300.0
 navPointRadius = 40.0
 behaviorPriority = 2
+backgroundTaskColor = Color(0.41960785, 0.6627451, 0.8980392, 1)
+normalTaskColor = Color(0.87058824, 0.34509805, 0, 1)
 metadata/_custom_type_script = "uid://da48ns7iss6u7"

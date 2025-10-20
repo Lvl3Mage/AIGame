@@ -7,7 +7,7 @@
 [ext_resource type="Shader" uid="uid://b10o46gjwxng1" path="res://VFX/Visuals/LightShader.gdshader" id="6_mrcb1"]
 [ext_resource type="Script" uid="uid://cav4dofx6oesp" path="res://Common/Utility/DebugDrawQueue.cs" id="7_e0o5i"]
 [ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/DynamicCamera.cs" id="8_1y6uj"]
-[ext_resource type="PackedScene" uid="uid://cyegg78u8jykm" path="res://Scenes/Screamer.tscn" id="9_0qbk5"]
+[ext_resource type="PackedScene" uid="uid://cyegg78u8jykm" path="res://Scenes/screamer.tscn" id="9_0qbk5"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="9_tmw4s"]
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="10_ioiu6"]
 [ext_resource type="PackedScene" uid="uid://3wtj01h2ugjy" path="res://Scenes/Goal.tscn" id="10_x4g3l"]
@@ -100,7 +100,7 @@ position = Vector2(2830, 3484)
 position = Vector2(3968, 3857)
 
 [node name="Screamer3" parent="Enemies" instance=ExtResource("9_0qbk5")]
-position = Vector2(2608, 1376)
+position = Vector2(2505, 1319)
 
 [node name="Screamer4" parent="Enemies" instance=ExtResource("9_0qbk5")]
 position = Vector2(1892, 4165)
@@ -146,9 +146,10 @@ sightingThreshold = 2.0
 minExtrapolationDistance = 200.0
 maxExtrapolationDistance = 1500.0
 maxTargetSamples = 15
-maxTasksPerSighting = 5
+maxTasksPerSighting = 8
 directionAveragingSamples = 10
 huntRecruitRadius = 1000.0
+taskExpiryTime = 20.0
 metadata/_custom_type_script = "uid://bffuc6a3rpxfd"
 
 [node name="WanderStrategy" type="Node" parent="AgentDirector"]

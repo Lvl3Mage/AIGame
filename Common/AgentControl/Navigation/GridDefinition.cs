@@ -71,6 +71,7 @@ public partial class GridDefinition : Node2D
 
 	public override void _Draw()
 	{
+		return;
 		foreach (var (cell, color, filled) in debugDrawQueue){
 			Vector2 worldPos = ToLocal(GridToWorld(cell));
 			DrawRect(
