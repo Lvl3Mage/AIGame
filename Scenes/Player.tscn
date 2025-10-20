@@ -65,11 +65,11 @@ offset = Vector2(42.00004, -653.4999)
 position = Vector2(7.6293945e-06, -18.999992)
 scale = Vector2(0.99999994, 0.99999994)
 color = Color(0.9701124, 0.81832045, 0.48652142, 1)
-energy = 0.8
+energy = 0.52
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_dewec")
-texture_scale = 20.0
+texture_scale = 12.85
 
 [node name="TerrainCollider2D" type="CollisionShape2D" parent="."]
 visible = false

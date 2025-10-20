@@ -2,9 +2,6 @@
 
 namespace Game.Common.AgentControl.Strategies;
 
-public class PlayerVisibleEvent : IAgentEvent
+public class PlayerVisibleEvent : PlayerEvent
 {
-	public Vector2 PlayerPosition { get; init; }
-	public Vector2 PlayerDirection { get; init; }
-	public float Strength { get; init; }
 }

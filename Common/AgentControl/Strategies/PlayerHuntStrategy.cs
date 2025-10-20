@@ -34,7 +34,7 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 	public override void _Process(double delta)
 	{
 		accumulatedStrength -= sightingDecayRate * (float)delta;
-		DebugDraw2D.SetText("Hunt Sighting Strength", accumulatedStrength.ToString("F2"));
+		// DebugDraw2D.SetText("Hunt Sighting Strength", accumulatedStrength.ToString("F2"));
 		accumulatedStrength = Mathf.Max(accumulatedStrength, 0f);
 	}
 
@@ -73,7 +73,7 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 		}, maxTargetSamples);
 
 		if (possibleTargets.Length == 0){
-			DebugDraw2D.SetText("No targets found with min distance", "Relaxing min distance constraint", duration: 2f);
+			// DebugDraw2D.SetText("No targets found with min distance", "Relaxing min distance constraint", duration: 2f);
 			possibleTargets = SelectMultipleConstrained(reachablePositions, point => {
 				float distanceToSighting = reachArea.GetDistanceTo(point);
 				return distanceToSighting <= maxExtrapolationDistance;
@@ -86,7 +86,7 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 			return -dot;
 		}).Take(maxTasksPerSighting).ToArray();
 
-		DebugDraw2D.SetText("Sighting Targets", $"Found {targets.Length} targets for sighting event", duration: 2f);
+		// DebugDraw2D.SetText("Sighting Targets", $"Found {targets.Length} targets for sighting event", duration: 2f);
 
 		var tasks = targets.Select(target => new AgentTask{
 			TargetPosition = target,

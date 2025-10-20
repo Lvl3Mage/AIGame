@@ -1,38 +1,95 @@
-﻿using Godot;
+﻿using System.Threading.Tasks;
+using Game.Common.AgentControl.Strategies;
+using Godot;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
+//pretty ugly code duplication here but i guess it works
 
+[GlobalClass]
 public partial class ScreamBehaviour : Node, IPrioritizedBehaviour
 {
-	// [Export] private Color lightColor = Color.Red;
-	// [Export] private float alertVolume = 0.8f;
-	// [Export] private float screamDuration = 2.0f;
 	[Export] AgentModules modules;
-	//
-	//
-	// public void StartBehavior()
-	// {
-	// 	modules.MovementModule.SetTargetVelocity(Vector2.Zero);
-	//
-	// 	light2D.Color = lightColor;
-	// 	AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorAlert, modules.AgentBody, alertVolume).Finished += Growl;
-	// 	GetTree().CreateTimer(screamDuration).Timeout += () => isScreaming = false;
-	// 	_ = GameManager.Instance.Camera.ScreenShake(shakeStrength, screamDuration);
-	// 	await Task.Delay(100); // Small delay to ensure it flips sprite into the player
-	// }
+	[Export] PointLight2D light2D;
+	[Export] Color lightColor = Colors.White;
+	[Export] float alertVolume = 1f;
+	[Export] float growlsVolume = 1f;
+	[Export] float shakeStrength = 10f;
+	[Export] float screamDuration = 0.6f;
+	[Export] float screamInterval = 1.2f; // Delay between screams
 
-	public void StartBehavior()
-	{
-		throw new System.NotImplementedException();
-	}
+	bool isActive;
+	PlayerController player;
+	Timer screamTimer;
 
-	public void StopBehavior()
+	public override void _Ready()
 	{
-		modules.MovementModule.SetTargetVelocity(Vector2.Zero);
+		player = GameManager.Instance.Player;
 	}
 
 	public IPrioritizedBehaviour.Priority GetPriority()
 	{
-		return modules.PlayerVisible ? IPrioritizedBehaviour.Priority.Critical : IPrioritizedBehaviour.Priority.Disabled;
+		return modules.PlayerVisible
+			? IPrioritizedBehaviour.Priority.Critical
+			: IPrioritizedBehaviour.Priority.Disabled;
+	}
+
+	public void StartBehavior()
+	{
+		isActive = true;
+		light2D.Color = lightColor;
+
+		Scream(); // Initial scream
+
+		// Setup repeating screams
+		screamTimer = new Timer();
+		screamTimer.WaitTime = screamInterval;
+		screamTimer.OneShot = false;
+		screamTimer.Timeout += Scream;
+		AddChild(screamTimer);
+		screamTimer.Start();
+	}
+
+	public void StopBehavior()
+	{
+		isActive = false;
+		modules.MovementModule.SetTargetVelocity(Vector2.Zero);
+
+		if (screamTimer != null && screamTimer.IsInsideTree())
+		{
+			screamTimer.Stop();
+			screamTimer.QueueFree();
+			screamTimer = null;
+		}
+	}
+
+	void Scream()
+	{
+		if (!isActive) return;
+
+		AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, modules.AgentBody, alertVolume);
+		_ = GameManager.Instance.Camera.ScreenShake(shakeStrength, screamDuration);
+	}
+
+	public override void _Process(double delta)
+	{
+		// DebugDraw2D.SetText("Scream Active", isActive.ToString());
+		if (!isActive) return;
+
+		// No movement
+		modules.MovementModule.SetTargetVelocity(Vector2.Zero);
+
+		// Still report player visible
+		AgentDirector.Instance.AddScreamEvent(new ScreamEvent
+		{
+			PlayerPosition = player.GlobalPosition,
+			PlayerDirection = modules.PlayerDirection,
+			Strength = 5f * (float)delta,
+		});
+		AgentDirector.Instance.AddPlayerVisibleEvent(new PlayerVisibleEvent()
+		{
+			PlayerPosition = player.GlobalPosition,
+			PlayerDirection = modules.PlayerDirection,
+			Strength = 5f * (float)delta,
+		});
 	}
 }

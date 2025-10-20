@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://duewf84pi8phq"]
+[gd_scene load_steps=19 format=4 uid="uid://duewf84pi8phq"]
 
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="2_mrcb1"]
 [ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="3_boklw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://b10o46gjwxng1" path="res://VFX/Visuals/LightShader.gdshader" id="6_mrcb1"]
 [ext_resource type="Script" uid="uid://cav4dofx6oesp" path="res://Common/Utility/DebugDrawQueue.cs" id="7_e0o5i"]
 [ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/DynamicCamera.cs" id="8_1y6uj"]
+[ext_resource type="PackedScene" uid="uid://cyegg78u8jykm" path="res://Scenes/screamer.tscn" id="9_0qbk5"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="9_tmw4s"]
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="10_ioiu6"]
 [ext_resource type="PackedScene" uid="uid://3wtj01h2ugjy" path="res://Scenes/Goal.tscn" id="10_x4g3l"]
@@ -15,6 +16,7 @@
 [ext_resource type="Script" uid="uid://b28l0c35p8scv" path="res://Common/AgentControl/AgentDirector.cs" id="13_boklw"]
 [ext_resource type="Script" uid="uid://bffuc6a3rpxfd" path="res://Common/AgentControl/Strategies/PlayerHuntStrategy.cs" id="14_x4g3l"]
 [ext_resource type="Script" uid="uid://d07q0wohh1vq1" path="res://Common/AgentControl/Strategies/WanderStrategy.cs" id="15_x4g3l"]
+[ext_resource type="Script" uid="uid://bgh7bcn1vjsmu" path="res://Common/AgentControl/Strategies/ScreamStrategy.cs" id="16_1axds"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrcb1"]
 shader = ExtResource("6_mrcb1")
@@ -83,22 +85,28 @@ insertKeyVolume = 1.0
 metadata/_edit_lock_ = true
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("10_ioiu6")]
-position = Vector2(3950, 2972)
+position = Vector2(3984, 1351)
 
 [node name="Enemy3" parent="Enemies" instance=ExtResource("10_ioiu6")]
-position = Vector2(1164, 3783)
+position = Vector2(1815, 929)
 
 [node name="Enemy4" parent="Enemies" instance=ExtResource("10_ioiu6")]
 position = Vector2(1367, 4922)
 
-[node name="Enemy5" parent="Enemies" instance=ExtResource("10_ioiu6")]
-position = Vector2(1727, 6048)
-
-[node name="Enemy6" parent="Enemies" instance=ExtResource("10_ioiu6")]
-position = Vector2(2526, 5768)
-
 [node name="Enemy" parent="Enemies" instance=ExtResource("10_ioiu6")]
-position = Vector2(3522, 4933)
+position = Vector2(2830, 3484)
+
+[node name="Screamer" parent="Enemies" instance=ExtResource("9_0qbk5")]
+position = Vector2(3968, 3857)
+
+[node name="Screamer3" parent="Enemies" instance=ExtResource("9_0qbk5")]
+position = Vector2(2608, 1376)
+
+[node name="Screamer4" parent="Enemies" instance=ExtResource("9_0qbk5")]
+position = Vector2(1892, 4165)
+
+[node name="Screamer2" parent="Enemies" instance=ExtResource("9_0qbk5")]
+position = Vector2(5072, 3665)
 
 [node name="DebugDrawQueue" type="Node2D" parent="."]
 script = ExtResource("7_e0o5i")
@@ -146,3 +154,14 @@ metadata/_custom_type_script = "uid://bffuc6a3rpxfd"
 [node name="WanderStrategy" type="Node" parent="AgentDirector"]
 script = ExtResource("15_x4g3l")
 metadata/_custom_type_script = "uid://d07q0wohh1vq1"
+
+[node name="ScreamStrategy" type="Node" parent="AgentDirector"]
+script = ExtResource("16_1axds")
+sightingThreshold = 2.0
+minExtrapolationDistance = 100.0
+maxExtrapolationDistance = 800.0
+maxTargetSamples = 25
+maxTasksPerSighting = 6
+recruitRadius = 8000.0
+taskExpiryTime = 20.0
+metadata/_custom_type_script = "uid://bgh7bcn1vjsmu"

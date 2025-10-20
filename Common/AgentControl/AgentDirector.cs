@@ -13,7 +13,8 @@ namespace Game.Common.AgentControl;
 public partial class AgentDirector : Node
 {
 	IAgentTaskProvider[] taskProviders = [];
-	IAgentEventListener<PlayerVisibleEvent>[] playerVisibleEventListener;
+	IAgentEventListener<PlayerVisibleEvent>[] playerVisibleEventListeners;
+	IAgentEventListener<ScreamEvent>[] screamEventListeners;
 
 	public static AgentDirector Instance { get; private set; }
 	public override void _EnterTree()
@@ -27,7 +28,8 @@ public partial class AgentDirector : Node
 		Instance = this;
 		taskProviders = this.GetChildrenOfType<IAgentTaskProvider>().ToArray();
 
-		playerVisibleEventListener = this.GetChildrenOfType<IAgentEventListener<PlayerVisibleEvent>>().ToArray();
+		playerVisibleEventListeners = this.GetChildrenOfType<IAgentEventListener<PlayerVisibleEvent>>().ToArray();
+		screamEventListeners = this.GetChildrenOfType<IAgentEventListener<ScreamEvent>>().ToArray();
 	}
 
 	public override void _ExitTree()
@@ -46,7 +48,13 @@ public partial class AgentDirector : Node
 
 	public void AddPlayerVisibleEvent(PlayerVisibleEvent agentEvent)
 	{
-		foreach (var listener in playerVisibleEventListener){
+		foreach (var listener in playerVisibleEventListeners){
+			listener.OnEvent(agentEvent);
+		}
+	}
+	public void AddScreamEvent(ScreamEvent agentEvent)
+	{
+		foreach (var listener in screamEventListeners){
 			listener.OnEvent(agentEvent);
 		}
 	}

@@ -36,7 +36,7 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 	{
 		isActive = true;
 		light2D.Color = lightColor;
-		AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorAlert, modules.AgentBody, alertVolume).Finished += Growl;
+		AudioManager.PlayAudio2D(SoundLibrary.Instance.BossRoar, modules.AgentBody, alertVolume).Finished += Growl;
 		GetTree().CreateTimer(screamDuration).Timeout += () => isScreaming = false;
 		_ = GameManager.Instance.Camera.ScreenShake(shakeStrength, screamDuration);
 		await Task.Delay(100); // Small delay to ensure it flips sprite into the player
@@ -58,8 +58,8 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 
 	public override void _Process(double delta)
 	{
-		DebugDraw2D.SetText("Chase", GetPriority().ToString());
-		DebugDraw2D.SetText("Active", isActive.ToString());
+		// DebugDraw2D.SetText("Chase", GetPriority().ToString());
+		// DebugDraw2D.SetText("Active", isActive.ToString());
 		if (!isActive) return;
 		Vector2 targetDirection = (player.GlobalPosition - modules.AgentBody.GlobalPosition).Normalized();
 		float screamFactor = isScreaming ? 0f : 1f;
@@ -79,7 +79,7 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 		isScreaming = false;
 		if (!isActive) return;
 
-		AudioStreamPlayer2D player = AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, modules.AgentBody, growlsVolume);
+		AudioStreamPlayer2D player = AudioManager.PlayAudio2D(SoundLibrary.Instance.BossIdle, modules.AgentBody, growlsVolume);
 		player.Finished += Growl;
 	}
 }

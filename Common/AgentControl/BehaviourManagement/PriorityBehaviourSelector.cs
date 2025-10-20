@@ -20,10 +20,10 @@ public partial class PriorityBehaviourSelector : Node, IAgentBehaviour
 	{
 		if (!active) return;
 		UpdateBehaviourSelection();
-		DebugDraw2D.SetText("Current behaviour", selectedBehaviour?.GetType().ToString());
-		foreach (IPrioritizedBehaviour agentBehaviour in behaviours){
-			DebugDraw2D.SetText(agentBehaviour.GetType() + " :", agentBehaviour.GetPriority().ToString() );
-		}
+		// DebugDraw2D.SetText("Current behaviour", selectedBehaviour?.GetType().ToString());
+		// foreach (IPrioritizedBehaviour agentBehaviour in behaviours){
+		// 	DebugDraw2D.SetText(agentBehaviour.GetType() + " :", agentBehaviour.GetPriority().ToString() );
+		// }
 	}
 
 	void UpdateBehaviourSelection()
