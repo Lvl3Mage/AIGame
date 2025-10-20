@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Game.Common.AgentControl.Strategies;
 using Godot;
 
@@ -34,11 +35,12 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 	public async void StartBehavior()
 	{
 		isActive = true;
-		isScreaming = true;
 		light2D.Color = lightColor;
 		AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorAlert, modules.AgentBody, alertVolume).Finished += Growl;
 		GetTree().CreateTimer(screamDuration).Timeout += () => isScreaming = false;
 		_ = GameManager.Instance.Camera.ScreenShake(shakeStrength, screamDuration);
+		await Task.Delay(100); // Small delay to ensure it flips sprite into the player
+		isScreaming = true;
 	}
 
 	public void StopBehavior()

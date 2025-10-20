@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=17 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_uoxpr"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="2_wovta"]
@@ -25,6 +25,9 @@ fill_to = Vector2(0, 0.52136755)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6bs3c"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0o0ue"]
+radius = 36.11034
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_uoxpr"]
 radius = 64.49806
 
@@ -36,10 +39,11 @@ y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 
-[node name="AgentModules" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "LineOfSightRay", "MovementModule", "SquishModule", "CharacterAnimationModule", "Sprite")]
+[node name="AgentModules" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "FarsightArea", "LineOfSightRay", "MovementModule", "SquishModule", "CharacterAnimationModule", "Sprite")]
 script = ExtResource("1_uoxpr")
 AgentBody = NodePath("..")
 DetectionArea = NodePath("../DetectionArea2D")
+FarsightArea = NodePath("../FarsightArea2D")
 LineOfSightRay = NodePath("../LineOfSightRayCast2D")
 MovementModule = NodePath("../MovementModule")
 SquishModule = NodePath("../CharacterAnimationModule/SquishModule")
@@ -94,6 +98,17 @@ metadata/_edit_lock_ = true
 scale = Vector2(50, 50)
 shape = SubResource("CircleShape2D_6bs3c")
 debug_color = Color(0.8980392, 0, 0.15294118, 0)
+metadata/_edit_lock_ = true
+
+[node name="FarsightArea2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FarsightArea2D"]
+scale = Vector2(50, 50)
+shape = SubResource("CircleShape2D_0o0ue")
+debug_color = Color(0.2997355, 0.44275185, 0.88195825, 0)
 metadata/_edit_lock_ = true
 
 [node name="DamageArea2D" type="Area2D" parent="."]
