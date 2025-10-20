@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://duewf84pi8phq"]
+[gd_scene load_steps=20 format=4 uid="uid://duewf84pi8phq"]
 
 [ext_resource type="Script" uid="uid://dhmugntxmo10d" path="res://Common/AgentControl/Navigation/GridDefinition.cs" id="2_mrcb1"]
 [ext_resource type="Script" uid="uid://c6s82xvwvcsr" path="res://Common/AgentControl/Navigation/GridNavigation.cs" id="3_boklw"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bffuc6a3rpxfd" path="res://Common/AgentControl/Strategies/PlayerHuntStrategy.cs" id="14_x4g3l"]
 [ext_resource type="Script" uid="uid://d07q0wohh1vq1" path="res://Common/AgentControl/Strategies/WanderStrategy.cs" id="15_x4g3l"]
 [ext_resource type="Script" uid="uid://bgh7bcn1vjsmu" path="res://Common/AgentControl/Strategies/ScreamStrategy.cs" id="16_1axds"]
+[ext_resource type="Script" uid="uid://da6fetl27nkp5" path="res://Common/AgentControl/Strategies/AlertnessTracker.cs" id="18_e0o5i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrcb1"]
 shader = ExtResource("6_mrcb1")
@@ -142,14 +143,13 @@ metadata/_custom_type_script = "uid://b28l0c35p8scv"
 
 [node name="PlayerHuntStrategy" type="Node" parent="AgentDirector"]
 script = ExtResource("14_x4g3l")
-sightingThreshold = 2.0
+sightingThreshold = 1.5
 minExtrapolationDistance = 200.0
-maxExtrapolationDistance = 1500.0
-maxTargetSamples = 15
+maxTargetSamples = 25
 maxTasksPerSighting = 8
 directionAveragingSamples = 10
-huntRecruitRadius = 1000.0
-taskExpiryTime = 20.0
+huntRecruitRadius = 1800.0
+taskExpiryTime = 30.0
 metadata/_custom_type_script = "uid://bffuc6a3rpxfd"
 
 [node name="WanderStrategy" type="Node" parent="AgentDirector"]
@@ -166,3 +166,10 @@ maxTasksPerSighting = 6
 recruitRadius = 8000.0
 taskExpiryTime = 20.0
 metadata/_custom_type_script = "uid://bgh7bcn1vjsmu"
+
+[node name="AlertnessTracker" type="Node" parent="AgentDirector"]
+script = ExtResource("18_e0o5i")
+decayRate = 1.0
+increaseRate = 1.0
+maxAlertness = 7.0
+metadata/_custom_type_script = "uid://da6fetl27nkp5"

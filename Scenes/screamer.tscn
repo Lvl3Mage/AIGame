@@ -455,13 +455,12 @@ growlsVolume = 0.3
 moveSpeed = 300.0
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
 
-[node name="Hunt Behaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules", "light")]
+[node name="Hunt Behaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules")]
 script = ExtResource("12_aa8eb")
 modules = NodePath("../../../AgentModules")
 moveSpeed = 300.0
-navPointRadius = 40.0
+navPointRadius = 60.0
 behaviorPriority = 2
-light = NodePath("../../../PointLight2D")
 backgroundTaskColor = Color(0.41960785, 0.6627451, 0.8980392, 1)
 normalTaskColor = Color(0.87058824, 0.34509805, 0, 1)
 metadata/_custom_type_script = "uid://da48ns7iss6u7"

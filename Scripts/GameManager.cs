@@ -22,6 +22,7 @@ public partial class GameManager : Node
 	public TimeFreezerModule TimeFreezer { get; private set; }
 	public GridNavigation GridNav { get; private set; }
 	public GridDefinition GridDef { get; private set; }
+	public VignetteController Vignette { get; private set; }
 	public GridPhysicsOccupation GridOccupation { get; private set; }
 	Transition screenTransition;
 	public override void _EnterTree()
@@ -42,6 +43,7 @@ public partial class GameManager : Node
 		GridDef = root.GetAllChildrenOfType<GridDefinition>().First();
 		screenTransition = root.GetAllChildrenOfType<Transition>().First();
 		GridOccupation = root.GetAllChildrenOfType<GridPhysicsOccupation>().First();
+		Vignette = root.GetAllChildrenOfType<VignetteController>().First();
 	}
 
 	public override async void _Ready()

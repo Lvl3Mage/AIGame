@@ -5,7 +5,7 @@ using Godot;
 namespace Game.Common.AgentControl.Strategies;
 
 [GlobalClass]
-public partial class WanderStrategy : Node, IAgentTaskProvider
+public partial class WanderStrategy : Node, IAgentTaskProvider, IAgentEventListener<PlayerVisibleEvent>
 {
 	[Export] int concurrentWanderTaskAmount = 15;
 	[Export] float taskExpiryTime = 10f;
@@ -59,5 +59,11 @@ public partial class WanderStrategy : Node, IAgentTaskProvider
 	public IEnumerable<AgentTask> GetTasks()
 	{
 		return tasks;
+	}
+	PlayerVisibleEvent lastVisibleEvent;
+
+	public void OnEvent(PlayerVisibleEvent agentEvent)
+	{
+
 	}
 }

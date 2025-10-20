@@ -4,12 +4,12 @@
 
 [resource]
 shader = ExtResource("1_7hlwv")
-shader_parameter/outerRadius = 1.706000081035
-shader_parameter/MainAlpha = 1.0
+shader_parameter/outerRadius = 2.22000010545
+shader_parameter/MainAlpha = 0.7730000367175
 shader_parameter/Posterization = 15.79
-shader_parameter/color1 = Color(0.026896134, 0.04621084, 0.054720215, 1)
-shader_parameter/color2 = Color(0.02745098, 0.047058824, 0.05490196, 1)
+shader_parameter/color1 = Color(0.0786758, 0.09048321, 0.08525919, 1)
+shader_parameter/color2 = Color(0.044625975, 0.043435737, 0.040202726, 1)
 shader_parameter/PixelationScale = 300.0
 shader_parameter/HighlightNoiseMin = 1.0
 shader_parameter/HighlightNoiseMax = 1.15
-shader_parameter/EdgeSpread = 0.5010000237975
+shader_parameter/EdgeSpread = 0.50000002375

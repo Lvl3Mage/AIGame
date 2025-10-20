@@ -40,6 +40,11 @@ public partial class DebugDrawQueue : Node2D
 		});
 	}
 
+	public override void _ExitTree()
+	{
+		if (instance == this) instance = null;
+	}
+
 	public override void _Draw()
 	{
 		foreach (var action in drawQueue)

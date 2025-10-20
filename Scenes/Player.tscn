@@ -477,10 +477,9 @@ dieAnimationTime = 0.2
 stepSoundInterval = 0.3
 stepSoundVolume = 0.4
 
-[node name="TopdownMovementModule" type="Node2D" parent="." node_paths=PackedStringArray("animationModule")]
+[node name="TopdownMovementModule" type="Node2D" parent="."]
 position = Vector2(4.2000046, -65.35)
 script = ExtResource("3_dewec")
-animationModule = NodePath("")
 metadata/_custom_type_script = "uid://brj5wymtuq8x"
 
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
@@ -516,7 +515,7 @@ energy = 0.52
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_ksbbd")
-texture_scale = 12.85
+texture_scale = 14.31
 
 [node name="TerrainCollider2D" type="CollisionShape2D" parent="."]
 visible = false

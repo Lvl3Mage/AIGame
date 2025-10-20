@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwtfiy6uhw332"]
+[gd_scene load_steps=3 format=3 uid="uid://cwtfiy6uhw332"]
 
 [ext_resource type="Material" uid="uid://bau00t7gqxtsx" path="res://VFX/Shaders/Vignette.tres" id="1_tqqfg"]
+[ext_resource type="Script" uid="uid://de77ib2ijrwxp" path="res://Scripts/VignetteController.cs" id="2_xbi28"]
 
 [node name="Vignette" type="Control"]
 layout_mode = 3
@@ -19,3 +20,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="VignetteController" type="Node" parent="." node_paths=PackedStringArray("colorRect")]
+script = ExtResource("2_xbi28")
+colorRect = NodePath("../TextureRect")
+shaderMaterial = ExtResource("1_tqqfg")
+minRadius = 0.9
+maxRadius = 2.2
+standardColor1 = Color(0.044245906, 0.0627014, 0.08178758, 1)
+standardColor2 = Color(0.04068988, 0.035735212, 0.05390267, 1)
+alertColor1 = Color(0.13696992, 0.021664063, 0.015474286, 1)
+alertColor2 = Color(0.115329824, 0.017604819, 0.011735905, 1)
+metadata/_custom_type_script = "uid://de77ib2ijrwxp"
