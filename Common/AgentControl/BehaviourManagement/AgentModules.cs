@@ -3,6 +3,7 @@ using System.Linq;
 using Godot;
 using Game.Common.Modules;
 using Godot.Collections;
+using Game.Global;
 
 namespace Game.Common.AgentControl.BehaviourManagement;
 
@@ -13,6 +14,8 @@ public partial class AgentModules : Node
     [Export] public Area2D DetectionArea { get; private set; }
     [Export] public RayCast2D LineOfSightRay { get; private set; }
     [Export] public MovementModule MovementModule { get; private set; }
+    [Export] public SquishModule SquishModule { get; private set; }
+    [Export] public CharacterAnimationModule CharacterAnimationModule { get; private set; }
     [Export] public Sprite2D Sprite { get; private set; }
 
     public bool PlayerVisible { get; private set; } = false;
@@ -45,9 +48,11 @@ public partial class AgentModules : Node
 
         pastPlayerPosition = player.GlobalPosition;
 
-        // Flip animation
+        // Animate sprite
         if (AgentBody.Velocity.X > 0) Sprite.FlipH = false;
         else if (AgentBody.Velocity.X < 0) Sprite.FlipH = true;
+
+        SquishModule.UpdateDynamicScaling(CharacterAnimationModule.OffsetY);
     }
     void UpdatePlayerDetection()
     {

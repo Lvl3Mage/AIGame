@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Game.Common.Modules;
 using Game.Common.Utility;
+using Game.Global;
 using Godot;
 
 namespace Game.Common;
@@ -11,6 +12,7 @@ public partial class PlayerController : CharacterBody2D
     [Export] TopdownMovementModule movementModule;
     [Export] Sprite2D sprite;
     [Export] CharacterAnimationModule animationModule;
+    [Export] SquishModule squishModule;
     [Export] CollisionShape2D collider;
     [Export] float dieAnimationTime = 0.5f;
     [Export] float stepSoundInterval = 0.4f;
@@ -21,7 +23,6 @@ public partial class PlayerController : CharacterBody2D
     [Export] float deathScreenshakeDuration = 0.3f;
 
     public bool LockMovement { get; set; }
-    public bool HasWon { get; set; }
 
     bool pressRight, pressLeft, pressUp, pressDown;
     Timer stepSoundTimer;
@@ -29,7 +30,6 @@ public partial class PlayerController : CharacterBody2D
     public override void _Ready()
     {
         LockMovement = false;
-        HasWon = false;
 
         stepSoundTimer = new()
         {
@@ -55,11 +55,11 @@ public partial class PlayerController : CharacterBody2D
         movementModule.InputUp = pressUp;
         movementModule.InputDown = pressDown;
 
+        // Animate sprite
         if (pressRight) sprite.FlipH = false;
         else if (pressLeft) sprite.FlipH = true;
 
-        if (HasWon) // Funny
-            sprite.RotationDegrees += 2000f * dt;
+        squishModule.UpdateDynamicScaling(animationModule.OffsetY);
     }
 
     void MapActions()

@@ -61,7 +61,6 @@ public partial class GameManager : Node
 
 	public async Task WinGame()
     {
-		Player.HasWon = true;
 		Player.LockMovement = true;
 		await screenTransition.FadeIn();
 		winScreenScene.InstantiateUnderAs<CanvasLayer>(GetTree().CurrentScene);
