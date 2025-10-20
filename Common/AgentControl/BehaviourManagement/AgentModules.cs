@@ -17,7 +17,8 @@ public partial class AgentModules : Node
     [Export] public MovementModule MovementModule { get; private set; }
     [Export] public SquishModule SquishModule { get; private set; }
     [Export] public CharacterAnimationModule CharacterAnimationModule { get; private set; }
-    [Export] public Sprite2D Sprite { get; private set; }
+    [Export] public AnimatedSprite2D animatedSprite { get; private set; }
+    [Export] public Light2D light { get; private set; }
 
     public bool PlayerVisible { get; private set; } = false;
     public event Action PlayerVisibilityChanged;
@@ -50,8 +51,13 @@ public partial class AgentModules : Node
         pastPlayerPosition = player.GlobalPosition;
 
         // Animate sprite
-        if (AgentBody.Velocity.X > 0) Sprite.FlipH = false;
-        else if (AgentBody.Velocity.X < 0) Sprite.FlipH = true;
+        if (AgentBody.Velocity.X > 0) animatedSprite.FlipH = false;
+        else if (AgentBody.Velocity.X < 0) animatedSprite.FlipH = true;
+
+        if (AgentBody.Velocity.Length() < 0.1f)
+            animatedSprite.Play("Idle");
+        else
+            animatedSprite.Play("Walk");
 
         SquishModule.UpdateDynamicScaling(CharacterAnimationModule.OffsetY);
     }

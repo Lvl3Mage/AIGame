@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://5nnlqmm4iink"]
+[gd_scene load_steps=61 format=3 uid="uid://5nnlqmm4iink"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_7nvgb"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="2_0owl2"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://crv6uaf5iwv43" path="res://Sprites/walk_carol.png" id="6_0owl2"]
 [ext_resource type="Texture2D" uid="uid://cw237u2i33k8k" path="res://Sprites/Carol.png" id="6_7g3d4"]
 [ext_resource type="Script" uid="uid://c63ulmuxsreim" path="res://Common/AgentControl/BehaviourManagement/AgentBehaviourStarter.cs" id="7_7o8hw"]
-[ext_resource type="Script" uid="uid://c87trtk5rw06p" path="res://Common/Modules/AnimatedScriptMovement.cs" id="7_h7fg7"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="8_o3ppb"]
 [ext_resource type="Script" uid="uid://dabgxqstmcqhq" path="res://Common/AgentControl/BehaviourManagement/ChaseBehaviour.cs" id="9_du5lf"]
 [ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="10_wali7"]
@@ -342,7 +341,7 @@ y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 
-[node name="AgentModules" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "FarsightArea", "LineOfSightRay", "MovementModule", "SquishModule", "CharacterAnimationModule", "Sprite")]
+[node name="AgentModules" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "FarsightArea", "LineOfSightRay", "MovementModule", "SquishModule", "CharacterAnimationModule")]
 script = ExtResource("1_7nvgb")
 AgentBody = NodePath("..")
 DetectionArea = NodePath("../DetectionArea2D")
@@ -351,7 +350,6 @@ LineOfSightRay = NodePath("../LineOfSightRayCast2D")
 MovementModule = NodePath("../MovementModule")
 SquishModule = NodePath("../CharacterAnimationModule/SquishModule")
 CharacterAnimationModule = NodePath("../CharacterAnimationModule")
-Sprite = NodePath("")
 metadata/_custom_type_script = "uid://hc5gm2h0ak2l"
 
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
@@ -379,6 +377,7 @@ collision_mask = 3
 metadata/_edit_lock_ = true
 
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
+scale = Vector2(0.7, 0.7)
 script = ExtResource("4_uc3n0")
 Frequency = 10.0
 metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
@@ -392,16 +391,10 @@ metadata/_custom_type_script = "uid://binjbolnj0dgb"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterAnimationModule/SquishModule"]
 light_mask = 2
-scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_t3h6a")
 animation = &"Idle"
-speed_scale = 5.0
+speed_scale = 15.0
 offset = Vector2(0, -72)
-
-[node name="AnimatedScriptMovement" type="Node2D" parent="CharacterAnimationModule/SquishModule/AnimatedSprite2D" node_paths=PackedStringArray("charBody")]
-script = ExtResource("7_h7fg7")
-charBody = NodePath("../../../..")
-metadata/_custom_type_script = "uid://c87trtk5rw06p"
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
 collision_layer = 4

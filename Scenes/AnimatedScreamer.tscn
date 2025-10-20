@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://bg801376s7crg"]
+[gd_scene load_steps=62 format=3 uid="uid://bg801376s7crg"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_lw8qy"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="2_pg801"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://c63ulmuxsreim" path="res://Common/AgentControl/BehaviourManagement/AgentBehaviourStarter.cs" id="7_hjyf0"]
 [ext_resource type="Texture2D" uid="uid://bpou6tntn3gcy" path="res://Sprites/alertador1_walk.png" id="8_2kmyq"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="8_mx85p"]
-[ext_resource type="Script" uid="uid://c87trtk5rw06p" path="res://Common/Modules/AnimatedScriptMovement.cs" id="9_2kmyq"]
 [ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="9_qwdv2"]
 [ext_resource type="Script" uid="uid://da48ns7iss6u7" path="res://Common/AgentControl/BehaviourManagement/TaskFulfillBehaviour.cs" id="10_hitiy"]
 [ext_resource type="Script" uid="uid://dp1snjapx13g6" path="res://Common/AgentControl/BehaviourManagement/ScreamBehaviour.cs" id="11_hv0s0"]
@@ -348,7 +347,7 @@ y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 
-[node name="AgentModules" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "FarsightArea", "LineOfSightRay", "MovementModule", "SquishModule", "CharacterAnimationModule", "Sprite")]
+[node name="AgentModules" type="Node" parent="." node_paths=PackedStringArray("AgentBody", "DetectionArea", "FarsightArea", "LineOfSightRay", "MovementModule", "SquishModule", "CharacterAnimationModule")]
 script = ExtResource("1_lw8qy")
 AgentBody = NodePath("..")
 DetectionArea = NodePath("../DetectionArea2D")
@@ -357,7 +356,6 @@ LineOfSightRay = NodePath("../LineOfSightRayCast2D")
 MovementModule = NodePath("../MovementModule")
 SquishModule = NodePath("../CharacterAnimationModule/SquishModule")
 CharacterAnimationModule = NodePath("../CharacterAnimationModule")
-Sprite = NodePath("")
 metadata/_custom_type_script = "uid://hc5gm2h0ak2l"
 
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
@@ -399,13 +397,8 @@ light_mask = 2
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_cpt3e")
 animation = &"Alert"
-speed_scale = 5.0
+speed_scale = 15.0
 offset = Vector2(0, -72)
-
-[node name="AnimatedScriptMovement" type="Node2D" parent="CharacterAnimationModule/SquishModule/AnimatedSprite2D" node_paths=PackedStringArray("charBody")]
-script = ExtResource("9_2kmyq")
-charBody = NodePath("../../../..")
-metadata/_custom_type_script = "uid://c87trtk5rw06p"
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
 collision_layer = 4
@@ -468,9 +461,8 @@ navPointRadius = 40.0
 behaviorPriority = 2
 metadata/_custom_type_script = "uid://da48ns7iss6u7"
 
-[node name="ScreamBehaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules", "light2D")]
+[node name="ScreamBehaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules")]
 script = ExtResource("11_hv0s0")
 modules = NodePath("../../../AgentModules")
-light2D = NodePath("../../../PointLight2D")
 lightColor = Color(0.96862745, 0.15686275, 0.15686275, 1)
 metadata/_custom_type_script = "uid://dp1snjapx13g6"

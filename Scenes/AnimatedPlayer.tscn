@@ -501,7 +501,7 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4ll0t")
 animation = &"Walk"
 frame_progress = 0.006934452
-speed_scale = 5.0
+speed_scale = 15.0
 offset = Vector2(0, -50)
 
 [node name="AnimatedScriptMovement" type="Node2D" parent="CharacterAnimationModule/SquishModule/AnimatedSprite2D" node_paths=PackedStringArray("charBody")]

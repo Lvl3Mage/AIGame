@@ -7,7 +7,7 @@
 [ext_resource type="Shader" uid="uid://b10o46gjwxng1" path="res://VFX/Visuals/LightShader.gdshader" id="6_mrcb1"]
 [ext_resource type="Script" uid="uid://cav4dofx6oesp" path="res://Common/Utility/DebugDrawQueue.cs" id="7_e0o5i"]
 [ext_resource type="Script" uid="uid://cxs1tcawpkk07" path="res://Common/Modules/DynamicCamera.cs" id="8_1y6uj"]
-[ext_resource type="PackedScene" uid="uid://cyegg78u8jykm" path="res://Scenes/screamer.tscn" id="9_0qbk5"]
+[ext_resource type="PackedScene" uid="uid://cyegg78u8jykm" path="res://Scenes/Screamer.tscn" id="9_0qbk5"]
 [ext_resource type="PackedScene" uid="uid://8pas1mruis60" path="res://Scenes/Player.tscn" id="9_tmw4s"]
 [ext_resource type="PackedScene" uid="uid://o3xmsoglme3r" path="res://Scenes/Enemy.tscn" id="10_ioiu6"]
 [ext_resource type="PackedScene" uid="uid://3wtj01h2ugjy" path="res://Scenes/Goal.tscn" id="10_x4g3l"]
