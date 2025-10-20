@@ -16,7 +16,9 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 	[Export] int maxTargetSamples = 10;
 	[Export] int maxTasksPerSighting = 3;
 	[Export] int directionAveragingSamples = 5;
-	[Export] float huntReqruitRadius = 500f;
+	[Export] float huntRecruitRadius = 500f;
+	[Export] float taskExpiryTime = 15f;
+
 	float accumulatedStrength = 0f;
 	Queue<PlayerVisibleEvent> playerEventHistory =[];
 
@@ -89,14 +91,21 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 		var tasks = targets.Select(target => new AgentTask{
 			TargetPosition = target,
 			TaskOrigin = playerEvent.Origin,
-			TaskRadius = huntReqruitRadius,
+			TaskRadius = huntRecruitRadius,
 			CreationTime = Time.GetTicksMsec() / 1000f
 		});
-		foreach (var task in tasks){
-			pendingTasks.Enqueue(task);
+		pendingTasks.Clear();
+		pendingTasks.AddRange(tasks);
+		foreach (AgentTask pendingTask in pendingTasks){
+			pendingTask.AddOnReservedCallback(RemoveTask);
 		}
 	}
-	Queue<AgentTask> pendingTasks =[];
+	void RemoveTask(AgentTask task)
+	{
+		pendingTasks.Remove(task);
+		task.RemoveOnReservedCallback(RemoveTask);
+	}
+	List<AgentTask> pendingTasks =[];
 
 	static T[] SelectMultipleConstrained<T>(IList<T> candidates, Func<T, bool> constraint, int maxItemsToSelect)
 	{
@@ -117,6 +126,12 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 
 	public IEnumerable<AgentTask> GetTasks()
 	{
-		throw new NotImplementedException();
+		return pendingTasks;
+	}
+
+	void CleanupExpiredTasks()
+	{
+		float currentTime = Time.GetTicksMsec() / 1000f;
+		pendingTasks.RemoveAll(task => (currentTime - task.CreationTime) > taskExpiryTime);
 	}
 }

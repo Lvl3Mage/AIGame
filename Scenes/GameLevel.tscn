@@ -119,4 +119,5 @@ metadata/_custom_type_script = "uid://b28l0c35p8scv"
 
 [node name="PlayerHuntStrategy" type="Node" parent="AgentDirector"]
 script = ExtResource("14_x4g3l")
+minExtrapolationDistance = 750.0
 metadata/_custom_type_script = "uid://bffuc6a3rpxfd"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=15 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_uoxpr"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="2_wovta"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
 [ext_resource type="Texture2D" uid="uid://caghhbbhm25mt" path="res://Sprites/Alertador1.png" id="7_idouy"]
 [ext_resource type="Script" uid="uid://cii6jfpta3bmh" path="res://Common/Modules/LoseConditionModule.cs" id="7_uoxpr"]
+[ext_resource type="Script" uid="uid://da48ns7iss6u7" path="res://Common/AgentControl/BehaviourManagement/TaskFulfillBehaviour.cs" id="9_idouy"]
 
 [sub_resource type="Gradient" id="Gradient_dewec"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -95,22 +96,18 @@ metadata/_custom_type_script = "uid://c63ulmuxsreim"
 [node name="BehaviourMachineModule" type="Node" parent="AgentBehaviourStarter"]
 script = ExtResource("2_wovta")
 
-[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules", "enemyBody", "light2D")]
+[node name="ChaseBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
 script = ExtResource("3_xeo28")
 modules = NodePath("../../../AgentBlackboard")
-enemyBody = NodePath("../../..")
-light2D = NodePath("../../../PointLight2D")
-lightColor = Color(0.97, 0.15520003, 0.15520003, 1)
 chaseSpeed = 300.0
-alertVolume = 1.2
-screamDuration = 1.5
 
-[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules", "enemyBody", "light2D")]
+[node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
 script = ExtResource("5_mo1ky")
 modules = NodePath("../../../AgentBlackboard")
-enemyBody = NodePath("../../..")
-light2D = NodePath("../../../PointLight2D")
-lightColor = Color(0.8722031, 0.34580135, 0, 1)
-growlsVolume = 0.3
 moveSpeed = 300.0
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
+
+[node name="TaskFulfillBehaviour" type="Node" parent="AgentBehaviourStarter/BehaviourMachineModule" node_paths=PackedStringArray("modules")]
+script = ExtResource("9_idouy")
+modules = NodePath("../../../AgentBlackboard")
+metadata/_custom_type_script = "uid://da48ns7iss6u7"

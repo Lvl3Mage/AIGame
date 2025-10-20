@@ -12,7 +12,7 @@ namespace Game.Common.AgentControl;
 [GlobalClass]
 public partial class AgentDirector : Node
 {
-	IAgentTaskProvider[] taskCreationStrategies = [];
+	IAgentTaskProvider[] taskProviders = [];
 	IAgentEventListener<PlayerVisibleEvent>[] playerVisibleEventListener;
 
 	public static AgentDirector Instance { get; private set; }
@@ -25,33 +25,20 @@ public partial class AgentDirector : Node
 			return;
 		}
 		Instance = this;
-		taskCreationStrategies = this.GetChildrenOfType<IAgentTaskProvider>().ToArray();
-		// foreach (IAgentTaskProvider strategy in taskCreationStrategies){
-		// 	strategy.OnNewTasksCreated += AddNewTasks;
-		// }
+		taskProviders = this.GetChildrenOfType<IAgentTaskProvider>().ToArray();
 
 		playerVisibleEventListener = this.GetChildrenOfType<IAgentEventListener<PlayerVisibleEvent>>().ToArray();
 	}
-	void AddNewTasks(IEnumerable<AgentTask> newTasks)
+	List<AgentTask> activeTasks =[];
+	void UpdateActiveTasks()
 	{
-		foreach (AgentTask task in newTasks){
-			activeTasks[task.TaskPriority].Add(task);
+		activeTasks.Clear();
+		foreach (IAgentTaskProvider taskProvider in taskProviders){
+			activeTasks.AddRange(taskProvider.GetTasks());
 		}
+
 	}
 
-	// public over
-	[Export] float taskExpiryTime = 10f;
-	readonly Dictionary<AgentTask.Priority, List<AgentTask>> activeTasks = new(){
-		{AgentTask.Priority.Background, []},
-		{AgentTask.Priority.Normal, []},
-		{AgentTask.Priority.Urgent, []}
-	};
-	readonly Dictionary<AgentTask.Priority,Color> debugTaskColors = new()
-	{
-		{ AgentTask.Priority.Background, Colors.Gray },
-		{ AgentTask.Priority.Normal, Colors.Yellow },
-		{ AgentTask.Priority.Urgent, Colors.Orange },
-	};
 	public void AddPlayerVisibleEvent(PlayerVisibleEvent agentEvent)
 	{
 		foreach (var listener in playerVisibleEventListener){
@@ -59,29 +46,27 @@ public partial class AgentDirector : Node
 		}
 	}
 
+	public AgentTask[] GetTasksInRange(Vector2 position)
+	{
+		return activeTasks.Where(task => {
+			Vector2 toTask = task.TargetPosition - position;
+			return toTask.LengthSquared() <= task.TaskRadius*task.TaskRadius;
+		}).ToArray();
+	}
+
 
 	public override void _Process(double delta)
 	{
+		UpdateActiveTasks();//todo probably shouldn't do this every frame, but for now it's fine
 		DebugDraw2D.BeginTextGroup("AgentDirector");
 
-		foreach (var (priority, tasks) in activeTasks){
-			Color debugColor = debugTaskColors[priority];
-			foreach (AgentTask activeTask in tasks){
-				DebugDraw2D.SetText($"Task from {activeTask.TargetPosition}", $"Origin: {activeTask.TaskOrigin},Created: {activeTask.CreationTime:F}");
-				DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, activeTask.TaskRadius, debugColor, filled:false);
-				DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, 20, debugColor);
-			}
+		Color debugColor = Colors.Gray;
+		foreach (AgentTask activeTask in activeTasks){
+			DebugDraw2D.SetText($"Task from {activeTask.TargetPosition}", $"Origin: {activeTask.TaskOrigin},Created: {activeTask.CreationTime:F}");
+			DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, activeTask.TaskRadius, debugColor, filled:false);
+			DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, 20, debugColor);
 		}
 		DebugDraw2D.EndTextGroup();
-		CleanupExpiredTasks();
-	}
-	void CleanupExpiredTasks()
-	{
-		float currentTime = Time.GetTicksMsec() / 1000f;
-		foreach ((_, List<AgentTask> tasks) in activeTasks){
-			tasks.RemoveAll(task => currentTime - task.CreationTime > taskExpiryTime);
-
-		}
 	}
 
 
