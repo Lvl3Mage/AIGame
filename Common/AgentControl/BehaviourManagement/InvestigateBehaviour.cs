@@ -7,7 +7,6 @@ namespace Game.Common.AgentControl.BehaviourManagement;
 public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 {
 	[Export] AgentModules modules;
-	[Export] CharacterBody2D enemyBody;
 	[Export] PointLight2D light2D;
 	[Export] Color lightColor = Colors.White;
 	[Export] float growlsVolume = 0.5f;
@@ -105,14 +104,14 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 			WaitTime = RandomGrowlFrequency,
 			OneShot = false
 		};
-		enemyBody.AddChild(growlTimer);
+		modules.AgentBody.AddChild(growlTimer);
 		growlTimer.Timeout += Growl;
 		growlTimer.Start();
 	}
 
 	void Growl()
 	{
-		AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, enemyBody, growlsVolume);
+		AudioManager.PlayAudio2D(SoundLibrary.Instance.AlertadorIdle, modules.AgentBody, growlsVolume);
 		growlTimer.WaitTime = RandomGrowlFrequency;
 	}
 }

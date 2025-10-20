@@ -9,10 +9,11 @@ namespace Game.Common.AgentControl.BehaviourManagement;
 [GlobalClass]
 public partial class AgentModules : Node
 {
-    [Export] public Node2D AgentBody { get; private set; }
+    [Export] public CharacterBody2D AgentBody { get; private set; }
     [Export] public Area2D DetectionArea { get; private set; }
     [Export] public RayCast2D LineOfSightRay { get; private set; }
     [Export] public MovementModule MovementModule { get; private set; }
+    [Export] public Sprite2D Sprite { get; private set; }
 
     public bool PlayerVisible { get; private set; } = false;
     public event Action PlayerVisibilityChanged;
@@ -43,6 +44,10 @@ public partial class AgentModules : Node
         PlayerDirection = (player.GlobalPosition - pastPlayerPosition).Normalized();
 
         pastPlayerPosition = player.GlobalPosition;
+
+        // Flip animation
+        if (AgentBody.Velocity.X > 0) Sprite.FlipH = false;
+        else if (AgentBody.Velocity.X < 0) Sprite.FlipH = true;
     }
     void UpdatePlayerDetection()
     {

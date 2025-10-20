@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Linq;
 
 namespace Game.Common.Modules;
 
@@ -15,7 +13,7 @@ public partial class LoseConditionModule : Node
         damageArea.BodyEntered += OnBodyEntered;
     }
 
-    async void OnBodyEntered(Node2D body)
+    void OnBodyEntered(Node2D body)
     {
         if (body == GameManager.Instance.Player)
             GameManager.Instance.Player.Die();

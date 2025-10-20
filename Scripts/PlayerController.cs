@@ -8,9 +8,10 @@ namespace Game.Common;
 
 public partial class PlayerController : CharacterBody2D
 {
-    [Export] Modules.TopdownMovementModule movementModule;
+    [Export] TopdownMovementModule movementModule;
     [Export] Sprite2D sprite;
     [Export] CharacterAnimationModule animationModule;
+    [Export] CollisionShape2D collider;
     [Export] float dieAnimationTime = 0.5f;
     [Export] float stepSoundInterval = 0.4f;
     [Export] float stepSoundPitch = 1f;
@@ -81,6 +82,8 @@ public partial class PlayerController : CharacterBody2D
 
         LockMovement = true;
         Velocity = Vector2.Zero;
+        Callable.From(() => collider.Disabled = true).CallDeferred();
+        GameManager.Instance.TimeFreezer.FrameFreeze(0f, 0.2f);
         AudioManager.PlayAudio2D(SoundLibrary.Instance.PlayerDeath, this, deathSoundVolume);
         _ = GameManager.Instance.Camera.ScreenShake(deathScreenshakeStrength, deathScreenshakeDuration);
 

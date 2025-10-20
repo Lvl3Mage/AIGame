@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Game.Common.AgentControl.Navigation;
+using Game.Common.Modules;
 using Game.Common.Utility;
 using Godot;
 
@@ -18,6 +19,7 @@ public partial class GameManager : Node
 	public static GameManager Instance { get; private set; }
 	public PlayerController Player { get; private set; }
 	public DynamicCamera Camera { get; private set; }
+	public TimeFreezerModule TimeFreezer { get; private set; }
 	public GridNavigation GridNav { get; private set; }
 	public GridDefinition GridDef { get; private set; }
 	Transition screenTransition;
@@ -34,6 +36,7 @@ public partial class GameManager : Node
 		Node root = GetTree().Root;
 		Player = root.GetAllChildrenOfType<PlayerController>().First();
 		Camera = root.GetAllChildrenOfType<DynamicCamera>().First();
+		TimeFreezer = root.GetAllChildrenOfType<TimeFreezerModule>().First();
 		GridNav = root.GetAllChildrenOfType<GridNavigation>().First();
 		GridDef = root.GetAllChildrenOfType<GridDefinition>().First();
 		screenTransition = root.GetAllChildrenOfType<Transition>().First();
