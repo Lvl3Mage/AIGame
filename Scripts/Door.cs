@@ -7,6 +7,7 @@ public partial class Door : Node2D
 {
     [Export] float fadeSpeed = 1f;
     [Export] public Node2D NeededKey { get; private set; }
+    [Export] Node2D[] occupiedPositions;
     [Export] public Sprite2D sprite;
     [Export] public CollisionShape2D collider;
     [Export] Texture2D openDoorSprite;
@@ -20,12 +21,22 @@ public partial class Door : Node2D
     public override void _Ready()
     {
         closedDoorSprite = sprite.Texture;
+        ToggleOccupancy(true);
+    }
+    void ToggleOccupancy(bool occupied)
+    {
+        foreach (var position in occupiedPositions)
+        {
+            Vector2I coords = GameManager.Instance.GridDef.WorldToGrid(position.GlobalPosition);
+            GameManager.Instance.GridOccupation.SetOccupancyOverride(coords, occupied);
+            GD.Print("Occupied: " + position.GlobalPosition);
+        }
     }
 
     public async void Open()
     {
         if (opened) return;
-
+        ToggleOccupancy(false);
         sprite.Texture = openDoorSprite;
 
         _ = GameManager.Instance.Camera.ScreenShake(shakeStrength, fadeSpeed);

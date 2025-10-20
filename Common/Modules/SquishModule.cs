@@ -92,12 +92,18 @@ public partial class SquishModule : Node2D
 
 		Scale = finalScale;
 	}
+	[Export] bool invertFlipX = false;
+	[Export] bool invertFlipY = false;
 
 	void UpdateMirroring()
 	{
+		Vector2I inverted = new(
+			invertFlipX ? -1 : 1,
+			invertFlipY ? -1 : 1
+		);
 		Scale = new Vector2(
-			Mathf.Abs(Scale.X) * (FlipH ? -1 : 1),
-			Mathf.Abs(Scale.Y) * (FlipV ? -1 : 1)
+			Mathf.Abs(Scale.X) * (FlipH ? -1 : 1)*inverted.X,
+			Mathf.Abs(Scale.Y) * (FlipV ? -1 : 1)*inverted.Y
 		);
 	}
 }

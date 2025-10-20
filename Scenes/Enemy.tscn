@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=18 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_uoxpr"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="2_wovta"]
@@ -7,9 +7,10 @@
 [ext_resource type="Script" uid="uid://binjbolnj0dgb" path="res://Common/Modules/SquishModule.cs" id="5_0o0ue"]
 [ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="5_mo1ky"]
 [ext_resource type="Script" uid="uid://c63ulmuxsreim" path="res://Common/AgentControl/BehaviourManagement/AgentBehaviourStarter.cs" id="5_uoxpr"]
+[ext_resource type="Texture2D" uid="uid://cw237u2i33k8k" path="res://Sprites/Carol.png" id="6_6s1gy"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
-[ext_resource type="Texture2D" uid="uid://caghhbbhm25mt" path="res://Sprites/Alertador1.png" id="7_idouy"]
 [ext_resource type="Script" uid="uid://cii6jfpta3bmh" path="res://Common/Modules/LoseConditionModule.cs" id="7_uoxpr"]
+[ext_resource type="Script" uid="uid://da48ns7iss6u7" path="res://Common/AgentControl/BehaviourManagement/TaskFulfillBehaviour.cs" id="10_0o0ue"]
 
 [sub_resource type="Gradient" id="Gradient_dewec"]
 offsets = PackedFloat32Array(0.8153846, 0.9230769, 1)
@@ -32,7 +33,7 @@ radius = 36.11034
 radius = 64.49806
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xeo28"]
-radius = 48.0
+radius = 15.0
 
 [node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -54,6 +55,7 @@ metadata/_custom_type_script = "uid://hc5gm2h0ak2l"
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
 script = ExtResource("7_6bs3c")
 agentBody = NodePath("..")
+acceleration = 400.0
 metadata/_custom_type_script = "uid://dcr5wi8h1f7k5"
 
 [node name="LoseConditionModule" type="Node" parent="." node_paths=PackedStringArray("damageArea")]
@@ -76,17 +78,20 @@ metadata/_edit_lock_ = true
 
 [node name="CharacterAnimationModule" type="Node2D" parent="."]
 script = ExtResource("4_idouy")
+Frequency = 10.0
 metadata/_custom_type_script = "uid://bmu2a5hwydbnc"
 
 [node name="SquishModule" type="Node2D" parent="CharacterAnimationModule"]
 script = ExtResource("5_0o0ue")
 MinValueThreshold = 0.0
 MaxValueThreshold = 25.0
+invertFlipX = true
 metadata/_custom_type_script = "uid://binjbolnj0dgb"
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterAnimationModule/SquishModule"]
 light_mask = 2
-texture = ExtResource("7_idouy")
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_6s1gy")
 offset = Vector2(0, -72)
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
@@ -138,7 +143,7 @@ script = ExtResource("3_xeo28")
 modules = NodePath("../../../AgentModules")
 light2D = NodePath("../../../PointLight2D")
 lightColor = Color(0.97, 0.15520003, 0.15520003, 1)
-chaseSpeed = 300.0
+chaseSpeed = 400.0
 alertVolume = 1.2
 screamDuration = 1.5
 metadata/_custom_type_script = "uid://dabgxqstmcqhq"
@@ -151,3 +156,11 @@ lightColor = Color(0.8722031, 0.34580135, 0, 1)
 growlsVolume = 0.3
 moveSpeed = 300.0
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
+
+[node name="Hunt Behaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules")]
+script = ExtResource("10_0o0ue")
+modules = NodePath("../../../AgentModules")
+moveSpeed = 300.0
+navPointRadius = 40.0
+behaviorPriority = 2
+metadata/_custom_type_script = "uid://da48ns7iss6u7"

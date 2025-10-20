@@ -17,10 +17,11 @@ fill_to = Vector2(0, 0.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38ogf"]
 size = Vector2(117, 100)
 
-[node name="Door" type="Node2D" node_paths=PackedStringArray("sprite", "collider", "light2D")]
+[node name="Door" type="Node2D" node_paths=PackedStringArray("occupiedPositions", "sprite", "collider", "light2D")]
 y_sort_enabled = true
 scale = Vector2(1.6, 1.6)
 script = ExtResource("1_mw28t")
+occupiedPositions = [NodePath("OccupiedPos"), NodePath("OccupiedPos2"), NodePath("OccupiedPos3"), NodePath("OccupiedPos4"), NodePath("OccupiedPos5")]
 sprite = NodePath("Sprite2D")
 collider = NodePath("StaticBody2D/CollisionShape2D")
 openDoorSprite = ExtResource("2_1fk65")
@@ -52,3 +53,17 @@ visible = false
 position = Vector2(2.5, 77)
 shape = SubResource("RectangleShape2D_38ogf")
 debug_color = Color(0.30588236, 0.6156863, 0.33333334, 0.1764706)
+
+[node name="OccupiedPos" type="Node2D" parent="."]
+
+[node name="OccupiedPos2" type="Node2D" parent="."]
+position = Vector2(-19.374998, 0)
+
+[node name="OccupiedPos3" type="Node2D" parent="."]
+position = Vector2(-41.874996, 0)
+
+[node name="OccupiedPos4" type="Node2D" parent="."]
+position = Vector2(21.249992, 0)
+
+[node name="OccupiedPos5" type="Node2D" parent="."]
+position = Vector2(40, 0)

@@ -1,12 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://xu30x23e1wl4"]
+[gd_scene load_steps=2 format=3 uid="uid://cwtfiy6uhw332"]
 
-[ext_resource type="Shader" uid="uid://dkhnl8hs464ql" path="res://VFX/Visuals/VignetteShader.gdshader" id="1_tqqfg"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xbi28"]
-shader = ExtResource("1_tqqfg")
-shader_parameter/color = Color(0.07227952, 0.06892294, 0.09762267, 1)
-shader_parameter/radius = 0.19
-shader_parameter/softness = 0.56
+[ext_resource type="Material" uid="uid://bau00t7gqxtsx" path="res://VFX/Shaders/Vignette.tres" id="1_tqqfg"]
 
 [node name="Vignette" type="Control"]
 layout_mode = 3
@@ -17,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_xbi28")
+material = ExtResource("1_tqqfg")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

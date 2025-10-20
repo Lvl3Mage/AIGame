@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://duewf84pi8phq" path="res://Scenes/GameLevel.tscn" id="1_hpc76"]
 [ext_resource type="PackedScene" uid="uid://dy07t4su082km" path="res://Scenes/Transition.tscn" id="2_tr2i4"]
 [ext_resource type="Script" uid="uid://dfo5ceup43alw" path="res://Common/Modules/TimeFreezerModule.cs" id="4_8um71"]
-[ext_resource type="PackedScene" uid="uid://joykt6nwtr80" path="res://Scenes/WinScene.tscn" id="4_q68mp"]
+[ext_resource type="PackedScene" path="res://Scenes/WinScene.tscn" id="4_q68mp"]
 [ext_resource type="Script" uid="uid://de0gdf4v54k6m" path="res://Scripts/SoundLibrary.cs" id="4_uuu6x"]
 [ext_resource type="AudioStream" uid="uid://cm56dpfwg117s" path="res://VFX/Music/BackgroundMusic.mp3" id="5_8um71"]
 [ext_resource type="AudioStream" uid="uid://bbjo2vxx65mnx" path="res://VFX/Music/VictoryMusic.mp3" id="6_hkvke"]
@@ -47,7 +47,7 @@
 [ext_resource type="AudioStream" uid="uid://cs48pq6u5b88r" path="res://VFX/Sounds/PlayerSteps/Step16.mp3" id="44_5hmhi"]
 [ext_resource type="AudioStream" uid="uid://8e50ftk6ms6f" path="res://VFX/Sounds/PlayerDeath.mp3" id="45_i8dgf"]
 [ext_resource type="AudioStream" uid="uid://bvvscjp2wsmtg" path="res://VFX/Sounds/Transition.mp3" id="46_3wspw"]
-[ext_resource type="PackedScene" uid="uid://xu30x23e1wl4" path="res://Scenes/Vignette.tscn" id="48_8um71"]
+[ext_resource type="PackedScene" uid="uid://cwtfiy6uhw332" path="res://Scenes/Vignette.tscn" id="48_8um71"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -97,6 +97,7 @@ layout_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ScreenTransition" parent="GameInterface/Effects" instance=ExtResource("2_tr2i4")]
+visible = false
 layout_mode = 1
 TransitionTime = 0.8
 soundVolume = 0.3

@@ -30,7 +30,6 @@ public partial class GridNavigation : Node2D
 				gridCells[i, j] = new GridCell
 				{
 					Position = new Vector2I(i, j),
-					Blocked = occupied,
 					GCost = int.MaxValue,
 					HCost = 0
 				};
@@ -53,7 +52,7 @@ public partial class GridNavigation : Node2D
 
 			foreach (var neighbor in grid.GetAdjacentCells(current, true))
 			{
-				if (gridCells[neighbor.X, neighbor.Y].Blocked)
+				if (gridPhysicsOccupation.IsCellOccupied(gridCells[neighbor.X, neighbor.Y].Position))
 					continue;
 
 				float extraDistance = grid.GridToWorld(current, true).DistanceTo(grid.GridToWorld(neighbor, true));
@@ -141,7 +140,7 @@ public partial class GridNavigation : Node2D
 
 			foreach (var neighbor in grid.GetAdjacentCells(current, true))
 			{
-				if (gridCells[neighbor.X, neighbor.Y].Blocked)
+				if (gridPhysicsOccupation.IsCellOccupied(gridCells[neighbor.X, neighbor.Y].Position))
 					continue;
 				if (closedSet.Contains(neighbor))
 					continue;
@@ -205,7 +204,6 @@ public partial class GridNavigation : Node2D
 		public int GCost;
 		public int HCost;
 		public readonly int FCost => GCost + HCost;
-		public bool Blocked;
 		public Vector2I? Parent;
 
 		public readonly int GetDistance(Vector2I target)

@@ -1,9 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bau00t7gqxtsx"]
 
-[ext_resource type="Shader" uid="uid://dhqam2knfpd8" path="res://VFX/Shaders/vignette.gdshader" id="1_8hiq1"]
+[ext_resource type="Shader" uid="uid://dhqam2knfpd8" path="res://VFX/Shaders/vignette.gdshader" id="1_7hlwv"]
 
 [resource]
-shader = ExtResource("1_8hiq1")
+shader = ExtResource("1_7hlwv")
 shader_parameter/outerRadius = 1.742000082745
 shader_parameter/MainAlpha = 1.0
 shader_parameter/Posterization = 15.79

@@ -35,7 +35,7 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 	public IPrioritizedBehaviour.Priority GetPriority()
 	{
 		if (investigationPath.PathComplete()) return IPrioritizedBehaviour.Priority.Disabled;
-		return IPrioritizedBehaviour.Priority.Low;
+		return IPrioritizedBehaviour.Priority.Important;
 	}
 
 	public void StartBehavior()
@@ -49,6 +49,7 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 	{
 		isActive = false;
 		modules.MovementModule.SetTargetVelocity(Vector2.Zero);
+		investigationPath.SetPoints([]);
 
 		if (growlTimer != null && growlTimer.IsInsideTree())
 		{
@@ -66,9 +67,9 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 		if (investigationPath.PathComplete()) return;
 
 		if (!isActive) return;
-		foreach (Vector2 point in  investigationPath.GetPathPoints()){
-			DebugDrawQueue.DebugDrawCircle(point,30,Colors.Aqua);
-		}
+		// foreach (Vector2 point in  investigationPath.GetPathPoints()){
+		// 	DebugDrawQueue.DebugDrawCircle(point,30,Colors.Aqua);
+		// }
 		MoveAlongPath();
 		TryAdvancePath();
 	}

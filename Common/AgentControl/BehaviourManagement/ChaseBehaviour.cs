@@ -28,7 +28,7 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 	public IPrioritizedBehaviour.Priority GetPriority()
 	{
 		return modules.PlayerVisible
-			? IPrioritizedBehaviour.Priority.Important
+			? IPrioritizedBehaviour.Priority.Critical
 			: IPrioritizedBehaviour.Priority.Disabled;
 	}
 
@@ -70,7 +70,6 @@ public partial class ChaseBehaviour : Node, IPrioritizedBehaviour
 			PlayerPosition = player.GlobalPosition,
 			PlayerDirection = modules.PlayerDirection,
 			Strength = 5f * (float)delta,
-			Origin = modules.AgentBody.GlobalPosition,
 		});
 
 	}

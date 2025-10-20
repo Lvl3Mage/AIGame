@@ -90,9 +90,9 @@ public partial class PlayerHuntStrategy : Node, IAgentTaskProvider, IAgentEventL
 
 		var tasks = targets.Select(target => new AgentTask{
 			TargetPosition = target,
-			TaskOrigin = playerEvent.Origin,
 			TaskRadius = huntRecruitRadius,
-			CreationTime = Time.GetTicksMsec() / 1000f
+			CreationTime = Time.GetTicksMsec() / 1000f,
+			TaskPriority = AgentTask.Priority.Normal
 		});
 		pendingTasks.Clear();
 		pendingTasks.AddRange(tasks);

@@ -69,10 +69,15 @@ public partial class AgentModules : Node
 
         if (hasLineOfSight && playerInDetectionArea)
         {
-            LastVisiblePlayerPosition = player.GlobalPosition;
             SetPlayerVisibility(true);
         }
-        if (!playerInFarsightArea || !hasLineOfSight) SetPlayerVisibility(false);
+
+        if (!playerInFarsightArea || !hasLineOfSight){
+            SetPlayerVisibility(false);
+        }
+        else{
+            LastVisiblePlayerPosition = player.GlobalPosition;
+        }
        
     }
 

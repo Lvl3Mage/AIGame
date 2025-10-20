@@ -29,6 +29,11 @@ public partial class AgentDirector : Node
 
 		playerVisibleEventListener = this.GetChildrenOfType<IAgentEventListener<PlayerVisibleEvent>>().ToArray();
 	}
+
+	public override void _ExitTree()
+	{
+		if (Instance == this) Instance = null;
+	}
 	List<AgentTask> activeTasks =[];
 	void UpdateActiveTasks()
 	{
@@ -58,15 +63,15 @@ public partial class AgentDirector : Node
 	public override void _Process(double delta)
 	{
 		UpdateActiveTasks();//todo probably shouldn't do this every frame, but for now it's fine
-		DebugDraw2D.BeginTextGroup("AgentDirector");
-
-		Color debugColor = Colors.Gray;
-		foreach (AgentTask activeTask in activeTasks){
-			DebugDraw2D.SetText($"Task from {activeTask.TargetPosition}", $"Origin: {activeTask.TaskOrigin},Created: {activeTask.CreationTime:F}");
-			DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, activeTask.TaskRadius, debugColor, filled:false);
-			DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, 20, debugColor);
-		}
-		DebugDraw2D.EndTextGroup();
+		// DebugDraw2D.BeginTextGroup("AgentDirector");
+		//
+		// Color debugColor = Colors.Gray;
+		// foreach (AgentTask activeTask in activeTasks){
+		// 	DebugDraw2D.SetText($"Task from {activeTask.TargetPosition}", $"Origin: {activeTask.TaskOrigin},Created: {activeTask.CreationTime:F}");
+		// 	DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, activeTask.TaskRadius, debugColor, filled:false);
+		// 	DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, 20, debugColor);
+		// }
+		// DebugDraw2D.EndTextGroup();
 	}
 
 

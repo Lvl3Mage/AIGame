@@ -15,6 +15,10 @@ run/main_scene="uid://cf3oj5noao8fe"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
+[autoload]
+
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+
 [debug_draw_3d]
 
 settings/addon_root_folder="res://addons/debug_draw_3d"
@@ -29,6 +33,10 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="AIGame"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg")
 
 [input]
 

@@ -95,6 +95,7 @@ public partial class GridPhysicsOccupation : Node2D, IGridOccupationProvider
 	}
 
 	bool[,] collisionMap;
+	HashSet<Vector2I> overrides = new();
 
 	public override void _Ready()
 	{
@@ -115,16 +116,24 @@ public partial class GridPhysicsOccupation : Node2D, IGridOccupationProvider
 	public override void _Process(double delta)
 	{
 		// UpdateCollisionMap();
-		// foreach (Vector2I gridPosition in grid.GridPositions()){
-		// 	Color color = collisionMap[gridPosition.X, gridPosition.Y]
-		// 		? new Color(1, 0, 0, 0.5f)
-		// 		: new Color(0, 1, 0, 0.5f);
-		// 	grid.DrawTile(gridPosition, color);
-		// }
+		foreach (Vector2I gridPosition in grid.GridPositions()){
+			Color color = IsCellOccupied(gridPosition)
+				? new Color(1, 0, 0, 0.5f)
+				: new Color(0, 1, 0, 0.5f);
+			grid.DrawTile(gridPosition, color);
+		}
 	}
 
 	public bool IsCellOccupied(Vector2I cell)
 	{
-		return collisionMap[cell.X, cell.Y];
+		return collisionMap[cell.X, cell.Y] || overrides.Contains(cell);
+	}
+	public void SetOccupancyOverride(Vector2I cell, bool occupied)
+	{
+		if(occupied){
+			overrides.Add(cell);
+		} else {
+			overrides.Remove(cell);
+		}
 	}
 }

@@ -12,6 +12,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 	[Export] AgentModules modules;
 	[Export] float moveSpeed = 100f;
 	[Export] float navPointRadius = 10f;
+	[Export] IPrioritizedBehaviour.Priority behaviorPriority;
 	AgentTask currentTask = null;
 	PathFollower pathFollower = new();
 	bool active = false;
@@ -20,27 +21,45 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 		active = true;
 	}
 
-	public override void _Process(double delta)
+	void SwitchTask(AgentTask task)
 	{
-		if (!active) return;
-		if (!pathFollower.PathComplete()){
-			MoveAlongPath();
-			TryAdvancePath();
-
-			foreach (Vector2 point in  pathFollower.GetPathPoints()){
-				DebugDrawQueue.DebugDrawCircle(point,30,Colors.Gray);
-			}
+		if(task == null){
+			modules.MovementModule.SetTargetVelocity(Vector2.Zero);
 			return;
 		}
-
-		currentTask = null;
-		modules.MovementModule.SetTargetVelocity(Vector2.Zero);
-		currentTask = SelectBestTask();
-		if(currentTask == null) return;
+		currentTask = task;
 		currentTask.Reserve();
 		pathFollower.SetPoints(GameManager.Instance.GridNav.GetPathBetween(modules.AgentBody.GlobalPosition, currentTask.TargetPosition));
 
+	}
+	public override void _Process(double delta)
+	{
+		if (!active){
+			return;
+		}
 
+
+		if (currentTask != null){
+			var task = SelectBestTask();
+			if(task != null && task.TaskPriority > currentTask.TaskPriority){
+				SwitchTask(task);
+			}
+		}
+		else{
+			SwitchTask(SelectBestTask());
+		}
+
+		if (pathFollower.PathComplete()){
+			currentTask = null;
+			return;
+		}
+		MoveAlongPath();
+		TryAdvancePath();
+
+		// foreach (Vector2 point in  pathFollower.GetPathPoints()){
+		// 	DebugDrawQueue.DebugDrawCircle(point,30,Colors.Gray);
+		// }
+		return;
 
 	}
 
@@ -72,7 +91,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 		AgentTask[] tasks = AgentDirector.Instance.GetTasksInRange(modules.AgentBody.GlobalPosition);
 		//first sort by priority then by distance to agent
 		tasks = tasks.OrderByDescending(t => t.TaskPriority)
-			.ThenBy(t =>PathDistance(GameManager.Instance.GridNav.GetPathBetween(modules.AgentBody.GlobalPosition, t.TargetPosition)))
+			.ThenBy(t =>(modules.AgentBody.GlobalPosition - t.TargetPosition).LengthSquared())
 			.ToArray();
 		return tasks.FirstOrDefault();
 
@@ -80,7 +99,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 
 	float PathDistance(Vector2[] path)
 	{
-		if (path.Length < 2) return 0f;
+		if (path.Length < 2) return Mathf.Inf;
 		float distance = 0f;
 		for (int i = 1; i < path.Length; i++){
 			distance += (path[i] - path[i-1]).Length();
@@ -99,6 +118,6 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 
 	public IPrioritizedBehaviour.Priority GetPriority()
 	{
-		return IPrioritizedBehaviour.Priority.Background;
+		return SelectBestTask() != null ? behaviorPriority : IPrioritizedBehaviour.Priority.Disabled;
 	}
 }
