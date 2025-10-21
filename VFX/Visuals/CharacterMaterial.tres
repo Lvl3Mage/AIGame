@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://fudu725vx7iy"]
+
+[ext_resource type="Shader" uid="uid://b10o46gjwxng1" path="res://VFX/Visuals/LightShader.gdshader" id="1_wd4u5"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_npjue"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0pjv0"]
+noise = SubResource("FastNoiseLite_npjue")
+seamless = true
+seamless_blend_skirt = 0.58
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jqwlx"]
+seed = 185
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nkgq8"]
+noise = SubResource("FastNoiseLite_jqwlx")
+seamless = true
+seamless_blend_skirt = 0.263
+
+[resource]
+shader = ExtResource("1_wd4u5")
+shader_parameter/shaded_color = Color(0, 0, 0, 1)
+shader_parameter/featherWallsRadius = 0.02
+shader_parameter/light_influence = 0.4
+shader_parameter/light_noise1 = SubResource("NoiseTexture2D_0pjv0")
+shader_parameter/light_noise2 = SubResource("NoiseTexture2D_nkgq8")

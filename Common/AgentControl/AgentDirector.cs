@@ -73,12 +73,12 @@ public partial class AgentDirector : Node
 		UpdateActiveTasks();//todo probably shouldn't do this every frame, but for now it's fine
 		// DebugDraw2D.BeginTextGroup("AgentDirector");
 		//
-		Color debugColor = Colors.Gray;
-		foreach (AgentTask activeTask in activeTasks){
-			// DebugDraw2D.SetText($"Task from {activeTask.TargetPosition}", $"Origin: {activeTask.TaskOrigin},Created: {activeTask.CreationTime:F}");
-			DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, activeTask.TaskRadius, debugColor, filled:false);
-			DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, 20, debugColor);
-		}
+		// Color debugColor = Colors.Gray;
+		// foreach (AgentTask activeTask in activeTasks){
+		// 	// DebugDraw2D.SetText($"Task from {activeTask.TargetPosition}", $"Origin: {activeTask.TaskOrigin},Created: {activeTask.CreationTime:F}");
+		// 	DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, activeTask.TaskRadius, debugColor, filled:false);
+		// 	DebugDrawQueue.DebugDrawCircle(activeTask.TargetPosition, 20, debugColor);
+		// }
 		// DebugDraw2D.EndTextGroup();
 	}
 

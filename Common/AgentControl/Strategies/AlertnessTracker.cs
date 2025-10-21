@@ -18,7 +18,7 @@ public partial class AlertnessTracker : Node, IAgentEventListener<PlayerVisibleE
 	{
 		alertnessLevel -= decayRate * (float)delta;
 		alertnessLevel = Mathf.Clamp(alertnessLevel, 0.0f, maxAlertness);
-		DebugDraw2D.SetText("Alertness Level", alertnessLevel.ToString("F2"));
+		// DebugDraw2D.SetText("Alertness Level", alertnessLevel.ToString("F2"));
 		GameManager.Instance.Vignette.SetTargetAttenuation(Mathf.InverseLerp(0.0f, maxAlertness, alertnessLevel));
 	}
 	float alertnessLevel = 0.0f;

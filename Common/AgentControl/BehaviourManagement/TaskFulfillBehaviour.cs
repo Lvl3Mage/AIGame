@@ -34,6 +34,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 		}
 		currentTask = task;
 		pathFollower.SetPoints(GameManager.Instance.GridNav.GetPathBetween(modules.AgentBody.GlobalPosition, currentTask.TargetPosition));
+		pathFollower.StartPathAtPosition(modules.AgentBody.GlobalPosition,navPointRadius);
 		currentTask.Reserve();
 	}
 	public override void _Process(double delta)
@@ -71,15 +72,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 
 	void TryAdvancePath()
 	{
-		Vector2? target = pathFollower.GetCurrentTarget();
-		if (target == null){
-			return;
-		}
-
-		float distance = (target.Value - modules.AgentBody.GlobalPosition).LengthSquared();
-		if (distance <= navPointRadius*navPointRadius){
-			pathFollower.AdvancePath();
-		}
+		pathFollower.TryAdvancePath(modules.AgentBody.GlobalPosition, navPointRadius);
 	}
 
 	void MoveAlongPath()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=62 format=3 uid="uid://cyegg78u8jykm"]
+[gd_scene load_steps=63 format=3 uid="uid://cyegg78u8jykm"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_jne1p"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="2_qtrb6"]
 [ext_resource type="Script" uid="uid://cii6jfpta3bmh" path="res://Common/Modules/LoseConditionModule.cs" id="3_ehnhf"]
 [ext_resource type="Script" uid="uid://bmu2a5hwydbnc" path="res://Common/Modules/CharacterAnimationModule.cs" id="4_wdoin"]
 [ext_resource type="Script" uid="uid://binjbolnj0dgb" path="res://Common/Modules/SquishModule.cs" id="5_jomax"]
+[ext_resource type="Material" uid="uid://fudu725vx7iy" path="res://VFX/Visuals/CharacterMaterial.tres" id="6_nkwl2"]
 [ext_resource type="Texture2D" uid="uid://dbgeiwatkfkit" path="res://Sprites/alertador2_alerta.png" id="6_ylio4"]
 [ext_resource type="Texture2D" uid="uid://caghhbbhm25mt" path="res://Sprites/Alertador1.png" id="7_hfmq7"]
 [ext_resource type="Texture2D" uid="uid://bpou6tntn3gcy" path="res://Sprites/alertador1_walk.png" id="8_5c1ms"]
@@ -15,7 +16,7 @@
 [ext_resource type="Script" uid="uid://dp1snjapx13g6" path="res://Common/AgentControl/BehaviourManagement/ScreamBehaviour.cs" id="13_5kb4b"]
 
 [sub_resource type="Gradient" id="Gradient_dewec"]
-offsets = PackedFloat32Array(0.8153846, 0.9230769, 1)
+offsets = PackedFloat32Array(0.63320464, 0.9230769, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fumfn"]
@@ -336,8 +337,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_4byie"]
 radius = 36.11034
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1nb1c"]
-radius = 64.49806
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ti042"]
+radius = 16.0
+height = 80.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c2yec"]
 radius = 15.0
@@ -375,7 +377,7 @@ metadata/_custom_type_script = "uid://cii6jfpta3bmh"
 position = Vector2(-7.6293945e-06, -7.6293945e-06)
 scale = Vector2(12.871076, 12.871076)
 color = Color(0.4204862, 0.66123873, 0.8983556, 1)
-energy = 0.6
+energy = 0.5
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_fumfn")
@@ -395,7 +397,7 @@ MaxValueThreshold = 25.0
 metadata/_custom_type_script = "uid://binjbolnj0dgb"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterAnimationModule/SquishModule"]
-light_mask = 2
+material = ExtResource("6_nkwl2")
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_5pvkf")
 animation = &"Alert"
@@ -425,13 +427,15 @@ debug_color = Color(0.2997355, 0.44275185, 0.88195825, 0)
 metadata/_edit_lock_ = true
 
 [node name="DamageArea2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea2D"]
-shape = SubResource("CircleShape2D_1nb1c")
+visible = false
+position = Vector2(-4, -16)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ti042")
 debug_color = Color(0.96, 0.1728, 0.27775988, 0.7647059)
 
 [node name="PhysicsCollider" type="CollisionShape2D" parent="."]

@@ -19,6 +19,35 @@ public class PathFollower
 			points = sourcePoints.ToList();
 		}
 	}
+	public bool TryAdvancePath(Vector2 position, float threshold)
+	{
+		Vector2? target = GetCurrentTarget();
+		if (target == null){
+			return false;
+		}
+
+		if (position.DistanceTo(target.Value) <= threshold){
+			AdvancePath();
+			return true;
+		}
+		return false;
+	}
+	public void StartPathAtPosition(Vector2 position, float threshold)
+	{
+		int closestPointIndex = -1;
+		float closestDistance = float.MaxValue;
+		for (int i = 0; i < points.Count; i++){
+			float distance = position.DistanceTo(points[i]);
+			if (!(distance < closestDistance)) continue;
+			closestDistance = distance;
+			closestPointIndex = i;
+
+		}
+		if (closestPointIndex != -1 && closestDistance <= threshold){
+			points.RemoveRange(0, closestPointIndex+1);
+		}
+
+	}
 
 	public Vector2? GetCurrentTarget()
 	{

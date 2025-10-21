@@ -90,5 +90,6 @@ texture_region_size = Vector2i(100, 100)
 [resource]
 tile_size = Vector2i(100, 100)
 occlusion_layer_0/light_mask = 1
+occlusion_layer_0/sdf_collision = true
 physics_layer_0/collision_layer = 1
 sources/5 = SubResource("TileSetAtlasSource_drmee")

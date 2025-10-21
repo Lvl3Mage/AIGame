@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://o3xmsoglme3r"]
+[gd_scene load_steps=61 format=3 uid="uid://o3xmsoglme3r"]
 
 [ext_resource type="Script" uid="uid://hc5gm2h0ak2l" path="res://Common/AgentControl/BehaviourManagement/AgentModules.cs" id="1_uoxpr"]
 [ext_resource type="Script" uid="uid://cj72wlh7incyf" path="res://Common/AgentControl/BehaviourManagement/PriorityBehaviourSelector.cs" id="2_wovta"]
@@ -7,13 +7,14 @@
 [ext_resource type="Script" uid="uid://binjbolnj0dgb" path="res://Common/Modules/SquishModule.cs" id="5_0o0ue"]
 [ext_resource type="Script" uid="uid://bt16bo1hoxuy4" path="res://Common/AgentControl/BehaviourManagement/InvestigateBehaviour.cs" id="5_mo1ky"]
 [ext_resource type="Script" uid="uid://c63ulmuxsreim" path="res://Common/AgentControl/BehaviourManagement/AgentBehaviourStarter.cs" id="5_uoxpr"]
+[ext_resource type="Material" uid="uid://fudu725vx7iy" path="res://VFX/Visuals/CharacterMaterial.tres" id="6_uihya"]
 [ext_resource type="Script" uid="uid://dcr5wi8h1f7k5" path="res://Common/Modules/MovementModule.cs" id="7_6bs3c"]
 [ext_resource type="Texture2D" uid="uid://crv6uaf5iwv43" path="res://Sprites/walk_carol.png" id="7_uihya"]
 [ext_resource type="Script" uid="uid://cii6jfpta3bmh" path="res://Common/Modules/LoseConditionModule.cs" id="7_uoxpr"]
 [ext_resource type="Script" uid="uid://da48ns7iss6u7" path="res://Common/AgentControl/BehaviourManagement/TaskFulfillBehaviour.cs" id="10_0o0ue"]
 
 [sub_resource type="Gradient" id="Gradient_uihya"]
-offsets = PackedFloat32Array(0.8153846, 0.9230769, 1)
+offsets = PackedFloat32Array(0.55725193, 0.9230769, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_27ry8"]
@@ -368,7 +369,8 @@ metadata/_custom_type_script = "uid://cii6jfpta3bmh"
 position = Vector2(-7.6293945e-06, -7.6293945e-06)
 scale = Vector2(12.871076, 12.871076)
 color = Color(0.4204862, 0.66123873, 0.8983556, 1)
-energy = 0.6
+energy = 0.4
+blend_mode = 2
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_27ry8")
@@ -391,7 +393,7 @@ invertFlipX = true
 metadata/_custom_type_script = "uid://binjbolnj0dgb"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterAnimationModule/SquishModule"]
-light_mask = 2
+material = ExtResource("6_uihya")
 sprite_frames = SubResource("SpriteFrames_esfq3")
 animation = &"Walk"
 speed_scale = 15.0

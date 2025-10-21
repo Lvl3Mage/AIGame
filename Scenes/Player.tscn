@@ -495,6 +495,7 @@ MaxValueThreshold = 50.0
 metadata/_custom_type_script = "uid://binjbolnj0dgb"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterAnimationModule/SquishModule"]
+modulate = Color(0.8803828, 0.86641943, 0.7541388, 1)
 light_mask = 2
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_yoq75")
@@ -512,10 +513,11 @@ position = Vector2(7.6293945e-06, -18.999992)
 scale = Vector2(0.99999994, 0.99999994)
 color = Color(0.9701124, 0.81832045, 0.48652142, 1)
 energy = 0.52
+blend_mode = 2
 shadow_enabled = true
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_ksbbd")
-texture_scale = 14.31
+texture_scale = 19.0
 
 [node name="TerrainCollider2D" type="CollisionShape2D" parent="."]
 visible = false

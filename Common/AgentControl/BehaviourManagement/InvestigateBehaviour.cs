@@ -30,6 +30,7 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 				modules.LastVisiblePlayerPosition
 			)
 		);
+		investigationPath.StartPathAtPosition(modules.AgentBody.GlobalPosition,investigateRadius);
 	}
 
 	public IPrioritizedBehaviour.Priority GetPriority()
@@ -76,15 +77,7 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 
 	void TryAdvancePath()
 	{
-		Vector2? target = investigationPath.GetCurrentTarget();
-		if (target == null){
-			return;
-		}
-
-		float distance = (target.Value - modules.AgentBody.GlobalPosition).LengthSquared();
-		if (distance <= investigateRadius*investigateRadius){
-			investigationPath.AdvancePath();
-		}
+		investigationPath.TryAdvancePath(modules.AgentBody.GlobalPosition, investigateRadius);
 	}
 
 	void MoveAlongPath()

@@ -23,7 +23,6 @@ public partial class WanderStrategy : Node, IAgentTaskProvider, IAgentEventListe
 			(int)(GD.Randi() % dimensions.X),
 			(int)(GD.Randi() % dimensions.Y)
 		);
-		GD.Print(target);
 		if (GameManager.Instance.GridOccupation.IsCellOccupied(target)){
 			return false;
 		}
