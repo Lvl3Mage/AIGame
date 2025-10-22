@@ -32,7 +32,7 @@ public class PathFollower
 		}
 		return false;
 	}
-	public void StartPathAtPosition(Vector2 position, float threshold)
+	public void RecalculateAtPosition(Vector2 position, float threshold)
 	{
 		int closestPointIndex = -1;
 		float closestDistance = float.MaxValue;

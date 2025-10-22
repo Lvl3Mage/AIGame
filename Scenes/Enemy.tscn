@@ -357,7 +357,6 @@ metadata/_custom_type_script = "uid://hc5gm2h0ak2l"
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("agentBody")]
 script = ExtResource("7_6bs3c")
 agentBody = NodePath("..")
-acceleration = 400.0
 metadata/_custom_type_script = "uid://dcr5wi8h1f7k5"
 
 [node name="LoseConditionModule" type="Node" parent="." node_paths=PackedStringArray("damageArea")]
@@ -448,9 +447,10 @@ script = ExtResource("3_xeo28")
 modules = NodePath("../../../AgentModules")
 light2D = NodePath("../../../PointLight2D")
 lightColor = Color(0.97, 0.15520003, 0.15520003, 1)
-chaseSpeed = 400.0
+chaseSpeed = 350.0
 alertVolume = 1.2
-screamDuration = 1.5
+shakeStrength = 20.0
+screamDuration = 0.7
 metadata/_custom_type_script = "uid://dabgxqstmcqhq"
 
 [node name="InvestigateBehaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules", "light2D")]
@@ -459,14 +459,14 @@ modules = NodePath("../../../AgentModules")
 light2D = NodePath("../../../PointLight2D")
 lightColor = Color(0.8722031, 0.34580135, 0, 1)
 growlsVolume = 0.3
-moveSpeed = 300.0
+moveSpeed = 400.0
 metadata/_custom_type_script = "uid://bt16bo1hoxuy4"
 
 [node name="Hunt Behaviour" type="Node" parent="AgentBehaviourStarter/PriorityBehaviourSelector" node_paths=PackedStringArray("modules")]
 script = ExtResource("10_0o0ue")
 modules = NodePath("../../../AgentModules")
-moveSpeed = 300.0
-navPointRadius = 60.0
+moveSpeed = 350.0
+navPointRadius = 80.0
 behaviorPriority = 2
 backgroundTaskColor = Color(0.41960785, 0.6627451, 0.8980392, 1)
 normalTaskColor = Color(0.87058824, 0.34509805, 0, 1)

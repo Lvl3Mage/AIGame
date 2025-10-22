@@ -30,7 +30,7 @@ public partial class InvestigateBehaviour : Node, IPrioritizedBehaviour
 				modules.LastVisiblePlayerPosition
 			)
 		);
-		investigationPath.StartPathAtPosition(modules.AgentBody.GlobalPosition,investigateRadius);
+		investigationPath.RecalculateAtPosition(modules.AgentBody.GlobalPosition,investigateRadius);
 	}
 
 	public IPrioritizedBehaviour.Priority GetPriority()

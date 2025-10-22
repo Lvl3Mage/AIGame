@@ -34,7 +34,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 		}
 		currentTask = task;
 		pathFollower.SetPoints(GameManager.Instance.GridNav.GetPathBetween(modules.AgentBody.GlobalPosition, currentTask.TargetPosition));
-		pathFollower.StartPathAtPosition(modules.AgentBody.GlobalPosition,navPointRadius);
+		pathFollower.RecalculateAtPosition(modules.AgentBody.GlobalPosition,navPointRadius);
 		currentTask.Reserve();
 	}
 	public override void _Process(double delta)
@@ -54,6 +54,7 @@ public partial class TaskFulfillBehaviour : Node, IPrioritizedBehaviour
 		else{
 			SwitchTask(SelectBestTask());
 		}
+		pathFollower.RecalculateAtPosition(modules.AgentBody.GlobalPosition,navPointRadius);
 
 		if (pathFollower.PathComplete()){
 			currentTask = null;
